@@ -1,0 +1,468 @@
+% ------------------------------------------------------------------------
+% ------------------------------------------------------------------------
+%% Baseado no: abtex2-modelo-projeto-pesquisa.tex, v-1.9.6 laurocesar
+%% Copyright 2012-2016 by abnTeX2 group at http://www.abntex.net.br/
+%%
+%% Criado por Felipe Rios da Silva Cordeiro
+%% Em 22/09/2018, Última atualização 17/11/2018 19:55
+% ------------------------------------------------------------------------
+% ------------------------------------------------------------------------
+% ABNT NBR 15287:2011 Informação e Documentação - Projeto de Pesquisa -
+% ------------------------------------------------------------------------ 
+% ------------------------------------------------------------------------
+
+\documentclass[
+	% -- opções da classe do documento --
+	12pt,				% tamanho da fonte
+	openright,			% capítulos começam em página ímpar (insere página vazia caso preciso)
+	oneside,            % desabilita impressão frente e verso
+	a4paper,			% tamanho do papel
+	% -- opções da classe abntex2 --
+	chapter=TITLE,		% títulos de capítulos convertidos em letras maiúsculas
+	section=TITLE,		% títulos de seções convertidos em letras maiúsculas
+	subsection=TITLE,	% títulos de subseções convertidos em letras maiúsculas
+	subsubsection=TITLE,% títulos de subsubseções convertidos em letras maiúsculas
+	% -- opções do pacote babel --
+	english,			% idioma adicional para hifenização
+	brazil,				% o último idioma é o principal do documento
+]{abntex2}
+
+% ------------------------------------------------------------------------
+% ------------------------------------------------------------------------
+% PACOTES
+% ------------------------------------------------------------------------
+% ------------------------------------------------------------------------
+
+% Pacotes fundamentais
+\usepackage{times}			    % Usa a fonte Times New Roman
+\usepackage[T1]{fontenc}		% Seleção de códigos de fonte.
+\usepackage[utf8]{inputenc}		% Codificação do documento (conversão automática dos acentos)
+\usepackage{indentfirst}		% Indenta o primeiro parágrafo de cada seção.
+\usepackage{color}				% Controle das cores
+\usepackage{graphicx}			% Inclusão de gráficos
+\usepackage{microtype} 			% para melhorias de justificação
+
+% Pacotes adicionais, usados apenas no âmbito do Modelo Canônico do abnteX2
+\usepackage{lipsum}				% para geração de dummy text
+\usepackage{colortbl}           % para colorir as células das tabelas
+
+% Pacotes de citações
+\usepackage[brazilian,hyperpageref]{backref} % Paginas com as citações na bibliografia
+\usepackage[alf,bibjustif,abnt-emphasize=bf]{abntex2cite}  % Citações padrão ABNT, forçar a justificação da bibliografia e enfatizar com negrito
+
+% ------------------------------------------------------------------------
+% ------------------------------------------------------------------------
+% CONFIGURAÇÕES DE PACOTES
+% ------------------------------------------------------------------------
+% ------------------------------------------------------------------------
+
+% Configurações do pacote backref
+% Usado sem a opção hyperpageref de backref
+\renewcommand{\backrefpagesname}{Citado na(s) página(s):~}
+% Texto padrão antes do número das páginas
+\renewcommand{\backref}{}
+% Define os textos da citação
+\renewcommand*{\backrefalt}[4]{
+	\ifcase #1
+		Nenhuma citação no texto.
+	\or
+		Citado na página #2.
+	\else
+		Citado #1 vezes nas páginas #2.
+	\fi
+}
+
+% Configuração dos nomes padrões do babel
+\addto\captionsbrazil{
+    \renewcommand{\bibname}{Referências Bibliográficas}
+}
+
+% Configuração do título das referências
+\renewcommand{\bibsection}{%
+    \chapter{\bibname}
+    \bibmark
+    \ifnobibintoc\else
+        \phantomsection
+    \fi
+    \prebibhook
+}
+
+% -----------------------------------------------------------------------------
+% -----------------------------------------------------------------------------
+% FORMATAÇÃO DAS PÁGINAS
+% -----------------------------------------------------------------------------
+% -----------------------------------------------------------------------------
+
+% Criar um novo estilo de cabeçalhos e rodapés
+\makepagestyle{emptystyle}
+  \makeevenhead{emptystyle} % Pagina par
+     {}
+     {}
+     {}
+  \makeoddhead{emptystyle} % Pagina ímpar ou com oneside
+     {}
+     {}
+     {}
+  \makeevenfoot{emptystyle} % Pagina par
+     {}
+     {}
+     {}
+  \makeoddfoot{emptystyle} % Pagina ímpar ou com oneside
+     {}
+     {}
+     {}
+
+% Fontes de Títulos no Documento
+% Capitulo Negrito
+\renewcommand{\ABNTEXchapterfont}{\bfseries}
+\renewcommand{\ABNTEXchapterfontsize}{\normalsize}
+% Section Normal
+\renewcommand{\ABNTEXsectionfont}{\normalfont}
+\renewcommand{\ABNTEXsectionfontsize}{\normalsize}
+% Subseção Negrito + Itálico
+\renewcommand{\ABNTEXsubsectionfont}{\bfseries\itshape}
+\renewcommand{\ABNTEXsubsectionfontsize}{\normalsize}
+% SubSubSeção Negrito + Sublinhado
+\renewcommand{\ABNTEXsubsubsectionfont}{\bfseries}
+\renewcommand{\ABNTEXsubsubsectionfontsize}{\normalsize}
+\setsubsubsecheadstyle{\ABNTEXsubsubsectionfont\ABNTEXsubsubsectionfontsize\ABNTEXsubsubsectionupperifneeded\coloruline[black]}
+% SubSubSubSecao Caixa baixa, sem negrito, tamanho 12
+\setparaheadstyle{\normalfont\ABNTEXsubsubsectionfont\ABNTEXsubsubsectionfontsize}
+
+% Retirando Espaçamentos dos Capítulos
+%\setlength\afterchapskip{\lineskip}
+\setlength{\afterchapskip}{\baselineskip}
+
+% Configuração da Capa
+\renewcommand{\imprimircapa}{%
+\begin{capa}%
+\begin{center}
+\includegraphics[width=0.2\textwidth]{brasao.jpg}
+\par
+{\bfseries\large\imprimirinstituicao}
+\end{center}
+\vspace*{1cm}
+\begin{center}
+{\bfseries\large\MakeUppercase\imprimirautor}
+\end{center}
+\vfill
+\begin{center}
+\bfseries\Large\MakeUppercase\imprimirtitulo
+\end{center}
+\vfill
+\begin{center}
+\bfseries\large\imprimirlocal
+\\
+\bfseries\large\imprimirdata
+\end{center}
+\vspace*{1cm}
+\end{capa}
+}
+
+% Configuração da Folha de Rosto
+\makeatletter
+\renewcommand{\folhaderostocontent}{
+\begin{center}
+{\bfseries\large\MakeUppercase\imprimirautor}
+\end{center}
+\vspace*{\fill}\vspace*{\fill}
+\begin{center}
+\bfseries\large\MakeUppercase\imprimirtitulo
+\end{center}
+\abntex@ifnotempty{\imprimirpreambulo}{%
+\hspace{.45\textwidth}
+\begin{minipage}{.5\textwidth}
+\SingleSpacing
+\imprimirpreambulo
+\bigbreak
+\normalfont\imprimirorientadorRotulo
+\
+\normalfont\imprimirorientador
+\end{minipage}%
+\vspace*{\fill}
+}%
+\vspace*{\fill}
+\begin{center}
+\bfseries\large\imprimirlocal
+\\
+\bfseries\large\imprimirdata
+\end{center}
+\vspace*{1cm}
+}
+\makeatother
+
+% Configuração do Sumário
+% Modifica o espaçamento no sumário
+% Não ha espaços, exceto para as entradas de capítulos
+\setlength{\cftbeforeparagraphskip}{0pt}
+\setlength{\cftbeforesubsectionskip}{0pt}
+\setlength{\cftbeforesectionskip}{0pt}
+\setlength{\cftbeforesubsubsectionskip}{0pt}
+\setlength{\cftbeforechapterskip}{\onelineskip}
+% Modifica o espaço entre os títulos e os números
+\makeatletter
+\let\oldchapternumberline\chapternumberline
+\renewcommand\chapternumberline[1]{#1\hspace*{2em}}
+\renewcommand\cftchaptername{\chaptername~}
+\addtolength\cftchapternumwidth{1em}
+\makeatother
+\setlength\cftsectionnumwidth{2.5em}
+
+% Modifica a formatação dos textos
+% Seção Primaria (Chapter): Caixa alta, Negrito, tamanho 12 
+\makeatletter
+\settocpreprocessor{chapter}{%
+  \let\tempf@rtoc\f@rtoc%
+  \def\f@rtoc{%
+  \texorpdfstring{\bfseries\MakeTextUppercase{\tempf@rtoc}}{\tempf@rtoc}}%
+}
+\makeatother
+
+% Seção secundaria (Section) Caixa baixa, Normal, tamanho 12
+\renewcommand*{\cftsectionfont}{\normalfont}
+% Seção terciaria (SubSection) Caixa baixa, Negrito, Itálico, tamanho 12
+\renewcommand*{\cftsubsectionfont}{\bfseries\itshape}
+% Seção quaternária (SubSubSection) Caixa baixa, Negrito, Sublinhado, tamanho 12
+\renewcommand*{\cftsubsubsectionfont}{\bfseries\coloruline[black]}
+% Seção quinaria (SubSubSubSection) Caixa baixa, Normal, tamanho 12
+\renewcommand*{\cftparagraphfont}{\normalfont}
+
+% Informações de Dados do Documento
+\autor{Felipe Rios da Silva Cordeiro}
+\instituicao{
+  UNIFACS - UNIVERSIDADE SALVADOR
+  \par
+  ESCOLA DE ENGENHARIA, ARQUITETURA\\ E TECNOLOGIA DA INFORMAÇÃO
+  \par
+  BACHARELADO EM ENGENHARIA DA COMPUTAÇÃO
+}
+\titulo{Revisão Bibliográfica das Vulnerabilidades\\ no Design das CPU’s Modernas}
+\local{Salvador}
+\data{2018}
+\tipotrabalho{Anteprojeto de TCC (Graduação)}
+\preambulo{Anteprojeto apresentado ao curso de graduação em Engenharia da Computação da UNIFACS - Universidade Salvador, como requisito parcial do trabalho de conclusão do curso, para obtenção do título de Engenheiro da Computação.}
+\orientador[Orientador:]{Prof.º ??????}
+
+% Configurações de aparência do PDF final
+% alterando o aspecto da cor azul
+\definecolor{blue}{RGB}{41,5,195}
+
+% informações do PDF
+\makeatletter
+\hypersetup{
+     	%pagebackref=true,
+		pdftitle={\imprimirtitulo},
+		pdfauthor={\imprimirautor},
+    	pdfsubject={\imprimirpreambulo},
+	    pdfcreator={LaTeX with abnTeX2 and Overleaf},
+		pdfkeywords={abnt}{latex}{abntex}{abntex2}{projeto de pesquisa},
+		colorlinks=false,       		% false: boxed links; true: colored links
+    	linkcolor=blue,          	    % color of internal links
+    	citecolor=blue,        		    % color of links to bibliography
+    	filecolor=magenta,      		% color of file links
+		urlcolor=blue,
+		bookmarksdepth=4
+}
+\makeatother
+
+% Espaçamentos entre linhas e parágrafos
+% O tamanho do parágrafo é dado por:
+\setlength{\parindent}{1.3cm}
+
+% Controle do espaçamento entre um parágrafo e outro:
+% \setlength{\parskip}{0.2cm}  % tente também \onelineskip
+% Removido por correção dos docentes
+
+% Compila o índice
+\makeindex
+
+% Início do Documento
+\begin{document}
+
+% Seleciona o idioma do documento (conforme pacotes do babel)
+%\selectlanguage{english}
+\selectlanguage{brazil}
+
+% Retira espaço extra obsoleto entre as frases.
+\frenchspacing 
+
+% ------------------------------------------------------------------------
+% ------------------------------------------------------------------------
+% ELEMENTOS PRÉ-TEXTUAIS
+% ------------------------------------------------------------------------
+% ------------------------------------------------------------------------
+
+\pretextual
+
+% Capa
+\imprimircapa
+
+% Folha de Rosto
+\imprimirfolhaderosto
+
+% Sumário
+\pdfbookmark[0]{\contentsname}{toc}
+\tableofcontents*
+\cleardoublepage
+
+%---------------------------------------------------------------------
+%---------------------------------------------------------------------
+% ELEMENTOS TEXTUAIS
+%---------------------------------------------------------------------
+%---------------------------------------------------------------------
+
+\textual
+
+\pagestyle{emptystyle}
+\aliaspagestyle{chapter}{emptystyle}
+
+% Introdução
+\chapter{Introdução}
+
+O grupo de segurança de TI da \emph{Google}, \emph{Project Zero (GPZ)}, em sua mais recente descoberta \cite{googleprojectzero}, relatou duas novas classes de vulnerabilidades na arquitetura dos processadores de design moderno das fabricantes: \emph{Intel}, \emph{AMD} e \emph{ARM} (comunicado as fabricantes em 1º de junho de 2017 e divulgado ao público em 03 de janeiro de 2018). Essas duas falhas de segurança batizadas de \emph{Spectre}\footnote{Especulativo, espectro, ou fantasma ("speculative", inglês). O nome deriva da causa da falha.} e \emph{Meltdown}\footnote{Colapso, ou derreter ("melt", inglês). O nome deriva da consequência da exploração da falha.}, chamam a atenção pois, segundo o estudo detalhado feito pelo grupo, elas afetaram processadores criados desde de 1995, das ultimas 2 décadas e mais de 230 chips irão continuar com a falha, segundo o \emph{Microcode Revision Guidance} \cite{intel-mug}.
+
+Em uma nota oficial a \emph{Intel} se pronunciou evidenciando seu comprometimento em mitigar as falhas, estudando e disponibilizando \emph{firmwares} para corrigi-las (ou atenuá-las). Se defendendo também de especulações em relação ao desempenho dos processadores, depois da correção via \emph{software}, afirmou que qualquer diferença no desempenho “depende da carga de trabalho e, para o usuário médio do computador, não deve ser significativo e será atenuado com o tempo” \cite{intel-news-001}. Depois disso, publicou um informativo de segurança \cite{intel-sa-00088}, informando a lista de processadores da marca atingidos pelas falhas e suas ramificações.
+
+As outras fabricantes (\emph{AMD} e \emph{ARM}), em parceria com algumas montadoras e produtoras de \emph{softwares} também se pronunciaram em notas oficiais, assumindo ou não as falhas em seus produtos e, tomando certa medida de prevenção, formaram parcerias para lançarem correções em aplicações para usuário final (\emph{browsers} por exemplo), que previnem a exploração das falhas. Fabricantes de jogos que utilizam os processadores \emph{AMD} ou \emph{ARM}, como \emph{Sony} e \emph{Nintendo}, não se pronunciaram, conforme lista oficial publicada pela Universidade de Tecnologia de Graz \cite{meltdownspectreattack}.
+
+Depois de uma grande comoção dos fabricantes e da comunidade de \emph{software} livre em busca de soluções, os autores da Universidade Católica de Leuven e os autores do IT de Israel, das Universidades de Michigan e Adelaide e da \emph{CSIRO Data61}, fizeram novas publicações comprovativas de duas novas derivações da \emph{Spectre}. Batizadas de \emph{Foreshadow}\footnote{Prefigurar, pressupor ou prévio ("fore", inglês). Assim como no \footnotemark[\numexpr\value{footnote}-2], o nome deriva da causa da falha.} e \emph{Foreshadow-NG}, em processadores de servidores e em máquinas virtuais \cite{foreshadowattack}.
+
+Neste contexto, é proposto um estudo da literatura (documentação, artigos e relacionados) sobre tais falhas, visando comparar os \emph{patches} corretivos existentes, e propor um \emph{patch} para uma ramificação isolada de uma das falhas, de forma que o percentual de performance afetado pela correção proposta seja o mínimo em relação aos existentes, ou ao menos, contribua para a dissolução do gargalo de performance atual.
+
+% Objetivos
+\chapter{Objetivos}
+
+\section{Objetivo Geral}
+
+Este trabalho visa apresentar uma revisão bibliográfica completa, da literatura existente a respeito das vulnerabilidades descobertas no \emph{design} das unidades de processamento (microprocessadores) modernas. Especificamente, dos fabricantes: \emph{Intel}, \emph{AMD} e \emph{ARM Holdings}. No decorrer do desenvolvimento das comparações com a literatura atual, espera-se que um produto contributivo seja atingido: uma solução de caráter acadêmico, que possa solucionar uma determinada ramificação de uma das vulnerabilidades ou, atenuar a perda de performance ocasionada por soluções já testadas.
+
+As \emph{CPU's}\footnote{Central Processing Unit (inglês). Unidade de Processamento Central.} abordadas neste trabalho, serão referenciadas a partir da literatura fornecida pelo fabricante. Nenhuma lista de modelos, ou de famílias será feita, pois os fabricantes já conseguiram cobrir de forma abrangente as famílias de microprocessadores atingidos.
+
+As vulnerabilidades estudadas aqui, serão discutidas com base na literatura dos pesquisadores autores das provas de conceito de cada falha de segurança. Efetuando comparação com a literatura de referência do grupo \emph{GPZ}, os \emph{PoC's}\footnote{Proof of Concept (inglês). Prova de Conceito.}serão discutidos e analisados, levando em conta seus respectivos \emph{patches} corretivos, e a performance da \emph{CPU} que está em experimento.
+
+\section{Objetivos Específicos}
+
+O artigo de \citeonline{googleprojectzero} da \emph{GPZ}, revelou os registros das vulnerabilidades descobertas pela equipe: \emph{Spectre} (variante 01, [CVE-2017-5753]\footnote{\textbf{C}ommon \textbf{V}ulnerabilities and \textbf{E}xposures (inglês). Vulnerabilidades e Exposições Comuns (ou públicas).} e variante 02 [CVE-2017-5715]\footnotemark[\value{footnote}]) e \emph{Meltdown} (variante 03, [CVE-2017-5754]\footnotemark[\value{footnote}]).
+
+As publicações de \citeonline{vanbulck2018foreshadow} e \citeonline{weisse2018foreshadowNG}, também revelaram os registros de suas descobertas: \emph{Foreshadow} e \emph{Foreshadow-NG} (sem numeração de variantes, [CVE-2018-3615, CVE-2018-3620, CVE-2018-3646]\footnotemark[\value{footnote}]).
+
+De forma que objetiva-se:
+
+\begin{itemize}
+    \item Analisar cada falha registrada, com seus respetivos \emph{PoC's} e demonstrações de intrusão (aplicação das técnicas e testes pertinentes);
+    \item Comentar e analisar os \emph{patches} existentes para cada uma das falhas registradas, levando em conta o percentual de intervenção na \emph{performance} do microprocessador;
+    \item Desenvolver um \emph{patch} para a variante 01, que consiga competir ou superar os existentes no percentual de \emph{performance} atingido, ou contribuir para a regressão deste percentual.
+\end{itemize}
+
+% Metodologia
+\chapter{Metodologia}
+
+Dentre as famílias de microprocessadores que apresentam as falhas citadas, o grupo \emph{GPZ}, realizou testes em ambientes com as seguintes \emph{CPU's}:
+
+\begin{itemize}
+    \item Intel® Xeon® CPU E5-1650 v3 @ 3.50GHz
+    \item AMD FX™-8320 x 8
+    \item AMD PRO A8-9600 R7 x 10
+    \item ARM Cortex A57, Google Nexus 5x Phone
+\end{itemize}
+
+A análise será feita com a aplicação dos \emph{exploits}\footnote{Explorar ou façanha (inglês). Qualquer comando, ou dado que se aproveita de uma brecha, para outra finalidade.} sugeridos nos artigos \citeonline{meltdownspectreattack} e \citeonline{foreshadowattack}. O ambiente de testes obedecerá a seguinte configuração:
+
+\begin{itemize}
+    \item Intel® Core™ i7-7500U CPU @ 2.70GHz x 4 
+    \subitem Microsoft® Windows™ 10 Pro
+    \subitem GNU Ubuntu 16.04.05 LTS (Kernel 14.05)
+\end{itemize}
+
+\begingroup
+\renewcommand{\cleardoublepage}{}
+\renewcommand{\clearpage}{}
+
+% Resultados Esperados
+\chapter{Resultados Esperados}
+
+Espera-se demonstrar com êxito, as técnicas de intrusão de cada variação das vulnerabilidades já citadas, como também os seus respectivos melhores \emph{patches}. É esperado também como produto de revisão bibliográfica, uma tabela comparativa da \emph{performance} do processador utilizado nos testes, sendo aplicado sobre ele cada \emph{patch} sugerido na literatura, de forma que a classificação de "melhor" (em termos de \emph{performance}) fique evidente.
+
+Como forma de ônus pela revisão bibliográfica em toda sua completitude, é esperado também a produção de um \emph{patch} que equivalha ou supere em percentual performático, a literatura. Caso a equiparação de percentual performático não seja viável, ou inalcançável com base no tempo estabelecido para a pesquisa, este ônus será limitado a uma pequena contribuição na mitigação do percentual performático de outro (ou outros) \emph{patch(es)} da literatura.
+
+\endgroup
+
+% Cronograma
+\chapter{Cronograma}
+
+O desenvolvimento deste trabalho se dará da seguinte forma:
+
+\begin{enumerate}
+	\item \label{anI} Análise de cada vulnerabilidade registrada, descrita anteriormente;
+	\item \label{anII} Comparação e catalogação dos \emph{PoC's} de cada falha;
+	\item \label{anIII} Aplicação dos \emph{exploits} escolhidos para cada caso anterior;
+	\item \label{dI} Catalogar os \emph{patches} existentes, para cada \emph{exploit};
+	\item \label{dII} Classificar os \emph{patches} catalogados, segundo o percentual performático;
+	\item \label{dIII} Demonstrar a aplicação dos \emph{patches} nas principais variações das vulnerabilidades descritas como objetivo deste trabalho;
+	\item \label{imI} Tentativa de implementação do ônus descrito nos objetivos;
+	\item \label{imII} Refatoração do ônus, caso não seja atingido o objetivo satisfatório de sua implementação;
+	\item \label{imIII} Desenvolvimento da contribuição mínima, junto com as tabelas comparativas atreladas a revisão bibliográfica;
+	\item \label{final} Testes, correções e submissão.
+\end{enumerate}
+
+\definecolor{midgray}{gray}{.5}
+\begin{table}[!htbp]
+\ABNTEXfontereduzida
+\caption{Cronograma, Tempo x Etapas.}
+	\centering
+	\begin{tabular}{|c|c|c|c|c|c|c|c|c|c|}
+		\hline
+		&\multicolumn{3}{c|}{2018}&\multicolumn{6}{c|}{2019}\\
+		\hline
+		&OUT&NOV&DEZ&JAN&FEV&MAR&ABR&MAI&JUN\\
+		\hline
+		\ref{anI}&\cellcolor{midgray}&&&&&&&&\\
+		\hline
+		\ref{anII}&\cellcolor{midgray}&&&&&&&&\\
+		\hline
+		\ref{anIII}&&\cellcolor{midgray}&&&&&&&\\
+		\hline
+		\ref{dI}&&&\cellcolor{midgray}&&&&&&\\
+		\hline
+		\ref{dII}&&&&\cellcolor{midgray}&&&&&\\
+		\hline
+		\ref{dIII}&&&&&\cellcolor{midgray}&&&&\\
+		\hline
+		\ref{imI}&&&&&&\cellcolor{midgray}&&&\\
+		\hline
+		\ref{imII}&&&&&&&\cellcolor{midgray}&&\\
+		\hline
+		\ref{imIII}&&&&&&&\cellcolor{midgray}&&\\
+		\hline
+		\ref{final}&&&&&&&&\cellcolor{midgray}&\cellcolor{midgray}\\
+		\hline
+	\end{tabular}
+\end{table}
+
+% Finaliza a parte no bookmark do PDF
+% para que se inicie o bookmark na raiz
+% e adiciona espaço de parte no Sumário
+\phantompart
+
+%---------------------------------------------------------------------
+%---------------------------------------------------------------------
+% ELEMENTOS PÓS-TEXTUAIS
+%---------------------------------------------------------------------
+%---------------------------------------------------------------------
+
+\postextual
+
+% Referências bibliográficas
+\bibliography{referencias}
+
+%---------------------------------------------------------------------
+%---------------------------------------------------------------------
+% ÍNDICE REMISSIVO
+%---------------------------------------------------------------------
+%---------------------------------------------------------------------
+
+\phantompart
+
+\printindex
+
+\end{document}
