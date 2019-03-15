@@ -1,61 +1,84 @@
-% ------------------------------------------------------------------------
-% ------------------------------------------------------------------------
-%% Baseado no: abtex2-modelo-projeto-pesquisa.tex, v-1.9.6 laurocesar
-%% Copyright 2012-2016 by abnTeX2 group at http://www.abntex.net.br/
+%% abtex2-modelo-artigo.tex, v-1.9.7 laurocesar
+%% Copyright 2012-2018 by abnTeX2 group at http://www.abntex.net.br/ 
 %%
-%% Criado por Felipe Rios da Silva Cordeiro
-%% Em 22/09/2018, Última atualização 17/11/2018 19:55
+%% This work may be distributed and/or modified under the
+%% conditions of the LaTeX Project Public License, either version 1.3
+%% of this license or (at your option) any later version.
+%% The latest version of this license is in
+%%   http://www.latex-project.org/lppl.txt
+%% and version 1.3 or later is part of all distributions of LaTeX
+%% version 2005/12/01 or later.
+%%
+%% This work has the LPPL maintenance status `maintained'.
+%% 
+%% The Current Maintainer of this work is the abnTeX2 team, led
+%% by Lauro César Araujo. Further information are available on 
+%% http://www.abntex.net.br/
+%%
+%% This work consists of the files abntex2-modelo-artigo.tex and
+%% abntex2-modelo-references.bib
+%%
+
 % ------------------------------------------------------------------------
 % ------------------------------------------------------------------------
-% ABNT NBR 15287:2011 Informação e Documentação - Projeto de Pesquisa -
-% ------------------------------------------------------------------------ 
+% abnTeX2: Modelo de Artigo Acadêmico em conformidade com
+% ABNT NBR 6022:2018: Informação e documentação - Artigo em publicação 
+% periódica científica - Apresentação
+% ------------------------------------------------------------------------
 % ------------------------------------------------------------------------
 
 \documentclass[
-	% -- opções da classe do documento --
-	12pt,				% tamanho da fonte
-	openright,			% capítulos começam em página ímpar (insere página vazia caso preciso)
-	oneside,            % desabilita impressão frente e verso
-	a4paper,			% tamanho do papel
+	% -- opções da classe memoir --
+	article,			% indica que é um artigo acadêmico
+	11pt,				% tamanho da fonte
+	oneside,			% para impressão apenas no recto. Oposto a twoside
+	a4paper,			% tamanho do papel. 
 	% -- opções da classe abntex2 --
-	chapter=TITLE,		% títulos de capítulos convertidos em letras maiúsculas
-	section=TITLE,		% títulos de seções convertidos em letras maiúsculas
-	subsection=TITLE,	% títulos de subseções convertidos em letras maiúsculas
-	subsubsection=TITLE,% títulos de subsubseções convertidos em letras maiúsculas
+	%chapter=TITLE,		% títulos de capítulos convertidos em letras maiúsculas
+	%section=TITLE,		% títulos de seções convertidos em letras maiúsculas
+	%subsection=TITLE,	% títulos de subseções convertidos em letras maiúsculas
+	%subsubsection=TITLE % títulos de subsubseções convertidos em letras maiúsculas
 	% -- opções do pacote babel --
 	english,			% idioma adicional para hifenização
 	brazil,				% o último idioma é o principal do documento
-]{abntex2}
+	sumario=tradicional
+	]{abntex2}
 
-% ------------------------------------------------------------------------
-% ------------------------------------------------------------------------
+
+% ---
 % PACOTES
-% ------------------------------------------------------------------------
-% ------------------------------------------------------------------------
+% ---
 
-% Pacotes fundamentais
-\usepackage{times}			    % Usa a fonte Times New Roman
-\usepackage[T1]{fontenc}		% Seleção de códigos de fonte.
-\usepackage[utf8]{inputenc}		% Codificação do documento (conversão automática dos acentos)
+% ---
+% Pacotes fundamentais 
+% ---
+\usepackage{lmodern}			% Usa a fonte Latin Modern
+\usepackage[T1]{fontenc}		% Selecao de codigos de fonte.
+\usepackage[utf8]{inputenc}		% Codificacao do documento (conversão automática dos acentos)
 \usepackage{indentfirst}		% Indenta o primeiro parágrafo de cada seção.
+\usepackage{nomencl} 			% Lista de simbolos
 \usepackage{color}				% Controle das cores
 \usepackage{graphicx}			% Inclusão de gráficos
 \usepackage{microtype} 			% para melhorias de justificação
-
+% ---
+		
+% ---
 % Pacotes adicionais, usados apenas no âmbito do Modelo Canônico do abnteX2
+% ---
 \usepackage{lipsum}				% para geração de dummy text
-\usepackage{colortbl}           % para colorir as células das tabelas
-
+% ---
+		
+% ---
 % Pacotes de citações
-\usepackage[brazilian,hyperpageref]{backref} % Paginas com as citações na bibliografia
-\usepackage[alf,bibjustif,abnt-emphasize=bf]{abntex2cite}  % Citações padrão ABNT, forçar a justificação da bibliografia e enfatizar com negrito
+% ---
+\usepackage[brazilian,hyperpageref]{backref}	 % Paginas com as citações na bibl
+\usepackage[alf]{abntex2cite}	% Citações padrão ABNT
+% ---
+% Pacotes extras 
+% ---
+\usepackage{fancyhdr}
 
-% ------------------------------------------------------------------------
-% ------------------------------------------------------------------------
-% CONFIGURAÇÕES DE PACOTES
-% ------------------------------------------------------------------------
-% ------------------------------------------------------------------------
-
+% ---
 % Configurações do pacote backref
 % Usado sem a opção hyperpageref de backref
 \renewcommand{\backrefpagesname}{Citado na(s) página(s):~}
@@ -63,187 +86,34 @@
 \renewcommand{\backref}{}
 % Define os textos da citação
 \renewcommand*{\backrefalt}[4]{
-	\ifcase #1
-		Nenhuma citação no texto.
+	\ifcase #1 %
+		Nenhuma citação no texto.%
 	\or
-		Citado na página #2.
+		Citado na página #2.%
 	\else
-		Citado #1 vezes nas páginas #2.
-	\fi
-}
+		Citado #1 vezes nas páginas #2.%
+	\fi}%
+% ---
 
-% Configuração dos nomes padrões do babel
-\addto\captionsbrazil{
-    \renewcommand{\bibname}{Referências Bibliográficas}
-}
+% --- Informações de dados para CAPA e FOLHA DE ROSTO ---
+\titulo{Modelo Canônico de Artigo científico com \abnTeX}
+%\tituloestrangeiro{Canonical article template in \abnTeX: optional foreign title}
 
-% Configuração do título das referências
-\renewcommand{\bibsection}{%
-    \chapter{\bibname}
-    \bibmark
-    \ifnobibintoc\else
-        \phantomsection
-    \fi
-    \prebibhook
-}
+\autor{
+Equipe \abnTeX\thanks{``Recomenda-se que os dados de vinculação e
+endereço constem em nota, com sistema de chamada próprio, diferente do sistema 
+adotado para citações no texto.'' \url{http://www.abntex.net.br/}} 
+\\[0.5cm] 
+Lauro César Araujo\thanks{``Constar currículo sucinto de cada autor, com 
+vinculação corporativa e endereço de contato.''} }
 
-% -----------------------------------------------------------------------------
-% -----------------------------------------------------------------------------
-% FORMATAÇÃO DAS PÁGINAS
-% -----------------------------------------------------------------------------
-% -----------------------------------------------------------------------------
+\local{Brasil}
+\data{2018, v-1.9.7}
+% ---
 
-% Criar um novo estilo de cabeçalhos e rodapés
-\makepagestyle{emptystyle}
-  \makeevenhead{emptystyle} % Pagina par
-     {}
-     {}
-     {}
-  \makeoddhead{emptystyle} % Pagina ímpar ou com oneside
-     {}
-     {}
-     {}
-  \makeevenfoot{emptystyle} % Pagina par
-     {}
-     {}
-     {}
-  \makeoddfoot{emptystyle} % Pagina ímpar ou com oneside
-     {}
-     {}
-     {}
-
-% Fontes de Títulos no Documento
-% Capitulo Negrito
-\renewcommand{\ABNTEXchapterfont}{\bfseries}
-\renewcommand{\ABNTEXchapterfontsize}{\normalsize}
-% Section Normal
-\renewcommand{\ABNTEXsectionfont}{\normalfont}
-\renewcommand{\ABNTEXsectionfontsize}{\normalsize}
-% Subseção Negrito + Itálico
-\renewcommand{\ABNTEXsubsectionfont}{\bfseries\itshape}
-\renewcommand{\ABNTEXsubsectionfontsize}{\normalsize}
-% SubSubSeção Negrito + Sublinhado
-\renewcommand{\ABNTEXsubsubsectionfont}{\bfseries}
-\renewcommand{\ABNTEXsubsubsectionfontsize}{\normalsize}
-\setsubsubsecheadstyle{\ABNTEXsubsubsectionfont\ABNTEXsubsubsectionfontsize\ABNTEXsubsubsectionupperifneeded\coloruline[black]}
-% SubSubSubSecao Caixa baixa, sem negrito, tamanho 12
-\setparaheadstyle{\normalfont\ABNTEXsubsubsectionfont\ABNTEXsubsubsectionfontsize}
-
-% Retirando Espaçamentos dos Capítulos
-%\setlength\afterchapskip{\lineskip}
-\setlength{\afterchapskip}{\baselineskip}
-
-% Configuração da Capa
-\renewcommand{\imprimircapa}{%
-\begin{capa}%
-\begin{center}
-\includegraphics[width=0.2\textwidth]{brasao.jpg}
-\par
-{\bfseries\large\imprimirinstituicao}
-\end{center}
-\vspace*{1cm}
-\begin{center}
-{\bfseries\large\MakeUppercase\imprimirautor}
-\end{center}
-\vfill
-\begin{center}
-\bfseries\Large\MakeUppercase\imprimirtitulo
-\end{center}
-\vfill
-\begin{center}
-\bfseries\large\imprimirlocal
-\\
-\bfseries\large\imprimirdata
-\end{center}
-\vspace*{1cm}
-\end{capa}
-}
-
-% Configuração da Folha de Rosto
-\makeatletter
-\renewcommand{\folhaderostocontent}{
-\begin{center}
-{\bfseries\large\MakeUppercase\imprimirautor}
-\end{center}
-\vspace*{\fill}\vspace*{\fill}
-\begin{center}
-\bfseries\large\MakeUppercase\imprimirtitulo
-\end{center}
-\abntex@ifnotempty{\imprimirpreambulo}{%
-\hspace{.45\textwidth}
-\begin{minipage}{.5\textwidth}
-\SingleSpacing
-\imprimirpreambulo
-\bigbreak
-\normalfont\imprimirorientadorRotulo
-\
-\normalfont\imprimirorientador
-\end{minipage}%
-\vspace*{\fill}
-}%
-\vspace*{\fill}
-\begin{center}
-\bfseries\large\imprimirlocal
-\\
-\bfseries\large\imprimirdata
-\end{center}
-\vspace*{1cm}
-}
-\makeatother
-
-% Configuração do Sumário
-% Modifica o espaçamento no sumário
-% Não ha espaços, exceto para as entradas de capítulos
-\setlength{\cftbeforeparagraphskip}{0pt}
-\setlength{\cftbeforesubsectionskip}{0pt}
-\setlength{\cftbeforesectionskip}{0pt}
-\setlength{\cftbeforesubsubsectionskip}{0pt}
-\setlength{\cftbeforechapterskip}{\onelineskip}
-% Modifica o espaço entre os títulos e os números
-\makeatletter
-\let\oldchapternumberline\chapternumberline
-\renewcommand\chapternumberline[1]{#1\hspace*{2em}}
-\renewcommand\cftchaptername{\chaptername~}
-\addtolength\cftchapternumwidth{1em}
-\makeatother
-\setlength\cftsectionnumwidth{2.5em}
-
-% Modifica a formatação dos textos
-% Seção Primaria (Chapter): Caixa alta, Negrito, tamanho 12 
-\makeatletter
-\settocpreprocessor{chapter}{%
-  \let\tempf@rtoc\f@rtoc%
-  \def\f@rtoc{%
-  \texorpdfstring{\bfseries\MakeTextUppercase{\tempf@rtoc}}{\tempf@rtoc}}%
-}
-\makeatother
-
-% Seção secundaria (Section) Caixa baixa, Normal, tamanho 12
-\renewcommand*{\cftsectionfont}{\normalfont}
-% Seção terciaria (SubSection) Caixa baixa, Negrito, Itálico, tamanho 12
-\renewcommand*{\cftsubsectionfont}{\bfseries\itshape}
-% Seção quaternária (SubSubSection) Caixa baixa, Negrito, Sublinhado, tamanho 12
-\renewcommand*{\cftsubsubsectionfont}{\bfseries\coloruline[black]}
-% Seção quinaria (SubSubSubSection) Caixa baixa, Normal, tamanho 12
-\renewcommand*{\cftparagraphfont}{\normalfont}
-
-% Informações de Dados do Documento
-\autor{Felipe Rios da Silva Cordeiro}
-\instituicao{
-  UNIFACS - UNIVERSIDADE SALVADOR
-  \par
-  ESCOLA DE ENGENHARIA, ARQUITETURA\\ E TECNOLOGIA DA INFORMAÇÃO
-  \par
-  BACHARELADO EM ENGENHARIA DA COMPUTAÇÃO
-}
-\titulo{Revisão Bibliográfica das Vulnerabilidades\\ no Design das CPU’s Modernas}
-\local{Salvador}
-\data{2018}
-\tipotrabalho{Anteprojeto de TCC (Graduação)}
-\preambulo{Anteprojeto apresentado ao curso de graduação em Engenharia da Computação da UNIFACS - Universidade Salvador, como requisito parcial do trabalho de conclusão do curso, para obtenção do título de Engenheiro da Computação.}
-\orientador[Orientador:]{Prof.º ??????}
-
+% ---
 % Configurações de aparência do PDF final
+
 % alterando o aspecto da cor azul
 \definecolor{blue}{RGB}{41,5,195}
 
@@ -251,32 +121,57 @@
 \makeatletter
 \hypersetup{
      	%pagebackref=true,
-		pdftitle={\imprimirtitulo},
-		pdfauthor={\imprimirautor},
-    	pdfsubject={\imprimirpreambulo},
-	    pdfcreator={LaTeX with abnTeX2 and Overleaf},
-		pdfkeywords={abnt}{latex}{abntex}{abntex2}{projeto de pesquisa},
-		colorlinks=false,       		% false: boxed links; true: colored links
-    	linkcolor=blue,          	    % color of internal links
-    	citecolor=blue,        		    % color of links to bibliography
+		pdftitle={\@title}, 
+		pdfauthor={\@author},
+    	pdfsubject={Modelo de artigo científico com abnTeX2},
+	    pdfcreator={LaTeX with abnTeX2},
+		pdfkeywords={abnt}{latex}{abntex}{abntex2}{atigo científico}, 
+		colorlinks=true,       		% false: boxed links; true: colored links
+    	linkcolor=blue,          	% color of internal links
+    	citecolor=blue,        		% color of links to bibliography
     	filecolor=magenta,      		% color of file links
 		urlcolor=blue,
 		bookmarksdepth=4
 }
 \makeatother
+% --- 
 
-% Espaçamentos entre linhas e parágrafos
+% ---
+% compila o indice
+% ---
+\makeindex
+% ---
+
+% ---
+% Altera as margens padrões
+% ---
+\setlrmarginsandblock{3cm}{3cm}{*}
+\setulmarginsandblock{3cm}{3cm}{*}
+\checkandfixthelayout
+% ---
+
+% --- 
+% Espaçamentos entre linhas e parágrafos 
+% --- 
+
 % O tamanho do parágrafo é dado por:
 \setlength{\parindent}{1.3cm}
 
 % Controle do espaçamento entre um parágrafo e outro:
-% \setlength{\parskip}{0.2cm}  % tente também \onelineskip
-% Removido por correção dos docentes
+\setlength{\parskip}{0.2cm}  % tente também \onelineskip
 
-% Compila o índice
-\makeindex
+% Espaçamento simples
+\SingleSpacing
 
-% Início do Documento
+% Criar um novo estilo de cabeçalhos e rodapés
+\pagestyle{fancy}
+\lhead{Com S 311: Homework 1}
+\chead{Daolin Cheng}
+\rhead{\today}
+
+% ----
+% Início do documento
+% ----
 \begin{document}
 
 % Seleciona o idioma do documento (conforme pacotes do babel)
@@ -286,183 +181,326 @@
 % Retira espaço extra obsoleto entre as frases.
 \frenchspacing 
 
-% ------------------------------------------------------------------------
-% ------------------------------------------------------------------------
+% ----------------------------------------------------------
 % ELEMENTOS PRÉ-TEXTUAIS
-% ------------------------------------------------------------------------
-% ------------------------------------------------------------------------
-
+% ----------------------------------------------------------
 \pretextual
+\pagestyle{fancy}
+%---
+%
+% Se desejar escrever o artigo em duas colunas, descomente a linha abaixo
+% e a linha com o texto ``FIM DE ARTIGO EM DUAS COLUNAS''.
+% \twocolumn[    		% INICIO DE ARTIGO EM DUAS COLUNAS
+%
+%---
 
-% Capa
-\imprimircapa
+% página de titulo principal (obrigatório)
+\maketitle
+\thispagestyle{fancy}
 
-% Folha de Rosto
-\imprimirfolhaderosto
+% titulo em outro idioma (opcional)
 
-% Sumário
-\pdfbookmark[0]{\contentsname}{toc}
-\tableofcontents*
-\cleardoublepage
+% resumo em português
+\begin{resumoumacoluna}
+ Conforme a ABNT NBR 6022:2018, o resumo no idioma do documento é elemento obrigatório. 
+ Constituído de uma sequência de frases concisas e objetivas e não de uma 
+ simples enumeração de tópicos, não ultrapassando 250 palavras, seguido, logo 
+ abaixo, das palavras representativas do conteúdo do trabalho, isto é, 
+ palavras-chave e/ou descritores, conforme a NBR 6028. (\ldots) As 
+ palavras-chave devem figurar logo abaixo do resumo, antecedidas da expressão 
+ Palavras-chave:, separadas entre si por ponto e finalizadas também por ponto.
+ 
+ \vspace{\onelineskip}
+ 
+ \noindent
+ \textbf{Palavras-chave}: latex. abntex. editoração de texto.
+\end{resumoumacoluna}
 
-%---------------------------------------------------------------------
-%---------------------------------------------------------------------
+
+% resumo em inglês
+\renewcommand{\resumoname}{Abstract}
+\begin{resumoumacoluna}
+ \begin{otherlanguage*}{english}
+   According to ABNT NBR 6022:2018, an abstract in foreign language is optional.
+
+   \vspace{\onelineskip}
+ 
+   \noindent
+   \textbf{Keywords}: latex. abntex.
+ \end{otherlanguage*}  
+\end{resumoumacoluna}
+
+% ]  				% FIM DE ARTIGO EM DUAS COLUNAS
+% ---
+
+\begin{center}\smaller
+\textbf{Data de submissão e aprovação}: elemento obrigatório. Indicar dia, mês e ano
+
+\textbf{Identificação e disponibilidade}: elemento opcional. Pode ser indicado 
+o endereço eletrônico, DOI, suportes e outras informações relativas ao acesso.
+\end{center}
+
+% ----------------------------------------------------------
 % ELEMENTOS TEXTUAIS
-%---------------------------------------------------------------------
-%---------------------------------------------------------------------
-
+% ----------------------------------------------------------
 \textual
+\pagestyle{fancy}
 
-\pagestyle{emptystyle}
-\aliaspagestyle{chapter}{emptystyle}
-
+% ----------------------------------------------------------
 % Introdução
-\chapter{Introdução}
+% ----------------------------------------------------------
+\section{Introdução}
 
-O grupo de segurança de TI da \emph{Google}, \emph{Project Zero (GPZ)}, em sua mais recente descoberta \cite{googleprojectzero}, relatou duas novas classes de vulnerabilidades na arquitetura dos processadores de design moderno das fabricantes: \emph{Intel}, \emph{AMD} e \emph{ARM} (comunicado as fabricantes em 1º de junho de 2017 e divulgado ao público em 03 de janeiro de 2018). Essas duas falhas de segurança batizadas de \emph{Spectre}\footnote{Especulativo, espectro, ou fantasma ("speculative", inglês). O nome deriva da causa da falha.} e \emph{Meltdown}\footnote{Colapso, ou derreter ("melt", inglês). O nome deriva da consequência da exploração da falha.}, chamam a atenção pois, segundo o estudo detalhado feito pelo grupo, elas afetaram processadores criados desde de 1995, das ultimas 2 décadas e mais de 230 chips irão continuar com a falha, segundo o \emph{Microcode Revision Guidance} \cite{intel-mug}.
+Este documento e seu código-fonte são exemplos de referência de uso da classe
+\textsf{abntex2} e do pacote \textsf{abntex2cite}. O documento exemplifica a
+elaboração de publicação periódica científica impressa produzida conforme a ABNT
+NBR 6022:2018 \emph{Informação e documentação - Artigo em publicação periódica
+científica - Apresentação}.
 
-Em uma nota oficial a \emph{Intel} se pronunciou evidenciando seu comprometimento em mitigar as falhas, estudando e disponibilizando \emph{firmwares} para corrigi-las (ou atenuá-las). Se defendendo também de especulações em relação ao desempenho dos processadores, depois da correção via \emph{software}, afirmou que qualquer diferença no desempenho “depende da carga de trabalho e, para o usuário médio do computador, não deve ser significativo e será atenuado com o tempo” \cite{intel-news-001}. Depois disso, publicou um informativo de segurança \cite{intel-sa-00088}, informando a lista de processadores da marca atingidos pelas falhas e suas ramificações.
+A expressão ``Modelo canônico'' é utilizada para indicar que \abnTeX\ não é
+modelo específico de nenhuma universidade ou instituição, mas que implementa tão
+somente os requisitos das normas da ABNT. Uma lista completa das normas
+observadas pelo \abnTeX\ é apresentada em \citeonline{abntex2classe}.
 
-As outras fabricantes (\emph{AMD} e \emph{ARM}), em parceria com algumas montadoras e produtoras de \emph{softwares} também se pronunciaram em notas oficiais, assumindo ou não as falhas em seus produtos e, tomando certa medida de prevenção, formaram parcerias para lançarem correções em aplicações para usuário final (\emph{browsers} por exemplo), que previnem a exploração das falhas. Fabricantes de jogos que utilizam os processadores \emph{AMD} ou \emph{ARM}, como \emph{Sony} e \emph{Nintendo}, não se pronunciaram, conforme lista oficial publicada pela Universidade de Tecnologia de Graz \cite{meltdownspectreattack}.
+Sinta-se convidado a participar do projeto \abnTeX! Acesse o site do projeto em
+\url{http://www.abntex.net.br/}. Também fique livre para conhecer,
+estudar, alterar e redistribuir o trabalho do \abnTeX, desde que os arquivos
+modificados tenham seus nomes alterados e que os créditos sejam dados aos
+autores originais, nos termos da ``The \LaTeX\ Project Public
+License''\footnote{\url{http://www.latex-project.org/lppl.txt}}.
 
-Depois de uma grande comoção dos fabricantes e da comunidade de \emph{software} livre em busca de soluções, os autores da Universidade Católica de Leuven e os autores do IT de Israel, das Universidades de Michigan e Adelaide e da \emph{CSIRO Data61}, fizeram novas publicações comprovativas de duas novas derivações da \emph{Spectre}. Batizadas de \emph{Foreshadow}\footnote{Prefigurar, pressupor ou prévio ("fore", inglês). Assim como no \footnotemark[\numexpr\value{footnote}-2], o nome deriva da causa da falha.} e \emph{Foreshadow-NG}, em processadores de servidores e em máquinas virtuais \cite{foreshadowattack}.
+Encorajamos que sejam realizadas customizações específicas deste documento.
+Porém, recomendamos que ao invés de se alterar diretamente os arquivos do
+\abnTeX, distribua-se arquivos com as respectivas customizações. Isso permite
+que futuras versões do \abnTeX~não se tornem automaticamente incompatíveis com
+as customizações promovidas. Consulte \citeonline{abntex2-wiki-como-customizar}
+para mais informações.
 
-Neste contexto, é proposto um estudo da literatura (documentação, artigos e relacionados) sobre tais falhas, visando comparar os \emph{patches} corretivos existentes, e propor um \emph{patch} para uma ramificação isolada de uma das falhas, de forma que o percentual de performance afetado pela correção proposta seja o mínimo em relação aos existentes, ou ao menos, contribua para a dissolução do gargalo de performance atual.
+Este exemplo deve ser utilizado como complemento do manual da classe
+\textsf{abntex2} \cite{abntex2classe}, dos manuais do pacote
+\textsf{abntex2cite} \cite{abntex2cite,abntex2cite-alf} e do manual da classe
+\textsf{memoir} \cite{memoir}. Consulte o \citeonline{abntex2modelo} para obter
+exemplos e informações adicionais de uso de \abnTeX\ e de \LaTeX.
 
-% Objetivos
-\chapter{Objetivos}
+% ----------------------------------------------------------
+% Seção de explicações
+% ----------------------------------------------------------
+\section{Exemplos de comandos}
 
-\section{Objetivo Geral}
+\subsection{Margens}
 
-Este trabalho visa apresentar uma revisão bibliográfica completa, da literatura existente a respeito das vulnerabilidades descobertas no \emph{design} das unidades de processamento (microprocessadores) modernas. Especificamente, dos fabricantes: \emph{Intel}, \emph{AMD} e \emph{ARM Holdings}. No decorrer do desenvolvimento das comparações com a literatura atual, espera-se que um produto contributivo seja atingido: uma solução de caráter acadêmico, que possa solucionar uma determinada ramificação de uma das vulnerabilidades ou, atenuar a perda de performance ocasionada por soluções já testadas.
+A norma ABNT NBR 6022:2018 não estabelece uma margem específica a ser utilizada
+no artigo científico. Dessa maneira, caso deseje alterar as margens, utilize os
+comandos abaixo:
 
-As \emph{CPU's}\footnote{Central Processing Unit (inglês). Unidade de Processamento Central.} abordadas neste trabalho, serão referenciadas a partir da literatura fornecida pelo fabricante. Nenhuma lista de modelos, ou de famílias será feita, pois os fabricantes já conseguiram cobrir de forma abrangente as famílias de microprocessadores atingidos.
+\begin{verbatim}
+   \setlrmarginsandblock{3cm}{3cm}{*}
+   \setulmarginsandblock{3cm}{3cm}{*}
+   \checkandfixthelayout
+\end{verbatim}
 
-As vulnerabilidades estudadas aqui, serão discutidas com base na literatura dos pesquisadores autores das provas de conceito de cada falha de segurança. Efetuando comparação com a literatura de referência do grupo \emph{GPZ}, os \emph{PoC's}\footnote{Proof of Concept (inglês). Prova de Conceito.}serão discutidos e analisados, levando em conta seus respectivos \emph{patches} corretivos, e a performance da \emph{CPU} que está em experimento.
+\subsection{Duas colunas}
 
-\section{Objetivos Específicos}
+É comum que artigos científicos sejam escritos em duas colunas. Para isso,
+adicione a opção \texttt{twocolumn} à classe do documento, como no exemplo:
 
-O artigo de \citeonline{googleprojectzero} da \emph{GPZ}, revelou os registros das vulnerabilidades descobertas pela equipe: \emph{Spectre} (variante 01, [CVE-2017-5753]\footnote{\textbf{C}ommon \textbf{V}ulnerabilities and \textbf{E}xposures (inglês). Vulnerabilidades e Exposições Comuns (ou públicas).} e variante 02 [CVE-2017-5715]\footnotemark[\value{footnote}]) e \emph{Meltdown} (variante 03, [CVE-2017-5754]\footnotemark[\value{footnote}]).
+\begin{verbatim}
+   \documentclass[article,11pt,oneside,a4paper,twocolumn]{abntex2}
+\end{verbatim}
 
-As publicações de \citeonline{vanbulck2018foreshadow} e \citeonline{weisse2018foreshadowNG}, também revelaram os registros de suas descobertas: \emph{Foreshadow} e \emph{Foreshadow-NG} (sem numeração de variantes, [CVE-2018-3615, CVE-2018-3620, CVE-2018-3646]\footnotemark[\value{footnote}]).
+É possível indicar pontos do texto que se deseja manter em apenas uma coluna,
+geralmente o título e os resumos. Os resumos em única coluna em documentos com
+a opção \texttt{twocolumn} devem ser escritos no ambiente
+\texttt{resumoumacoluna}:
 
-De forma que objetiva-se:
+\begin{verbatim}
+   \twocolumn[              % INICIO DE ARTIGO EM DUAS COLUNAS
 
-\begin{itemize}
-    \item Analisar cada falha registrada, com seus respetivos \emph{PoC's} e demonstrações de intrusão (aplicação das técnicas e testes pertinentes);
-    \item Comentar e analisar os \emph{patches} existentes para cada uma das falhas registradas, levando em conta o percentual de intervenção na \emph{performance} do microprocessador;
-    \item Desenvolver um \emph{patch} para a variante 01, que consiga competir ou superar os existentes no percentual de \emph{performance} atingido, ou contribuir para a regressão deste percentual.
-\end{itemize}
+     \maketitle             % pagina de titulo
 
-% Metodologia
-\chapter{Metodologia}
+     \renewcommand{\resumoname}{Nome do resumo}
+     \begin{resumoumacoluna}
+        Texto do resumo.
+      
+        \vspace{\onelineskip}
+ 
+        \noindent
+        \textbf{Palavras-chave}: latex. abntex. editoração de texto.
+     \end{resumoumacoluna}
+   
+   ]                        % FIM DE ARTIGO EM DUAS COLUNAS
+\end{verbatim}
 
-Dentre as famílias de microprocessadores que apresentam as falhas citadas, o grupo \emph{GPZ}, realizou testes em ambientes com as seguintes \emph{CPU's}:
+\subsection{Recuo do ambiente \texttt{citacao}}
 
-\begin{itemize}
-    \item Intel® Xeon® CPU E5-1650 v3 @ 3.50GHz
-    \item AMD FX™-8320 x 8
-    \item AMD PRO A8-9600 R7 x 10
-    \item ARM Cortex A57, Google Nexus 5x Phone
-\end{itemize}
+Na produção de artigos (opção \texttt{article}), pode ser útil alterar o recuo
+do ambiente \texttt{citacao}. Nesse caso, utilize o comando:
 
-A análise será feita com a aplicação dos \emph{exploits}\footnote{Explorar ou façanha (inglês). Qualquer comando, ou dado que se aproveita de uma brecha, para outra finalidade.} sugeridos nos artigos \citeonline{meltdownspectreattack} e \citeonline{foreshadowattack}. O ambiente de testes obedecerá a seguinte configuração:
+\begin{verbatim}
+   \setlength{\ABNTEXcitacaorecuo}{1.8cm}
+\end{verbatim}
 
-\begin{itemize}
-    \item Intel® Core™ i7-7500U CPU @ 2.70GHz x 4 
-    \subitem Microsoft® Windows™ 10 Pro
-    \subitem GNU Ubuntu 16.04.05 LTS (Kernel 14.05)
-\end{itemize}
+Quando um documento é produzido com a opção \texttt{twocolumn}, a classe
+\textsf{abntex2} automaticamente altera o recuo padrão de 4 cm, definido pela
+ABNT NBR 10520:2002 seção 5.3, para 1.8 cm.
 
-\begingroup
-\renewcommand{\cleardoublepage}{}
-\renewcommand{\clearpage}{}
+\section{Cabeçalhos e rodapés customizados}
 
-% Resultados Esperados
-\chapter{Resultados Esperados}
+Diferentes estilos de cabeçalhos e rodapés podem ser criados usando os
+recursos padrões do \textsf{memoir}.
 
-Espera-se demonstrar com êxito, as técnicas de intrusão de cada variação das vulnerabilidades já citadas, como também os seus respectivos melhores \emph{patches}. É esperado também como produto de revisão bibliográfica, uma tabela comparativa da \emph{performance} do processador utilizado nos testes, sendo aplicado sobre ele cada \emph{patch} sugerido na literatura, de forma que a classificação de "melhor" (em termos de \emph{performance}) fique evidente.
+Um estilo próprio de cabeçalhos e rodapés pode ser diferente para páginas pares
+e ímpares. Observe que a diferenciação entre páginas pares e ímpares só é
+utilizada se a opção \texttt{twoside} da classe \textsf{abntex2} for utilizado.
+Caso contrário, apenas o cabeçalho padrão da página par (\emph{even}) é usado.
 
-Como forma de ônus pela revisão bibliográfica em toda sua completitude, é esperado também a produção de um \emph{patch} que equivalha ou supere em percentual performático, a literatura. Caso a equiparação de percentual performático não seja viável, ou inalcançável com base no tempo estabelecido para a pesquisa, este ônus será limitado a uma pequena contribuição na mitigação do percentual performático de outro (ou outros) \emph{patch(es)} da literatura.
+Veja o exemplo abaixo cria um estilo chamado \texttt{meuestilo}. O código deve
+ser inserido no preâmbulo do documento.
 
-\endgroup
+\begin{verbatim}
+%%criar um novo estilo de cabeçalhos e rodapés
+\makepagestyle{meuestilo}
+  %%cabeçalhos
+  \makeevenhead{meuestilo} %%pagina par
+     {topo par à esquerda}
+     {centro \thepage}
+     {direita}
+  \makeoddhead{meuestilo} %%pagina ímpar ou com oneside
+     {topo ímpar/oneside à esquerda}
+     {centro\thepage}
+     {direita}
+  \makeheadrule{meuestilo}{\textwidth}{\normalrulethickness} %linha
+  %% rodapé
+  \makeevenfoot{meuestilo}
+     {rodapé par à esquerda} %%pagina par
+     {centro \thepage}
+     {direita} 
+  \makeoddfoot{meuestilo} %%pagina ímpar ou com oneside
+     {rodapé ímpar/onside à esquerda}
+     {centro \thepage}
+     {direita}
+\end{verbatim}
 
-% Cronograma
-\chapter{Cronograma}
+Para usar o estilo criado, use o comando abaixo imediatamente após um dos
+comandos de divisão do documento. Por exemplo:
 
-O desenvolvimento deste trabalho se dará da seguinte forma:
+\begin{verbatim}
+   \begin{document}
+     %%usar o estilo criado na primeira página do artigo:
+     \pretextual
+     \pagestyle{meuestilo}
+     
+     \maketitle
+     ...
+     
+     %%usar o estilo criado nas páginas textuais
+     \textual
+     \pagestyle{meuestilo}
+     
+     \chapter{Novo capítulo}
+     ...
+   \end{document}  
+\end{verbatim}
+   
+Outras informações sobre cabeçalhos e rodapés estão disponíveis na seção 7.3 do
+manual do \textsf{memoir} \cite{memoir}.
 
-\begin{enumerate}
-	\item \label{anI} Análise de cada vulnerabilidade registrada, descrita anteriormente;
-	\item \label{anII} Comparação e catalogação dos \emph{PoC's} de cada falha;
-	\item \label{anIII} Aplicação dos \emph{exploits} escolhidos para cada caso anterior;
-	\item \label{dI} Catalogar os \emph{patches} existentes, para cada \emph{exploit};
-	\item \label{dII} Classificar os \emph{patches} catalogados, segundo o percentual performático;
-	\item \label{dIII} Demonstrar a aplicação dos \emph{patches} nas principais variações das vulnerabilidades descritas como objetivo deste trabalho;
-	\item \label{imI} Tentativa de implementação do ônus descrito nos objetivos;
-	\item \label{imII} Refatoração do ônus, caso não seja atingido o objetivo satisfatório de sua implementação;
-	\item \label{imIII} Desenvolvimento da contribuição mínima, junto com as tabelas comparativas atreladas a revisão bibliográfica;
-	\item \label{final} Testes, correções e submissão.
-\end{enumerate}
+\section{Mais exemplos no Modelo Canônico de Trabalhos Acadêmicos}
 
-\definecolor{midgray}{gray}{.5}
-\begin{table}[!htbp]
-\ABNTEXfontereduzida
-\caption{Cronograma, Tempo x Etapas.}
-	\centering
-	\begin{tabular}{|c|c|c|c|c|c|c|c|c|c|}
-		\hline
-		&\multicolumn{3}{c|}{2018}&\multicolumn{6}{c|}{2019}\\
-		\hline
-		&OUT&NOV&DEZ&JAN&FEV&MAR&ABR&MAI&JUN\\
-		\hline
-		\ref{anI}&\cellcolor{midgray}&&&&&&&&\\
-		\hline
-		\ref{anII}&\cellcolor{midgray}&&&&&&&&\\
-		\hline
-		\ref{anIII}&&\cellcolor{midgray}&&&&&&&\\
-		\hline
-		\ref{dI}&&&\cellcolor{midgray}&&&&&&\\
-		\hline
-		\ref{dII}&&&&\cellcolor{midgray}&&&&&\\
-		\hline
-		\ref{dIII}&&&&&\cellcolor{midgray}&&&&\\
-		\hline
-		\ref{imI}&&&&&&\cellcolor{midgray}&&&\\
-		\hline
-		\ref{imII}&&&&&&&\cellcolor{midgray}&&\\
-		\hline
-		\ref{imIII}&&&&&&&\cellcolor{midgray}&&\\
-		\hline
-		\ref{final}&&&&&&&&\cellcolor{midgray}&\cellcolor{midgray}\\
-		\hline
-	\end{tabular}
-\end{table}
+Este modelo de artigo é limitado em número de exemplos de comandos, pois são
+apresentados exclusivamente comandos diretamente relacionados com a produção de
+artigos.
 
-% Finaliza a parte no bookmark do PDF
-% para que se inicie o bookmark na raiz
-% e adiciona espaço de parte no Sumário
-\phantompart
+Para exemplos adicionais de \abnTeX\ e \LaTeX, como inclusão de figuras,
+fórmulas matemáticas, citações, e outros, consulte o documento
+\citeonline{abntex2modelo}.
 
-%---------------------------------------------------------------------
-%---------------------------------------------------------------------
+\section{Consulte o manual da classe \textsf{abntex2}}
+
+Consulte o manual da classe \textsf{abntex2} \cite{abntex2classe} para uma
+referência completa das macros e ambientes disponíveis.
+
+% ---
+% Finaliza a parte no bookmark do PDF, para que se inicie o bookmark na raiz
+% ---
+\bookmarksetup{startatroot}% 
+% ---
+
+% ---
+% Conclusão
+% ---
+\section{Considerações finais}
+
+\lipsum[1]
+
+\begin{citacao}
+\lipsum[2]
+\end{citacao}
+
+\lipsum[3]
+
+% ----------------------------------------------------------
 % ELEMENTOS PÓS-TEXTUAIS
-%---------------------------------------------------------------------
-%---------------------------------------------------------------------
-
+% ----------------------------------------------------------
 \postextual
 
+% ----------------------------------------------------------
 % Referências bibliográficas
-\bibliography{referencias}
+% ----------------------------------------------------------
+\bibliography{abntex2-modelo-references}
 
-%---------------------------------------------------------------------
-%---------------------------------------------------------------------
-% ÍNDICE REMISSIVO
-%---------------------------------------------------------------------
-%---------------------------------------------------------------------
+% ----------------------------------------------------------
+% Glossário
+% ----------------------------------------------------------
+%
+% Há diversas soluções prontas para glossário em LaTeX. 
+% Consulte o manual do abnTeX2 para obter sugestões.
+%
+%\glossary
 
-\phantompart
+% ----------------------------------------------------------
+% Apêndices
+% ----------------------------------------------------------
 
-\printindex
+% ---
+% Inicia os apêndices
+% ---
+\begin{apendicesenv}
+
+% ----------------------------------------------------------
+\chapter{Nullam elementum urna vel imperdiet sodales elit ipsum pharetra ligula
+ac pretium ante justo a nulla curabitur tristique arcu eu metus}
+% ----------------------------------------------------------
+\lipsum[55-56]
+
+\end{apendicesenv}
+% ---
+
+% ----------------------------------------------------------
+% Anexos
+% ----------------------------------------------------------
+\cftinserthook{toc}{AAA}
+% ---
+% Inicia os anexos
+% ---
+%\anexos
+\begin{anexosenv}
+
+% ---
+\chapter{Cras non urna sed feugiat cum sociis natoque penatibus et magnis dis
+parturient montes nascetur ridiculus mus}
+% ---
+
+\lipsum[31]
+
+\end{anexosenv}
+
+% ----------------------------------------------------------
+% Agradecimentos
+% ----------------------------------------------------------
+
+\section*{Agradecimentos}
+Texto sucinto aprovado pelo periódico em que será publicado. Último 
+elemento pós-textual.
 
 \end{document}

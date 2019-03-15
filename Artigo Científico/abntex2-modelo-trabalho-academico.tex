@@ -1,5 +1,5 @@
-%% abtex2-modelo-trabalho-academico.tex, v-1.9.6 laurocesar
-%% Copyright 2012-2016 by abnTeX2 group at http://www.abntex.net.br/ 
+%% abtex2-modelo-trabalho-academico.tex, v-1.9.7 laurocesar
+%% Copyright 2012-2018 by abnTeX2 group at http://www.abntex.net.br/ 
 %%
 %% This work may be distributed and/or modified under the
 %% conditions of the LaTeX Project Public License, either version 1.3
@@ -52,7 +52,6 @@
 \usepackage{lmodern}			% Usa a fonte Latin Modern			
 \usepackage[T1]{fontenc}		% Selecao de codigos de fonte.
 \usepackage[utf8]{inputenc}		% Codificacao do documento (conversão automática dos acentos)
-\usepackage{lastpage}			% Usado pela Ficha catalográfica
 \usepackage{indentfirst}		% Indenta o primeiro parágrafo de cada seção.
 \usepackage{color}				% Controle das cores
 \usepackage{graphicx}			% Inclusão de gráficos
@@ -98,7 +97,7 @@
 \titulo{Modelo Canônico de\\ Trabalho Acadêmico com \abnTeX}
 \autor{Equipe \abnTeX}
 \local{Brasil}
-\data{2015, v-1.9.6}
+\data{2018, v-1.9.7}
 \orientador{Lauro César Araujo}
 \coorientador{Equipe \abnTeX}
 \instituicao{%
@@ -139,6 +138,34 @@ as normas ABNT apresentado à comunidade de usuários \LaTeX.}
 }
 \makeatother
 % --- 
+
+% ---
+% Posiciona figuras e tabelas no topo da página quando adicionadas sozinhas
+% em um página em branco. Ver https://github.com/abntex/abntex2/issues/170
+\makeatletter
+\setlength{\@fptop}{5pt} % Set distance from top of page to first float
+\makeatother
+% ---
+
+% ---
+% Possibilita criação de Quadros e Lista de quadros.
+% Ver https://github.com/abntex/abntex2/issues/176
+%
+\newcommand{\quadroname}{Quadro}
+\newcommand{\listofquadrosname}{Lista de quadros}
+
+\newfloat[chapter]{quadro}{loq}{\quadroname}
+\newlistof{listofquadros}{loq}{\listofquadrosname}
+\newlistentry{quadro}{loq}{0}
+
+% configurações para atender às regras da ABNT
+\setfloatadjustment{quadro}{\centering}
+\counterwithout{quadro}{chapter}
+\renewcommand{\cftquadroname}{\quadroname\space} 
+\renewcommand*{\cftquadroaftersnum}{\hfill--\hfill}
+
+\setfloatlocations{quadro}{hbtp} % Ver https://github.com/abntex/abntex2/issues/176
+% ---
 
 % --- 
 % Espaçamentos entre linhas e parágrafos 
@@ -213,7 +240,7 @@ as normas ABNT apresentado à comunidade de usuários \LaTeX.}
 	\hspace{0.5cm} \imprimirtitulo  / \imprimirautor. --
 	\imprimirlocal, \imprimirdata-
 	
-	\hspace{0.5cm} \pageref{LastPage} p. : il. (algumas color.) ; 30 cm.\\
+	\hspace{0.5cm} \thelastpage p. : il. (algumas color.) ; 30 cm.\\
 	
 	\hspace{0.5cm} \imprimirorientadorRotulo~\imprimirorientador\\
 	
@@ -272,7 +299,9 @@ Zootecnia, Universidade de São Paulo, São Paulo, 2011.
 % do trabalho. Após isso, substitua todo o conteúdo deste arquivo por uma
 % imagem da página assinada pela banca com o comando abaixo:
 %
+% \begin{folhadeaprovacao}
 % \includepdf{folhadeaprovacao_final.pdf}
+% \end{folhadeaprovacao}
 %
 \begin{folhadeaprovacao}
 
@@ -421,6 +450,14 @@ contribuirão para a evolução do \abnTeX.
 % ---
 
 % ---
+% inserir lista de quadros
+% ---
+\pdfbookmark[0]{\listofquadrosname}{loq}
+\listofquadros*
+\cleardoublepage
+% ---
+
+% ---
 % inserir lista de tabelas
 % ---
 \pdfbookmark[0]{\listtablename}{lot}
@@ -466,8 +503,7 @@ contribuirão para a evolução do \abnTeX.
 % ----------------------------------------------------------
 % Introdução (exemplo de capítulo sem numeração, mas presente no Sumário)
 % ----------------------------------------------------------
-\chapter*[Introdução]{Introdução}
-\addcontentsline{toc}{chapter}{Introdução}
+\chapter{Introdução}
 % ----------------------------------------------------------
 
 Este documento e seu código-fonte são exemplos de referência de uso da classe
@@ -494,7 +530,7 @@ Porém, recomendamos que ao invés de se alterar diretamente os arquivos do
 \abnTeX, distribua-se arquivos com as respectivas customizações.
 Isso permite que futuras versões do \abnTeX~não se tornem automaticamente
 incompatíveis com as customizações promovidas. Consulte
-\citeonline{abntex2-wiki-como-customizar} par mais informações.
+\citeonline{abntex2-wiki-como-customizar} para mais informações.
 
 Este documento deve ser utilizado como complemento dos manuais do \abnTeX\ 
 \cite{abntex2classe,abntex2cite,abntex2cite-alf} e da classe \textsf{memoir}
@@ -519,6 +555,31 @@ Lauro César Araujo
 % ---
 \include{abntex2-modelo-include-comandos}
 % ---
+
+\chapter{Conteúdos específicos do modelo de trabalho acadêmico}\label{cap_trabalho_academico}
+
+\section{Quadros}
+
+Este modelo vem com o ambiente \texttt{quadro} e impressão de Lista de quadros 
+configurados por padrão. Verifique um exemplo de utilização:
+
+\begin{quadro}[htb]
+\caption{\label{quadro_exemplo}Exemplo de quadro}
+\begin{tabular}{|c|c|c|c|}
+	\hline
+	\textbf{Pessoa} & \textbf{Idade} & \textbf{Peso} & \textbf{Altura} \\ \hline
+	Marcos & 26    & 68   & 178    \\ \hline
+	Ivone  & 22    & 57   & 162    \\ \hline
+	...    & ...   & ...  & ...    \\ \hline
+	Sueli  & 40    & 65   & 153    \\ \hline
+\end{tabular}
+\fonte{Autor.}
+\end{quadro}
+
+Este parágrafo apresenta como referenciar o quadro no texto, requisito
+obrigatório da ABNT. 
+Primeira opção, utilizando \texttt{autoref}: Ver o \autoref{quadro_exemplo}. 
+Segunda opção, utilizando  \texttt{ref}: Ver o Quadro \ref{quadro_exemplo}.
 
 % ----------------------------------------------------------
 % PARTE
