@@ -1,84 +1,53 @@
-%% abtex2-modelo-artigo.tex, v-1.9.7 laurocesar
-%% Copyright 2012-2018 by abnTeX2 group at http://www.abntex.net.br/ 
-%%
-%% This work may be distributed and/or modified under the
-%% conditions of the LaTeX Project Public License, either version 1.3
-%% of this license or (at your option) any later version.
-%% The latest version of this license is in
-%%   http://www.latex-project.org/lppl.txt
-%% and version 1.3 or later is part of all distributions of LaTeX
-%% version 2005/12/01 or later.
-%%
-%% This work has the LPPL maintenance status `maintained'.
-%% 
-%% The Current Maintainer of this work is the abnTeX2 team, led
-%% by Lauro César Araujo. Further information are available on 
-%% http://www.abntex.net.br/
-%%
-%% This work consists of the files abntex2-modelo-artigo.tex and
-%% abntex2-modelo-references.bib
-%%
-
 % ------------------------------------------------------------------------
 % ------------------------------------------------------------------------
-% abnTeX2: Modelo de Artigo Acadêmico em conformidade com
-% ABNT NBR 6022:2018: Informação e documentação - Artigo em publicação 
-% periódica científica - Apresentação
+% Modelo de Artigo Acadêmico
+% Em conformidade com:
+% ABNT NBR 6022:2018: Informação e Documentação - Artigo em Publicação Periódica Científica - Apresentação
+%
+% Adaptado para:
+% SEPA: Seminário Estudantil de Produção Acadêmica da UNIFACS
+%
+% Baseado na Biblioteca abnTeX2 v1.9.7
 % ------------------------------------------------------------------------
 % ------------------------------------------------------------------------
-
 \documentclass[
-	% -- opções da classe memoir --
-	article,			% indica que é um artigo acadêmico
-	11pt,				% tamanho da fonte
-	oneside,			% para impressão apenas no recto. Oposto a twoside
-	a4paper,			% tamanho do papel. 
-	% -- opções da classe abntex2 --
-	%chapter=TITLE,		% títulos de capítulos convertidos em letras maiúsculas
-	%section=TITLE,		% títulos de seções convertidos em letras maiúsculas
-	%subsection=TITLE,	% títulos de subseções convertidos em letras maiúsculas
-	%subsubsection=TITLE % títulos de subsubseções convertidos em letras maiúsculas
-	% -- opções do pacote babel --
-	english,			% idioma adicional para hifenização
-	brazil,				% o último idioma é o principal do documento
+	% Opções da classe memoir
+	article,			    % indica que é um artigo acadêmico
+	12pt,				    % tamanho da fonte
+	oneside,			    % para impressão apenas no recto. Oposto a twoside
+	a4paper,			    % tamanho do papel. 
+	% Opções da classe abntex2
+	chapter=TITLE,		    % títulos de capítulos convertidos em letras maiúsculas
+	section=TITLE,		    % títulos de seções convertidos em letras maiúsculas
+	subsection=TITLE,	    % títulos de subseções convertidos em letras maiúsculas
+	%subsubsection=TITLE    % títulos de subsubseções convertidos em letras maiúsculas
+	% Opções do pacote babel
+	english,			    % idioma adicional para hifenização
+	brazil,				    % o último idioma é o principal do documento
 	sumario=tradicional
-	]{abntex2}
-
-
-% ---
+]{abntex2}
+% ------------------------------------------------------------------------
 % PACOTES
-% ---
-
-% ---
+% ------------------------------------------------------------------------
 % Pacotes fundamentais 
-% ---
-\usepackage{lmodern}			% Usa a fonte Latin Modern
+\usepackage{times}			    % Usa a fonte Times New Roman
 \usepackage[T1]{fontenc}		% Selecao de codigos de fonte.
 \usepackage[utf8]{inputenc}		% Codificacao do documento (conversão automática dos acentos)
 \usepackage{indentfirst}		% Indenta o primeiro parágrafo de cada seção.
 \usepackage{nomencl} 			% Lista de simbolos
 \usepackage{color}				% Controle das cores
 \usepackage{graphicx}			% Inclusão de gráficos
-\usepackage{microtype} 			% para melhorias de justificação
-% ---
-		
-% ---
+\usepackage{microtype} 			% Para melhorias de justificação
 % Pacotes adicionais, usados apenas no âmbito do Modelo Canônico do abnteX2
-% ---
-\usepackage{lipsum}				% para geração de dummy text
-% ---
-		
-% ---
+\usepackage{lipsum}				% Para geração de dummy text
 % Pacotes de citações
-% ---
-\usepackage[brazilian,hyperpageref]{backref}	 % Paginas com as citações na bibl
-\usepackage[alf]{abntex2cite}	% Citações padrão ABNT
-% ---
+\usepackage[brazilian,hyperpageref]{backref}	 % Paginas com as citações na bibliografia
+\usepackage[alf,bibjustif,abnt-emphasize=bf]{abntex2cite}  % Citações padrão ABNT, forçar a justificação da bibliografia e enfatizar com negrito
 % Pacotes extras 
-% ---
-\usepackage{fancyhdr}
-
-% ---
+\usepackage{fancyhdr}           % Personalização do cabeçalho e rodapé
+% ------------------------------------------------------------------------
+% CONFIGURAÇÃO DOS PACOTES
+% ------------------------------------------------------------------------
 % Configurações do pacote backref
 % Usado sem a opção hyperpageref de backref
 \renewcommand{\backrefpagesname}{Citado na(s) página(s):~}
@@ -86,421 +55,279 @@
 \renewcommand{\backref}{}
 % Define os textos da citação
 \renewcommand*{\backrefalt}[4]{
-	\ifcase #1 %
-		Nenhuma citação no texto.%
+	\ifcase #1
+		Nenhuma citação no texto.
 	\or
-		Citado na página #2.%
+		Citado na página #2.
 	\else
-		Citado #1 vezes nas páginas #2.%
-	\fi}%
-% ---
-
-% --- Informações de dados para CAPA e FOLHA DE ROSTO ---
-\titulo{Modelo Canônico de Artigo científico com \abnTeX}
+		Citado #1 vezes nas páginas #2.
+	\fi
+}
+% Configuração dos nomes padrões do babel
+%\addto\captionsbrazil{
+%    \renewcommand{\bibname}{Referências Bibliográficas}
+%}
+% Configuração do título das referências (anteriormente modificado)
+\renewcommand{\bibsection}{%
+    \section*{\bibname}
+    \bibmark
+    \ifnobibintoc\else
+        \phantomsection
+    \fi
+    \prebibhook
+}
+% Modificando o tamanho da fonte "large" que é 14.4pt, para 14pt
+%\renewcommand{\large}{\fontsize{14}{14}\selectfont}
+% ------------------------------------------------------------------------
+% DADOS DO DOCUMENTO
+% ------------------------------------------------------------------------
+% Informações de dados para capa
+\autor{\normalsize{\textbf{Felipe Rios da Silva Cordeiro}}
+\thanks{Graduando em Engenharia da Computação, UNIFACS. E-mail: felipe.rios.silva@outloook.com}}
+\instituicao{
+    UNIFACS - UNIVERSIDADE SALVADOR
+    ESCOLA DE ARQUITETURA, ENGENHARIA\\ E TECNOLOGIA DA INFORMAÇÃO
+    BACHARELADO EM ENGENHARIA DA COMPUTAÇÃO
+}
+\titulo{\uppercase{\normalsize{\textbf{EXECUÇÃO ESPECULATIVA:\\
+LIMITES DA EXPLORAÇÃO DE INFORMAÇÕES SENSÍVEIS}}}}
+\local{Salvador}
+%\data{2019}
+\tipotrabalho{Trabalho de Conclusão de Curso, Graduação}
+\preambulo{Trabalho de conclusão de curso apresentado ao curso de graduação em Engenharia da Computação da Universidade Salvador - UNIFACS, como requisito fundamental para obtenção do título de Engenheiro da Computação.}
+\orientador[Orientador:]{\normalsize{\textbf{Éldman de Oliveira Nunes}}}
 %\tituloestrangeiro{Canonical article template in \abnTeX: optional foreign title}
-
-\autor{
-Equipe \abnTeX\thanks{``Recomenda-se que os dados de vinculação e
-endereço constem em nota, com sistema de chamada próprio, diferente do sistema 
-adotado para citações no texto.'' \url{http://www.abntex.net.br/}} 
-\\[0.5cm] 
-Lauro César Araujo\thanks{``Constar currículo sucinto de cada autor, com 
-vinculação corporativa e endereço de contato.''} }
-
-\local{Brasil}
-\data{2018, v-1.9.7}
-% ---
-
-% ---
-% Configurações de aparência do PDF final
-
-% alterando o aspecto da cor azul
+% ------------------------------------------------------------------------
+% META DADOS DO PDF
+% ------------------------------------------------------------------------
+% Alterando o aspecto da cor azul
 \definecolor{blue}{RGB}{41,5,195}
-
-% informações do PDF
+% Informações do PDF
 \makeatletter
 \hypersetup{
-     	%pagebackref=true,
-		pdftitle={\@title}, 
-		pdfauthor={\@author},
-    	pdfsubject={Modelo de artigo científico com abnTeX2},
-	    pdfcreator={LaTeX with abnTeX2},
-		pdfkeywords={abnt}{latex}{abntex}{abntex2}{atigo científico}, 
-		colorlinks=true,       		% false: boxed links; true: colored links
-    	linkcolor=blue,          	% color of internal links
-    	citecolor=blue,        		% color of links to bibliography
-    	filecolor=magenta,      		% color of file links
-		urlcolor=blue,
-		bookmarksdepth=4
+ 	%pagebackref=true,
+	pdftitle={\@title}, 
+	pdfauthor={\@author},
+	pdfsubject={\imprimirpreambulo},
+    pdfcreator={LaTeX with abnTeX2 and Overleaf},
+	pdfkeywords={abnt}{latex}{abntex}{abntex2}{atigo científico}, 
+	colorlinks=false,       % false: boxed links; true: colored links
+	linkcolor=blue,         % color of internal links
+	citecolor=blue,        	% color of links to bibliography
+	filecolor=magenta,      % color of file links
+	urlcolor=blue,
+	bookmarksdepth=4
 }
 \makeatother
-% --- 
-
-% ---
-% compila o indice
-% ---
+% ------------------------------------------------------------------------
+% CONFIGURAÇÕES DAS FOLHAS E AJUSTES NAS FONTES GERAIS
+% ------------------------------------------------------------------------
+% Compila o índice
 \makeindex
-% ---
-
-% ---
-% Altera as margens padrões
-% ---
-\setlrmarginsandblock{3cm}{3cm}{*}
-\setulmarginsandblock{3cm}{3cm}{*}
+% Altera as margens
+\setlrmarginsandblock{3cm}{2cm}{*}
+\setulmarginsandblock{3cm}{2cm}{*}
 \checkandfixthelayout
-% ---
-
-% --- 
 % Espaçamentos entre linhas e parágrafos 
-% --- 
-
-% O tamanho do parágrafo é dado por:
-\setlength{\parindent}{1.3cm}
-
-% Controle do espaçamento entre um parágrafo e outro:
-\setlength{\parskip}{0.2cm}  % tente também \onelineskip
-
-% Espaçamento simples
-\SingleSpacing
-
+% O tamanho do parágrafo é dado por (espaçamento na primeira linha):
+\setlength{\parindent}{1.25cm}
+% O espeçamento padrão é definido como \OnehalfSpacing, ou seja, um espaço e meio conforme estabelece a ABNT NBR 14724:2011
+% ------------------------------------------------------------------------
+% CABEÇALHOS E RODAPÉS
+% ------------------------------------------------------------------------
 % Criar um novo estilo de cabeçalhos e rodapés
 \pagestyle{fancy}
-\lhead{Com S 311: Homework 1}
-\chead{Daolin Cheng}
-\rhead{\today}
+%\setlength{\headheight}{80pt}
+\fancyhf{}
+%\lhead{\includegraphics[width=0.4\textwidth]{brasao.png}}
+%\rhead{
+%{\fontsize{8}{1.5}\selectfont
+%\begin{vplace}
+%TCC - TRABALHO DE CONCLUSÃO DE CURSO\break
+%COORDENAÇÂO DE ENGENHARIA DA COMPUTAÇÃO\end{vplace}}}
+\fancypagestyle{plain}{
+    \renewcommand{\headrulewidth}{0pt}
+    \renewcommand{\footrulewidth}{0pt}
+    \fancyhfoffset[LE]{0mm}
+    \fancyhfoffset[RE]{0mm}
+    \fancyhfoffset[LO]{0mm}
+    \fancyhfoffset[RO]{0mm}
+}
+% ------------------------------------------------------------------------
+% CAPÍTULOS, SEÇÕES E SUBSEÇÕES
+% ------------------------------------------------------------------------
+% Chapter 12pt + Bold
+\renewcommand{\ABNTEXchapterfont}{\bfseries}
+\renewcommand{\ABNTEXchapterfontsize}{\normalsize}
+% Section 12pt + Bold
+\renewcommand{\ABNTEXsectionfont}{\bfseries}
+\renewcommand{\ABNTEXsectionfontsize}{\normalsize}
+% SubSection 12pt
+\renewcommand{\ABNTEXsubsectionfont}{\normalfont}
+\renewcommand{\ABNTEXsubsectionfontsize}{\normalsize}
+% SubSubSection 12pt + Bold + Underline
+\renewcommand{\ABNTEXsubsubsectionfont}{\bfseries}
+\renewcommand{\ABNTEXsubsubsectionfontsize}{\normalsize}
+\setsubsubsecheadstyle{\ABNTEXsubsubsectionfont\ABNTEXsubsubsectionfontsize\ABNTEXsubsubsectionupperifneeded\coloruline[black]}
+% SubSubSubSection 12pt + Lowercase
+\setparaheadstyle{\normalfont\ABNTEXsubsubsectionfont\ABNTEXsubsubsectionfontsize}
+% Retirando espaçamentos antes dos capítulos
+\setlength{\beforechapskip}{\baselineskip}
+% Retirando espaçamentos depois dos capítulos
+\setlength{\afterchapskip}{\baselineskip}
+% Recriando a variável que instancia o resumo
+\renewenvironment{resumoumacoluna}{}
 
-% ----
-% Início do documento
-% ----
+% ------------------------------------------------------------------------
+% INÍCIO DO DOCUMENTO
+% ------------------------------------------------------------------------
 \begin{document}
-
 % Seleciona o idioma do documento (conforme pacotes do babel)
 %\selectlanguage{english}
 \selectlanguage{brazil}
-
 % Retira espaço extra obsoleto entre as frases.
 \frenchspacing 
-
-% ----------------------------------------------------------
+% ------------------------------------------------------------------------
 % ELEMENTOS PRÉ-TEXTUAIS
-% ----------------------------------------------------------
+% ------------------------------------------------------------------------
 \pretextual
 \pagestyle{fancy}
-%---
-%
-% Se desejar escrever o artigo em duas colunas, descomente a linha abaixo
-% e a linha com o texto ``FIM DE ARTIGO EM DUAS COLUNAS''.
-% \twocolumn[    		% INICIO DE ARTIGO EM DUAS COLUNAS
-%
-%---
-
 % página de titulo principal (obrigatório)
-\maketitle
-\thispagestyle{fancy}
-
-% titulo em outro idioma (opcional)
-
-% resumo em português
+%\maketitle
+\begin{SingleSpace}
+    \begin{center}
+        \imprimirtitulo
+    \end{center}
+    \begin{flushright}
+        \imprimirautor
+        \footnote{Graduando em Engenharia da Computação, UNIFACS. E-mail: felipe.rios.silva@outloook.com}
+        \\
+        \imprimirorientador
+        \footnote{Docente Orientador Doutor em Processamento Digital de Imagens, UNIFACS. E-mail: eldman.nunes@unifacs.br}
+    \end{flushright}
+\end{SingleSpace}
+% Titulo em outro idioma (opcional)
+% Resumo em Português
 \begin{resumoumacoluna}
- Conforme a ABNT NBR 6022:2018, o resumo no idioma do documento é elemento obrigatório. 
- Constituído de uma sequência de frases concisas e objetivas e não de uma 
- simples enumeração de tópicos, não ultrapassando 250 palavras, seguido, logo 
- abaixo, das palavras representativas do conteúdo do trabalho, isto é, 
- palavras-chave e/ou descritores, conforme a NBR 6028. (\ldots) As 
- palavras-chave devem figurar logo abaixo do resumo, antecedidas da expressão 
- Palavras-chave:, separadas entre si por ponto e finalizadas também por ponto.
- 
- \vspace{\onelineskip}
- 
- \noindent
- \textbf{Palavras-chave}: latex. abntex. editoração de texto.
+    \footnotesize{\begin{SingleSpace}
+        \noindent
+        \textbf\resumoname\\
+        Conforme a ABNT NBR 6022:2018, o resumo no idioma do documento é elemento obrigatório. Constituído de uma sequência de frases concisas e objetivas e não de uma simples enumeração de tópicos, não ultrapassando 250 palavras, seguido, logo abaixo, das palavras representativas do conteúdo do trabalho, isto é, palavras-chave e/ou descritores, conforme a NBR 6028. (\ldots) As palavras-chave devem figurar logo abaixo do resumo, antecedidas da expressão Palavras-chave:, separadas entre si por ponto e finalizadas também por ponto.\\\\
+        \textbf{Palavras-chave:} latex. abntex. editoração de texto.
+        \vspace{\onelineskip}
+    \end{SingleSpace}}
 \end{resumoumacoluna}
-
-
-% resumo em inglês
+% Resumo em Inglês
 \renewcommand{\resumoname}{Abstract}
 \begin{resumoumacoluna}
- \begin{otherlanguage*}{english}
-   According to ABNT NBR 6022:2018, an abstract in foreign language is optional.
-
-   \vspace{\onelineskip}
- 
-   \noindent
-   \textbf{Keywords}: latex. abntex.
- \end{otherlanguage*}  
+    \footnotesize{\begin{SingleSpace}
+        \begin{otherlanguage*}{english}
+            \noindent
+            \textbf\resumoname\\
+            Conforme a ABNT NBR 6022:2018, o resumo no idioma do documento é elemento obrigatório. Constituído de uma sequência de frases concisas e objetivas e não de uma simples enumeração de tópicos, não ultrapassando 250 palavras, seguido, logo abaixo, das palavras representativas do conteúdo do trabalho, isto é, palavras-chave e/ou descritores, conforme a NBR 6028. (\ldots) As palavras-chave devem figurar logo abaixo do resumo, antecedidas da expressão Palavras-chave:, separadas entre si por ponto e finalizadas também por ponto.\\\\
+            \textbf{Keywords:} latex. abntex.
+        \end{otherlanguage*}
+    \end{SingleSpace}}
 \end{resumoumacoluna}
-
-% ]  				% FIM DE ARTIGO EM DUAS COLUNAS
-% ---
-
-\begin{center}\smaller
-\textbf{Data de submissão e aprovação}: elemento obrigatório. Indicar dia, mês e ano
-
-\textbf{Identificação e disponibilidade}: elemento opcional. Pode ser indicado 
-o endereço eletrônico, DOI, suportes e outras informações relativas ao acesso.
-\end{center}
-
-% ----------------------------------------------------------
+% ------------------------------------------------------------------------
 % ELEMENTOS TEXTUAIS
-% ----------------------------------------------------------
+% ------------------------------------------------------------------------
 \textual
 \pagestyle{fancy}
-
-% ----------------------------------------------------------
-% Introdução
-% ----------------------------------------------------------
+% ------------------------------------------------------------------------
+% INTRODUÇÃO
+% ------------------------------------------------------------------------
 \section{Introdução}
 
-Este documento e seu código-fonte são exemplos de referência de uso da classe
-\textsf{abntex2} e do pacote \textsf{abntex2cite}. O documento exemplifica a
-elaboração de publicação periódica científica impressa produzida conforme a ABNT
-NBR 6022:2018 \emph{Informação e documentação - Artigo em publicação periódica
-científica - Apresentação}.
+\subsection{Tema}
+A execução especulativa é uma técnica de projeto de microarquitetura, que proporciona o aprimoramento da velocidade de processamento nos processadores modernos. Está presente em muitos processadores de vários fabricantes, incluindo Intel, AMD e ARM. Esta técnica consiste na estimativa e execução de instruções, com valores ainda não conhecidos pela CPU, durante um período curto de inatividade (que acontece durante a espera de valores reais, provenientes da memória principal, que é mais lenta do que a memória cache).
 
-A expressão ``Modelo canônico'' é utilizada para indicar que \abnTeX\ não é
-modelo específico de nenhuma universidade ou instituição, mas que implementa tão
-somente os requisitos das normas da ABNT. Uma lista completa das normas
-observadas pelo \abnTeX\ é apresentada em \citeonline{abntex2classe}.
+Do ponto de vista de funcional, esta especulação traria problemas se os resultados de especulações incorretas fossem efetivados. Porém, quando a verdadeira informação é recuperada, a CPU verifica a exatidão da suposição e descarta o “caminho” (fluxo de execução) que foi executado incorretamente. Eliminando valores nos registradores, ou alterações em variáveis por exemplo.
 
-Sinta-se convidado a participar do projeto \abnTeX! Acesse o site do projeto em
-\url{http://www.abntex.net.br/}. Também fique livre para conhecer,
-estudar, alterar e redistribuir o trabalho do \abnTeX, desde que os arquivos
-modificados tenham seus nomes alterados e que os créditos sejam dados aos
-autores originais, nos termos da ``The \LaTeX\ Project Public
-License''\footnote{\url{http://www.latex-project.org/lppl.txt}}.
+Apoderando-se do conhecimento micro arquitetural necessário para se conhecer em quais situações e em quais instruções a execução especulativa ocorre, é possível um atacante forçar ou induzir a execução especulativa, por "viciar" o processador em uma cadeia de especulações e transferir as informações especuladas para um canal alternativo (como por exemplo, a memória cache). Caso a transferência seja bem-sucedida, o atacante efetua a leitura dos dados presentes no canal alternativo, neste caso na memória cache, medindo o tempo de acesso aos dados que foram especulados e comparando-os com um tempo médio de acesso (à memória cache) conhecido. Caso a informação demore de ser recuperada (baseando-se na média), supõe-se que ela não se encontra na memória cache. Caso contrário, o atacante acertou a suposição da informação correta.
 
-Encorajamos que sejam realizadas customizações específicas deste documento.
-Porém, recomendamos que ao invés de se alterar diretamente os arquivos do
-\abnTeX, distribua-se arquivos com as respectivas customizações. Isso permite
-que futuras versões do \abnTeX~não se tornem automaticamente incompatíveis com
-as customizações promovidas. Consulte \citeonline{abntex2-wiki-como-customizar}
-para mais informações.
+\subsection{Problema de Pesquisa}
+Jann Horn em seu artigo, não definiu bem algumas questões sobre a expansão dos ataques que se aproveitam da execução especulativa, como por exemplo se: há ou não possibilidades de vazar informações de softwares cujo fluxo o atacante não conhece; há ou não possibilidade de utilizar endereços de memória desconhecidos incialmente, para recuperar informações de outros softwares em execução; existe possibilidade de fazer tais ataques em softwares de terceiros.
 
-Este exemplo deve ser utilizado como complemento do manual da classe
-\textsf{abntex2} \cite{abntex2classe}, dos manuais do pacote
-\textsf{abntex2cite} \cite{abntex2cite,abntex2cite-alf} e do manual da classe
-\textsf{memoir} \cite{memoir}. Consulte o \citeonline{abntex2modelo} para obter
-exemplos e informações adicionais de uso de \abnTeX\ e de \LaTeX.
+Isto porquê, quando se descreveu os ataques utilizando a execução especulativa, os experimentos e testes demonstrados foram feitos em softwares criados pelos próprios descobridores da vulnerabilidade. Ou seja, eles possuíam endereços de memória e fluxos condicionais bem definidos para garimpar as informações sigilosas. Diante disto, é proposto uma pesquisa para responder: é possível explorar informações sensíveis de softwares cujo fluxo condicional e estrutura de memória sejam desconhecidos por meio do emprego da execução especulativa?
 
-% ----------------------------------------------------------
-% Seção de explicações
-% ----------------------------------------------------------
-\section{Exemplos de comandos}
+\subsection{Questões de Pesquisa}
+Questões abordadas por esta pesquisa:
+        1. Quais informações, como fluxo condicional, estrutura de memória e etc; são necessárias para se aplicar execução especulativa em um software?
+        2. Além de usar o tempo de retorno da memória cache para extrair as informações da própria memória cache, quais ataques de hardware também podem ser usados para desviar dados deste canal lateral?
+        3. Quais endereços da memória cache são acessíveis a um programa de nível de usuário, que podem serem utilizados como canal alternativo?
+        4. Quais são os outros canais laterais existentes (além da memória cache), que outros autores já exploraram?
+Questões de pesquisa para trabalhos futuros:
+        1. Como executar instruções mais complexas, além de somente desvios de informação, aproveitando-se da execução especulativa?
+        2. Segundo Jann Horn et al. até mesmo códigos que não contenham instruções com ramificações condicionais estão em risco. Como explorá-los?
 
-\subsection{Margens}
+\subsection{Justificativa}
+O grupo de segurança de TI da Google, Project Zero (GPZ), em uma recente descoberta (HORN, 2018), relatou duas novas classes de vulnerabilidades na arquitetura dos processadores de design moderno das fabricantes: Intel, AMD e ARM (comunicado as fabricantes em 1º de junho de 2017 e divulgado ao público em 03 de janeiro de 2018). Essas duas falhas de segurança batizadas de Spectre e Meltdown, chamam a atenção pois, segundo o estudo detalhado feito pelo grupo, elas afetaram processadores criados desde de 1995, das últimas duas décadas e mais de 230 chips irão continuar com a falha, segundo o Microcode Revision Guidance (CORPORATION, 2018b).
 
-A norma ABNT NBR 6022:2018 não estabelece uma margem específica a ser utilizada
-no artigo científico. Dessa maneira, caso deseje alterar as margens, utilize os
-comandos abaixo:
+Em uma nota oficial a Intel se pronunciou evidenciando seu comprometimento em mitigar as falhas, estudando e disponibilizando firmwares para corrigi-las (ou atenuá-las). Se defendendo também de especulações em relação ao desempenho dos processadores, depois da correção via software, afirmou que qualquer diferença no desempenho “depende da carga de trabalho e, para o usuário médio do computador, não deve ser significativo e será atenuado com o tempo” (CORPORATION, 2018a). Depois disso, publicou um informativo de segurança (CORPORATION, 2018c), informando a lista de processadores da marca atingidos pelas falhas e suas ramificações.
 
-\begin{verbatim}
-   \setlrmarginsandblock{3cm}{3cm}{*}
-   \setulmarginsandblock{3cm}{3cm}{*}
-   \checkandfixthelayout
-\end{verbatim}
+As outras fabricantes (AMD e ARM), em parceria com algumas montadoras e produtoras de softwares também se pronunciaram em notas oficiais, assumindo ou não as falhas em seus produtos e, tomando certa medida de prevenção, formaram parcerias para lançarem correções em aplicações para usuário final (browsers por exemplo), que previnem a exploração das falhas. Fabricantes de jogos que utilizam os processadores AMD ou ARM, como Sony e Nintendo, não se pronunciaram, conforme lista oficial publicada pela Universidade de Tecnologia de Graz (TECHNOLOGY, 2018).
 
-\subsection{Duas colunas}
+Depois de uma grande comoção dos fabricantes e da comunidade de software livre em busca de soluções, os autores da Universidade Católica de Leuven e os autores do IT de Israel, das Universidades de Michigan e Adelaide e da CSIRO Data61, fizeram novas publicações comprovativas de duas novas derivações da Spectre. Batizadas de Foreshadow 3 e Foreshadow-NG, em processadores de servidores e em máquinas virtuais (BULCK et al., 2018a).
 
-É comum que artigos científicos sejam escritos em duas colunas. Para isso,
-adicione a opção \texttt{twocolumn} à classe do documento, como no exemplo:
+Tal assunto adquiriu grande importância na divulgação pelos veículos de comunicação, pois é provável que muitas máquinas, aparelhos móveis, datacenters e consequentemente informações sigilosas sejam expostas e continuem sendo. Isto se dá, porque tal categoria de vulnerabilidade está em nível de hardware, e correções via software são paliativos que custam questões de desempenho.
 
-\begin{verbatim}
-   \documentclass[article,11pt,oneside,a4paper,twocolumn]{abntex2}
-\end{verbatim}
+\subsection{Objetivos}
+Em razão dos fatos supramencionados, esta pesquisa visa esclarecer, explicar e aplicar métodos desenvolvidos pelos autores citados anteriormente para expor informações de forma genérica (em softwares comuns) em computadores pessoais. Assim, o Objetivo Geral desta pesquisa é demonstrar como a execução especulativa pode ocorrer em softwares cujo o fluxo condicional e estrutura de memória se desconhece. 
+Para alcançar este Objetivo Geral, os seguintes Objetivos Específicos foram levantados: 
+    Demonstrar e explorar a falha de execução especulativa em fluxos condicionais conhecidos;
+    Demonstrar e explorar a falha de execução especulativa em fluxos condicionais desconhecidos;
+    Demonstrar e explorar a falha de execução especulativa em regiões de memória cujos endereços não são conhecidos inicialmente.
 
-É possível indicar pontos do texto que se deseja manter em apenas uma coluna,
-geralmente o título e os resumos. Os resumos em única coluna em documentos com
-a opção \texttt{twocolumn} devem ser escritos no ambiente
-\texttt{resumoumacoluna}:
+\subsection{Procedimentos Metodológicos}
+Esta é uma pesquisa com finalidade de natureza básica, com objetivos de caráter descritivos, que utiliza uma abordagem quantitativa, com procedimentos fundamentados em pesquisa de desenvolvimento, juntamente com análises e testes.
 
-\begin{verbatim}
-   \twocolumn[              % INICIO DE ARTIGO EM DUAS COLUNAS
+Trata-se de uma pesquisa básica porque além de promover o aprofundamento de um conhecimento já exposto através de pesquisas anteriores, não se descarta a possibilidade de produção de um conhecimento útil para estudos futuros sobre o assunto. Sendo assim, o autor espera complementar alguns aspectos e peculiaridades de pesquisas anteriormente feitas, preenchendo lacunas de conhecimento a respeito da execução especulativa.
 
-     \maketitle             % pagina de titulo
+É uma pesquisa descritiva, pois tem por objetivo demonstrar a possibilidade de execução da falha de especulação em circunstâncias específicas e diferentes das circunstâncias abordadas no artigo de Jann Horn. Essa comparação leva em conta artigos de outros autores que tentaram defender o processador contra o ataque utilizando outros métodos via software. Desta forma, existe uma associação entre a proteção para determinadas situações e o ataque, com determinadas circunstâncias (endereços de memória, softwares a serem explorados e etc).
 
-     \renewcommand{\resumoname}{Nome do resumo}
-     \begin{resumoumacoluna}
-        Texto do resumo.
-      
-        \vspace{\onelineskip}
- 
-        \noindent
-        \textbf{Palavras-chave}: latex. abntex. editoração de texto.
-     \end{resumoumacoluna}
-   
-   ]                        % FIM DE ARTIGO EM DUAS COLUNAS
-\end{verbatim}
+A pesquisa tem abordagem quantitativa, visto que a avaliação dos resultados possui caráter bem definido e exato do ponto de vista funcional. Avaliando a execução e não execução dos procedimentos que levam a falha e consequentemente a invasão, é possível concluir, de forma objetiva e direta, se a técnica funciona ou não. Tais resultados serão comprovados através de testes.
 
-\subsection{Recuo do ambiente \texttt{citacao}}
+A pesquisa terá seus procedimentos e resultados técnicos analisados e avaliados em máquinas virtuais e reais, induzidas ao ambiente que se é esperado para a realização dos testes. Portanto, os testes serão analisados e testados mais de uma vez, em ambientes diferentes conforme o desenvolvimento da exploração feita pelo autor.
 
-Na produção de artigos (opção \texttt{article}), pode ser útil alterar o recuo
-do ambiente \texttt{citacao}. Nesse caso, utilize o comando:
+\subsection{Organização da Monografia}
 
-\begin{verbatim}
-   \setlength{\ABNTEXcitacaorecuo}{1.8cm}
-\end{verbatim}
-
-Quando um documento é produzido com a opção \texttt{twocolumn}, a classe
-\textsf{abntex2} automaticamente altera o recuo padrão de 4 cm, definido pela
-ABNT NBR 10520:2002 seção 5.3, para 1.8 cm.
-
-\section{Cabeçalhos e rodapés customizados}
-
-Diferentes estilos de cabeçalhos e rodapés podem ser criados usando os
-recursos padrões do \textsf{memoir}.
-
-Um estilo próprio de cabeçalhos e rodapés pode ser diferente para páginas pares
-e ímpares. Observe que a diferenciação entre páginas pares e ímpares só é
-utilizada se a opção \texttt{twoside} da classe \textsf{abntex2} for utilizado.
-Caso contrário, apenas o cabeçalho padrão da página par (\emph{even}) é usado.
-
-Veja o exemplo abaixo cria um estilo chamado \texttt{meuestilo}. O código deve
-ser inserido no preâmbulo do documento.
-
-\begin{verbatim}
-%%criar um novo estilo de cabeçalhos e rodapés
-\makepagestyle{meuestilo}
-  %%cabeçalhos
-  \makeevenhead{meuestilo} %%pagina par
-     {topo par à esquerda}
-     {centro \thepage}
-     {direita}
-  \makeoddhead{meuestilo} %%pagina ímpar ou com oneside
-     {topo ímpar/oneside à esquerda}
-     {centro\thepage}
-     {direita}
-  \makeheadrule{meuestilo}{\textwidth}{\normalrulethickness} %linha
-  %% rodapé
-  \makeevenfoot{meuestilo}
-     {rodapé par à esquerda} %%pagina par
-     {centro \thepage}
-     {direita} 
-  \makeoddfoot{meuestilo} %%pagina ímpar ou com oneside
-     {rodapé ímpar/onside à esquerda}
-     {centro \thepage}
-     {direita}
-\end{verbatim}
-
-Para usar o estilo criado, use o comando abaixo imediatamente após um dos
-comandos de divisão do documento. Por exemplo:
-
-\begin{verbatim}
-   \begin{document}
-     %%usar o estilo criado na primeira página do artigo:
-     \pretextual
-     \pagestyle{meuestilo}
-     
-     \maketitle
-     ...
-     
-     %%usar o estilo criado nas páginas textuais
-     \textual
-     \pagestyle{meuestilo}
-     
-     \chapter{Novo capítulo}
-     ...
-   \end{document}  
-\end{verbatim}
-   
-Outras informações sobre cabeçalhos e rodapés estão disponíveis na seção 7.3 do
-manual do \textsf{memoir} \cite{memoir}.
-
-\section{Mais exemplos no Modelo Canônico de Trabalhos Acadêmicos}
-
-Este modelo de artigo é limitado em número de exemplos de comandos, pois são
-apresentados exclusivamente comandos diretamente relacionados com a produção de
-artigos.
-
-Para exemplos adicionais de \abnTeX\ e \LaTeX, como inclusão de figuras,
-fórmulas matemáticas, citações, e outros, consulte o documento
-\citeonline{abntex2modelo}.
-
-\section{Consulte o manual da classe \textsf{abntex2}}
-
-Consulte o manual da classe \textsf{abntex2} \cite{abntex2classe} para uma
-referência completa das macros e ambientes disponíveis.
-
-% ---
 % Finaliza a parte no bookmark do PDF, para que se inicie o bookmark na raiz
-% ---
-\bookmarksetup{startatroot}% 
-% ---
-
-% ---
-% Conclusão
-% ---
-\section{Considerações finais}
-
-\lipsum[1]
-
-\begin{citacao}
-\lipsum[2]
-\end{citacao}
-
-\lipsum[3]
-
-% ----------------------------------------------------------
+\bookmarksetup{startatroot}
+% ------------------------------------------------------------------------
+% CONCLUSÃO
+% ------------------------------------------------------------------------
+%\section{Considerações finais}
+%\lipsum[31]
+% ------------------------------------------------------------------------
 % ELEMENTOS PÓS-TEXTUAIS
-% ----------------------------------------------------------
+% ------------------------------------------------------------------------
 \postextual
-
-% ----------------------------------------------------------
-% Referências bibliográficas
-% ----------------------------------------------------------
-\bibliography{abntex2-modelo-references}
-
-% ----------------------------------------------------------
-% Glossário
-% ----------------------------------------------------------
-%
-% Há diversas soluções prontas para glossário em LaTeX. 
-% Consulte o manual do abnTeX2 para obter sugestões.
-%
-%\glossary
-
-% ----------------------------------------------------------
-% Apêndices
-% ----------------------------------------------------------
-
-% ---
-% Inicia os apêndices
-% ---
+% ------------------------------------------------------------------------
+% REFERẼNCIAS
+% ------------------------------------------------------------------------
+\bibliography{referencias}
+% ------------------------------------------------------------------------
+% APÊNDICES
+% ------------------------------------------------------------------------
 \begin{apendicesenv}
-
-% ----------------------------------------------------------
-\chapter{Nullam elementum urna vel imperdiet sodales elit ipsum pharetra ligula
-ac pretium ante justo a nulla curabitur tristique arcu eu metus}
-% ----------------------------------------------------------
-\lipsum[55-56]
-
+%\chapter{Cras non urna sed feugiat cum sociis natoque penatibus et magnis dis parturient montes nascetur ridiculus mus}
+%\lipsum[31]
 \end{apendicesenv}
-% ---
-
-% ----------------------------------------------------------
-% Anexos
-% ----------------------------------------------------------
-\cftinserthook{toc}{AAA}
-% ---
-% Inicia os anexos
-% ---
-%\anexos
+% ------------------------------------------------------------------------
+% ANEXOS
+% ------------------------------------------------------------------------
 \begin{anexosenv}
-
-% ---
-\chapter{Cras non urna sed feugiat cum sociis natoque penatibus et magnis dis
-parturient montes nascetur ridiculus mus}
-% ---
-
-\lipsum[31]
-
+\vspace{\onelineskip}
+%\chapter{Cras non urna sed feugiat cum sociis natoque penatibus et magnis dis parturient montes nascetur ridiculus mus}
+%\lipsum[31]
 \end{anexosenv}
-
-% ----------------------------------------------------------
-% Agradecimentos
-% ----------------------------------------------------------
-
+% ------------------------------------------------------------------------
+% AGRADECIMENTOS
+% ------------------------------------------------------------------------
 \section*{Agradecimentos}
-Texto sucinto aprovado pelo periódico em que será publicado. Último 
-elemento pós-textual.
-
+%\lipsum[31]
+% ------------------------------------------------------------------------
+% FINAL DO DOCUMENTO
+% ------------------------------------------------------------------------
 \end{document}
