@@ -241,22 +241,31 @@ LIMITES DA EXPLORAÇÃO DE INFORMAÇÕES SENSÍVEIS}}}}
 % ---------------------------------
 % TEMA
 % ---------------------------------
-\subsection{Tema}
+%\subsection{Tema}
+A execução especulativa é uma técnica de projeto de microarquitetura, que proporciona o aprimoramento da velocidade de processamento nos processadores modernos. Esta técnica consiste na estimativa e execução de instruções, com valores ainda não conhecidos pela CPU, durante um período curto de inatividade. E, com o conhecimento micro arquitetural necessário, é possível um atacante induzir a execução especulativa errônea, por "viciar" o processador em uma cadeia de especulações e transferir as informações especuladas para um canal alternativo de que pode ser lido.
+
+\begin{comment}
 A execução especulativa é uma técnica de projeto de microarquitetura, que proporciona o aprimoramento da velocidade de processamento nos processadores modernos. Está presente em muitos processadores de vários fabricantes, incluindo \emph{Intel}, \emph{AMD} e \emph{ARM Holdings}. Esta técnica consiste na estimativa e execução de instruções, com valores ainda não conhecidos pela CPU, durante um período curto de inatividade (que acontece durante a espera de valores reais, provenientes da memória principal, que é mais lenta do que a memória cache).
 
 Do ponto de vista de funcional, esta especulação traria problemas se os resultados de especulações incorretas fossem efetivados. Porém, quando a verdadeira informação é recuperada, a CPU verifica a exatidão da suposição e descarta o “caminho” (fluxo de execução) que foi executado incorretamente. Eliminando valores nos registradores, ou alterações em variáveis por exemplo.
 
 Apoderando-se do conhecimento micro arquitetural necessário para se conhecer em quais situações e em quais instruções a execução especulativa ocorre, é possível um atacante forçar ou induzir a execução especulativa, por "viciar" o processador em uma cadeia de especulações e transferir as informações especuladas para um canal alternativo (como por exemplo, a memória cache). Caso a transferência seja bem-sucedida, o atacante efetua a leitura dos dados presentes no canal alternativo, neste caso na memória cache, medindo o tempo de acesso aos dados que foram especulados e comparando-os com um tempo médio de acesso (à memória cache) conhecido. Caso a informação demore de ser recuperada (baseando-se na média), supõe-se que ela não se encontra na memória cache. Caso contrário, o atacante acertou a suposição da informação correta.
+\end{comment}
 % ---------------------------------
 % PROBLEMA DE PESQUISA
 % ---------------------------------
-\subsection{Problema de Pesquisa}
+%\subsection{Problema de Pesquisa}
+\citeonline{Kocher2018spectre} descreve os ataques utilizando a execução especulativa com experimentos e testes em softwares criados para esta finalidade. Ou seja, \emph{softwares} que possuem endereços de memória e fluxos condicionais bem definidos para garimpar as informações sigilosas. Diante disto, é proposto uma pesquisa para responder: é possível explorar informações sensíveis de softwares cujo fluxo condicional e estrutura de memória sejam desconhecidos por meio do emprego da execução especulativa?
+
+\begin{comment}
 \citeonline{Kocher2018spectre} em seu artigo, não definiu bem algumas questões sobre a expansão dos ataques que se aproveitam da execução especulativa, como por exemplo se: há ou não possibilidades de vazar informações de softwares cujo fluxo o atacante não conhece; há ou não possibilidade de utilizar endereços de memória desconhecidos inicialmente, para recuperar informações de outros softwares em execução; existe possibilidade de fazer tais ataques em softwares de terceiros.
 
 Isto porquê, quando se descreveu os ataques utilizando a execução especulativa, os experimentos e testes demonstrados foram feitos em softwares criados pelos próprios descobridores da vulnerabilidade. Ou seja, eles possuíam endereços de memória e fluxos condicionais bem definidos para garimpar as informações sigilosas. Diante disto, é proposto uma pesquisa para responder: é possível explorar informações sensíveis de softwares cujo fluxo condicional e estrutura de memória sejam desconhecidos por meio do emprego da execução especulativa?
+\end{comment}
 % ---------------------------------
 % QUESTÕES DE PESQUISA
 % ---------------------------------
+\begin{comment}
 \subsection{Questões de Pesquisa}
 \begin{itemize}
     \item Questões abordadas por esta pesquisa:
@@ -272,10 +281,14 @@ Isto porquê, quando se descreveu os ataques utilizando a execução especulativ
 	    \item \label{qf1} Segundo \citeonline{Kocher2018spectre} até mesmo códigos que não contenham instruções com ramificações condicionais estão em risco. Como explorá-los?
 	\end{enumerate}
 \end{itemize}
+\end{comment}
 % ---------------------------------
 % JUSTIFICATIVA
 % ---------------------------------
-\subsection{Justificativa}
+%\subsection{Justificativa}
+Em termos de abrangência destes ataques, é possível afirmar que chips da \emph{Intel} desde de 1995 (exceto \emph{Intel Itanium} e \emph{Intel Atom} antes de 2013), alguns de arquitetura \emph{ARM} (\emph{Advanced RISC Machine}) e outros feitos pela \emph{AMD}, foram afetados. Servidores na nuvem, celulares, desktops, notebooks e basicamente todos os chips que podem manter muitas instruções em execução, podem ter dados sigilosos comprometidos. E, segundo o \emph{Microcode Revision Guidance} da \emph{Intel}, 193 MCUs (\emph{Microcontroller Unit}) irão continuar com a falha, pois apresentaram questões de instabilidade com a mitigação das vulnerabilidades \cite{intel-mug}.
+
+\begin{comment}
 Três grupos compostos por: Jann Horn (\emph{Google Project Zero}); Werner Haas e Thomas Prescher (\emph{Cyberus Technology}); Daniel Gruss, Moritz Lipp, Stefan Mangard e Michael Schwarz (\emph{Graz University of Technology}), em descobertas independentes relataram duas vulnerabilidades na arquitetura dos processadores de design moderno das fabricantes: \emph{Intel}, \emph{AMD} e \emph{ARM Holdings} (comunicado as fabricantes em 1º de Junho de 2017 e divulgado ao público em 03 de Janeiro de 2018). Essas duas falhas de segurança batizadas de \emph{Spectre}\footnote{Especulativo, espectro, ou fantasma ("speculative", inglês). O nome deriva da causa da falha.} \cite{Kocher2018spectre} e \emph{Meltdown}\footnote{Colapso, ou derreter ("melt", inglês). O nome deriva da consequência da exploração da falha.} \cite{Lipp2018meltdown} chamam a atenção pois, segundo o estudo detalhado feito pelos grupos, elas se aproveitam da execução especulativa das MCUs (\emph{Microcontroller Unit}).
 
 Em termos quantitativos, chips da \emph{Intel} desde de 1995 (exceto \emph{Intel Itanium} e \emph{Intel Atom} antes de 2013), alguns de arquitetura \emph{ARM} (\emph{Advanced RISC Machine}) e outros feitos pela \emph{AMD}, foram afetados. Servidores na nuvem, celulares, desktops, notebooks e basicamente todos os chips que podem manter muitas instruções em execução, podem ter dados sigilosos comprometidos. E, segundo o \emph{Microcode Revision Guidance} da \emph{Intel}, 193 MCUs irão continuar com a falha, pois apresentaram questões de instabilidade com a mitigação das vulnerabilidades \cite{intel-mug}.
@@ -289,9 +302,13 @@ Em 03 de Janeiro de 2018, pesquisadores da Universidade Católica de Leuven e do
 Em 01 de Março de 2019, pesquisadores do Instituto Politécnico de Worcester e da Universidade de Lübeck, publicaram um artigo expondo mais uma possibilidade de exploração do comportamento arquitetural dos processadores da \emph{Intel}. Chamada de \emph{Spoiler}, esta nova vulnerabilidade não é uma variação das anteriores e nenhum dos métodos de mitigação divulgados até a data desta pesquisa, suprimem esta nova forma de realizar vazamentos de informações \cite{islam2019spoiler}.
 
 Tal assunto adquiriu grande importância na divulgação pelos veículos de comunicação, pois é provável que muitas máquinas, aparelhos móveis, \emph{datacenters} e consequentemente informações sigilosas sejam expostas e continuem sendo. Isto se dá, porque tal categoria de vulnerabilidade está em nível de \emph{hardware}, e correções via \emph{software} são paliativos que custam questões de desempenho.
+\end{comment}
 % ---------------------------------
 % OBJETIVOS
 % ---------------------------------
+É provável que muitas máquinas, aparelhos móveis, \emph{datacenters} e consequentemente informações sigilosas sejam expostas e continuem sendo. Isto se dá, porque tal categoria de vulnerabilidade está em nível de \emph{hardware}, e correções via \emph{software} são paliativos que custam questões de desempenho. E em razão disto, esta pesquisa visa esclarecer, explicar e aplicar métodos desenvolvidos pelos pesquisadores citados anteriormente para expor informações de forma genérica (em \emph{softwares} comuns) em computadores pessoais. Assim, o \textbf{objetivo geral} desta pesquisa é demonstrar como a exploração da execução especulativa pode ocorrer em \emph{softwares} cujo o fluxo condicional e estrutura de memória se desconhece.
+
+\begin{comment}
 \subsection{Objetivos}
 Em razão dos fatos supramencionados, esta pesquisa visa esclarecer, explicar e aplicar métodos desenvolvidos pelos autores citados anteriormente para expor informações de forma genérica (em \emph{softwares} comuns) em computadores pessoais. Assim, o \textbf{objetivo geral} desta pesquisa é demonstrar como a execução especulativa pode ocorrer em \emph{softwares} cujo o fluxo condicional e estrutura de memória se desconhece.
 
@@ -301,9 +318,13 @@ Para alcançar este \textbf{objetivo geral}, os seguintes \textbf{objetivos espe
     \item \label{o2} Demonstrar e explorar a falha de execução especulativa em fluxos condicionais desconhecidos;
     \item \label{o3} Demonstrar e explorar a falha de execução especulativa em regiões de memória cujos endereços não são conhecidos inicialmente.
 \end{enumerate}
+\end{comment}
 % ---------------------------------
 % PROCEDIMENTOS METODOLÓGICOS
 % ---------------------------------
+Esta é uma pesquisa com finalidade de natureza básica, com objetivos de caráter descritivos, que utiliza uma abordagem quantitativa, com procedimentos fundamentados em pesquisa de desenvolvimento, juntamente com análises e testes. Trata-se de uma \textbf{pesquisa básica} porque além de promover o aprofundamento de um conhecimento já exposto através de pesquisas anteriores, não se descarta a possibilidade de produção de um conhecimento útil para estudos futuros sobre o assunto. Sendo assim, o autor espera complementar alguns aspectos e peculiaridades de pesquisas anteriormente feitas, preenchendo lacunas de conhecimento a respeito da execução especulativa.
+
+\begin{comment}
 \subsection{Procedimentos Metodológicos}
 Esta é uma pesquisa com finalidade de natureza básica, com objetivos de caráter descritivos, que utiliza uma abordagem quantitativa, com procedimentos fundamentados em pesquisa de desenvolvimento, juntamente com análises e testes.
 
@@ -314,10 +335,11 @@ Trata-se de uma \textbf{pesquisa básica} porque além de promover o aprofundame
 A pesquisa tem \textbf{abordagem quantitativa}, visto que a avaliação dos resultados possui caráter bem definido e exato do ponto de vista funcional. Avaliando a execução e não execução dos procedimentos que levam a falha e consequentemente a invasão, é possível concluir, de forma objetiva e direta, se a técnica funciona ou não. Tais resultados serão comprovados através de testes.
 
 A pesquisa terá seus procedimentos e resultados técnicos analisados e avaliados em máquinas virtuais e reais, induzidas ao ambiente que se é esperado para a realização dos testes. Portanto, os testes serão analisados e testados mais de uma vez, em ambientes diferentes conforme o desenvolvimento da exploração feita pelo autor.
+\end{comment}
 % ---------------------------------
 % ORGANIZAÇÃO DO ARTIGO
 % ---------------------------------
-\subsection{Organização do Artigo}
+%\subsection{Organização do Artigo}
 O restante do artigo está organizado como se segue: a seção 2, \textbf{Revisão Teórica}, aborda os conceitos de \emph{Pipeline}, \emph{Branch Condition}, \emph{Branch Target Buffer}, \emph{Cache  Levels} e Execução Especulativa, além dos trabalhos relacionados a \textbf{Ataques de Canais Laterais}. A seção 3, Metodologia, classifica a pesquisa e detalha os procedimentos metodológicos empregados. A seção 4, Possibilidades e Limites Explorativos, apresenta os testes e análises feitas, a partir de códigos de outros pesquisadores e artigos relacionados, visando solucionar o problema descrito. A seção 5, apresenta a \textbf{Conclusão}, discute os resultados alcançados, limitações encontradas, perspectivas futuras e conclusões finais.
 
 % Finaliza a parte no bookmark do PDF, para que se inicie o bookmark na raiz
