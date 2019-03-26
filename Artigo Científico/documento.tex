@@ -42,7 +42,7 @@
 \usepackage{lipsum}				% Para geração de dummy text
 % Pacotes de citações
 \usepackage[brazilian,hyperpageref]{backref}	 % Paginas com as citações na bibliografia
-\usepackage[alf,bibjustif,abnt-emphasize=bf]{abntex2cite}  % Citações padrão ABNT, forçar a justificação da bibliografia e enfatizar com negrito
+\usepackage[alf,bibjustif,abnt-emphasize=bf,abnt-etal-text=emph]{abntex2cite}  % Citações padrão ABNT, forçar a justificação da bibliografia e enfatizar com negrito
 % Pacotes extras 
 \usepackage{fancyhdr}           % Personalização do cabeçalho e rodapé
 % ------------------------------------------------------------------------
@@ -241,7 +241,7 @@ LIMITES DA EXPLORAÇÃO DE INFORMAÇÕES SENSÍVEIS}}}}
 % ---------------------------------
 % TEMA
 % ---------------------------------
-A execução especulativa é uma técnica de projeto de microarquitetura, que proporciona o aprimoramento da velocidade de processamento nas CPUs modernas. Esta técnica consiste na estimativa e execução de instruções com valores ainda não conhecidos pela CPU, durante um período curto de inatividade. Do ponto de vista de funcional, esta especulação traria problemas se os resultados de especulações incorretas fossem efetivados. Porém, quando a verdadeira informação é recuperada, a CPU verifica a exatidão da suposição e descarta o ``caminho'' (fluxo de execução) que foi executado incorretamente. Eliminando valores nos registradores ou alterações em variáveis, por exemplo.
+A execução especulativa é uma técnica de projeto de microarquitetura, que proporciona o aprimoramento da velocidade de processamento nas CPUs modernas. Esta técnica consiste na estimativa e execução de instruções com valores ainda não conhecidos pela CPU, durante um período curto de inatividade. Do ponto de vista funcional, esta especulação traria problemas se os resultados de especulações incorretas fossem efetivados. Porém, quando a verdadeira informação é recuperada, a CPU verifica a exatidão da suposição e descarta o ``caminho'' (fluxo de execução) que foi executado incorretamente, eliminando os valores nos registradores ou alterações em variáveis, por exemplo.
 
 Utilizando ataques de canais laterais, \citeonline{Lipp2018meltdown} e \citeonline{Kocher2018spectre} provaram que é possível recuperar informações privilegiadas que foram especuladas, através da memória cache, que não é revertida quando uma especulação errônea da CPU acontece. A partir disto, com o conhecimento microarquitetural necessário, é possível um atacante induzir a execução especulativa errônea, por ``viciar'' o processador em uma cadeia de especulações e transferir as informações especuladas para um canal lateral (alternativo) que pode ser lido posteriormente.
 
@@ -287,7 +287,7 @@ Isto porquê, quando se descreveu os ataques utilizando a execução especulativ
 % ---------------------------------
 % JUSTIFICATIVA
 % ---------------------------------
-Os ataques de canais laterais dirigidos a \emph{softwares} cujas estruturas são conhecidas, acontecem em condições específicas. Quando por exemplo, existem regiões compartilhadas de memória entre vítma e atacante. Mesmo assim, a abrangência destes ataques é considerável: é possível afirmar que chips da \emph{Intel} desde de 1995 (exceto \emph{Intel Itanium} e \emph{Intel Atom} antes de 2013), alguns de arquitetura \emph{ARM} (\emph{Advanced RISC Machine}) e outros feitos pela \emph{AMD}, foram afetados. Servidores na nuvem, celulares, desktops, notebooks e basicamente todos os chips que podem manter muitas instruções em execução, podem ter dados sigilosos comprometidos. E, segundo o \emph{Microcode Revision Guidance} da \emph{Intel}, 193 MCUs (\emph{Microcontroller Unit}) irão continuar com a falha, pois apresentaram instabilidade com a mitigação das vulnerabilidades \cite{intel-mug}.
+Os ataques de canais laterais dirigidos a \emph{softwares} cujas estruturas são conhecidas, acontecem em condições específicas. Quando por exemplo, existem regiões compartilhadas de memória entre a vítima e o atacante. Mesmo assim, a abrangência destes ataques é considerável: é possível afirmar que chips da \emph{Intel} desde 1995 (exceto \emph{Intel Itanium} e \emph{Intel Atom} antes de 2013), alguns de arquitetura \emph{ARM} (\emph{Advanced RISC Machine}) e outros feitos pela \emph{AMD}, foram afetados. Servidores na nuvem, celulares, desktops, notebooks e basicamente todos os chips que podem manter muitas instruções em execução, podem ter dados sigilosos comprometidos. Segundo o \emph{Microcode Revision Guidance} da \emph{Intel}, 193 MCUs (\emph{Microcontroller Unit}) irão continuar com a falha, pois apresentaram instabilidade com a mitigação das vulnerabilidades \cite{intel-mug}.
 
 \begin{comment}
 \subsection{Justificativa}
@@ -308,7 +308,7 @@ Tal assunto adquiriu grande importância na divulgação pelos veículos de comu
 % ---------------------------------
 % OBJETIVOS
 % ---------------------------------
-É provável que muitas máquinas, aparelhos móveis, \emph{datacenters} e consequentemente informações sigilosas sejam expostas e continuem sendo. Isto acontece porque, tal categoria de vulnerabilidade se encontra em nível de \emph{hardware}, e correções via \emph{software} são paliativos que custam questões de desempenho e estabilidade. Em razão disto, esta pesquisa visa esclarecer, explicar e aplicar métodos desenvolvidos pelos pesquisadores supramencionados, para expor informações de forma genérica em \emph{softwares} que não compartilham da mesma estrutura. Ou seja, que não compartilham a mesma região de memória virtual, e que ocupam regiões dentro do espaço disponível para o usuário. Demonstrando assim, como a exploração da execução especulativa pode ocorrer em \emph{softwares} cujo o fluxo condicional e estrutura de memória se desconhece, afim de ``vazar'' informações sensíveis.
+Os ataques de canais laterais que se aproveitam da execução especulativa, constituem-se um assunto relevante devido a probabilidade de que muitas máquinas, aparelhos móveis, \emph{datacenters} e consequentemente informações sigilosas estejam expostas. Isto acontece porque, tal categoria de vulnerabilidade se encontra em nível de \emph{hardware}, e correções via \emph{software} são paliativos que custam questões de desempenho e estabilidade. Em razão disto, esta pesquisa visa esclarecer, explicar e aplicar métodos desenvolvidos pelos pesquisadores supramencionados, para expor informações de forma genérica em \emph{softwares} que não compartilham da mesma estrutura. Ou seja, que não compartilham a mesma região de memória virtual, e que ocupam regiões dentro do espaço disponível para o usuário. Demonstrando assim, como a exploração da execução especulativa pode ocorrer em \emph{softwares} cujo o fluxo condicional e estrutura de memória se desconhece, afim de ``vazar'' informações sensíveis.
 
 \begin{comment}
 \subsection{Objetivos}
@@ -324,7 +324,7 @@ Para alcançar este \textbf{objetivo geral}, os seguintes \textbf{objetivos espe
 % ---------------------------------
 % PROCEDIMENTOS METODOLÓGICOS
 % ---------------------------------
-Para a obtenção de êxito nesta busca por limites de exploração destes dados sensíveis, esta pesquisa terá seus procedimentos e resultados técnicos analisados e avaliados em máquinas virtuais e reais, induzidas ao ambiente que se é esperado para a realização dos testes. Portanto, os testes serão analisados e testados mais de uma vez, em ambientes diferentes conforme o desenvolvimento da exploração feita pelo autor. O intuito disto é promover o aprofundamento de um conhecimento já exposto através de pesquisas anteriores, não se descartando a possibilidade de produção de um conhecimento útil para estudos futuros sobre o assunto. Sendo assim, o autor espera complementar alguns aspectos e peculiaridades de pesquisas anteriormente feitas, preenchendo lacunas de conhecimento a respeito da execução especulativa e dos ataques de canais laterais.
+Para a obtenção de êxito nesta busca por limites de exploração destes dados sensíveis, esta pesquisa teve seus procedimentos e resultados técnicos analisados e avaliados em máquinas virtuais e reais, induzidas ao ambiente que se é esperado para a realização dos testes. Portanto, os testes foram analisados e testados mais de uma vez, em ambientes diferentes conforme o desenvolvimento da exploração feita pelo autor. O intuito disto é promover o aprofundamento de um conhecimento já exposto através de pesquisas anteriores, não se descartando a possibilidade de produção de um conhecimento útil para estudos futuros sobre o assunto. Sendo assim, o autor espera complementar alguns aspectos e peculiaridades de pesquisas anteriormente feitas, preenchendo lacunas de conhecimento a respeito da execução especulativa e dos ataques de canais laterais.
 
 \begin{comment}
 \subsection{Procedimentos Metodológicos}
