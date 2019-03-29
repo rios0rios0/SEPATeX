@@ -328,50 +328,36 @@ Para alcançar este \textbf{objetivo geral}, os seguintes \textbf{objetivos espe
 % ---------------------------------
 Para a obtenção de êxito nesta busca por limites de exploração destes dados sensíveis, esta pesquisa teve seus procedimentos e resultados técnicos analisados e avaliados em máquinas virtuais e reais, induzidas ao ambiente que se é esperado para a realização dos testes. Portanto, os testes foram analisados e testados mais de uma vez, em ambientes diferentes conforme o desenvolvimento da exploração feita pelo autor. O intuito disto é promover o aprofundamento de um conhecimento já exposto através de pesquisas anteriores, não se descartando a possibilidade de produção de um conhecimento útil para estudos futuros sobre o assunto. Sendo assim, o autor espera complementar alguns aspectos e peculiaridades de pesquisas anteriormente feitas, preenchendo lacunas de conhecimento a respeito da execução especulativa e dos ataques de canais laterais.
 
-\begin{comment}
-\subsection{Procedimentos Metodológicos}
-Esta é uma pesquisa com finalidade de natureza básica, com objetivos de caráter descritivos, que utiliza uma abordagem quantitativa, com procedimentos fundamentados em pesquisa de desenvolvimento, juntamente com análises e testes.
+% ---------------------------------
+% ORGANIZAÇÃO DO ARTIGO
+% ---------------------------------
+Para melhor segmentação e explanação do conhecimento visando o entendimento do leitor, as outras seções do artigo estão dispostas como se segue: a seção 2, \textbf{referencial teórico}, aborda os conceitos de \emph{pipeline}, \emph{branch condition}, \emph{branch target buffer}, \emph{cache levels} e execução especulativa, além dos trabalhos relacionados a ataques de canais laterais. A seção 3, \textbf{referencial metodológico}, classifica a pesquisa e detalha os procedimentos metodológicos empregados. A seção 4, \textbf{resultados e discussões}, apresenta os testes e análises feitas a partir de códigos de outros pesquisadores e artigos relacionados, visando solucionar o problema descrito. E a seção 5, apresenta a \textbf{conclusão}, discute os resultados alcançados, limitações encontradas, perspectivas futuras e conclusões finais.
+
+% ------------------------------------------------------------------------
+% REFERENCIAL METODOLÓGICO
+% ------------------------------------------------------------------------
+\section{Referencial Metodológico}
+Classificação da pesquisa. Apresentação, classificação e descrição dos métodos e dos procedimentos técnicos utilizados neste trabalho.
+% ---------------------------------
+% CLASSIFICAÇÃO DA PESQUISA
+% ---------------------------------
+\subsection{Método}
+Esta é uma pesquisa com finalidade de natureza básica, com objetivos de caráter descritivos, que utiliza uma abordagem quantitativa, com procedimentos fundamentados em pesquisa bibliográfica, documental e experimental. Caracterizada por um estudo transversal, levando em conta os resultados de análises e testes conduzidos em um ambiente previamente configurado, ou seja, em um laboratório.
 
 Trata-se de uma \textbf{pesquisa básica} porque além de promover o aprofundamento de um conhecimento já exposto através de pesquisas anteriores, não se descarta a possibilidade de produção de um conhecimento útil para estudos futuros sobre o assunto. Sendo assim, o autor espera complementar alguns aspectos e peculiaridades de pesquisas anteriormente feitas, preenchendo lacunas de conhecimento a respeito da execução especulativa.
 
 É uma \textbf{pesquisa descritiva}, pois tem por objetivo demonstrar a possibilidade de execução da falha de especulação em circunstâncias específicas e diferentes das circunstâncias abordadas no artigo de \citeonline{Kocher2018spectre}. Essa comparação leva em conta artigos de outros autores que tentaram defender o processador contra o ataque utilizando outros métodos via \emph{software}. Desta forma, existe uma associação entre a proteção para determinadas situações e o ataque, com determinadas circunstâncias (endereços de memória, \emph{softwares} a serem explorados e técnicas para isto).
 
-A pesquisa tem \textbf{abordagem quantitativa}, visto que a avaliação dos resultados possui caráter bem definido e exato do ponto de vista funcional. Avaliando a execução e não execução dos procedimentos que levam a falha e consequentemente a invasão, é possível concluir, de forma objetiva e direta, se a técnica funciona ou não. Tais resultados serão comprovados através de testes.
+A pesquisa utiliza uma \textbf{abordagem quantitativa}, visto que a avaliação dos resultados possui caráter bem definido e exato do ponto de vista funcional. Avaliando a execução e não execução dos procedimentos que levam a falha e consequentemente ao vazamento, é possível concluir, de forma objetiva e direta, se a técnica funciona ou não. Tais resultados foram comprovados através de testes.
 
-A pesquisa terá seus procedimentos e resultados técnicos analisados e avaliados em máquinas virtuais e reais, induzidas ao ambiente que se é esperado para a realização dos testes. Portanto, os testes serão analisados e testados mais de uma vez, em ambientes diferentes conforme o desenvolvimento da exploração feita pelo autor.
-\end{comment}
+Os procedimentos técnicos adotados pelo autor baseiam-se em técnicas de pequisa bibliográfica, documental e experimental. O \textbf{procedimento bibliográfico} foi adotado pois proporciona a condição de comparação histórica com a literatura, além de conferir o embasamento teórico veraz necessário (desconsiderando literaturas sensacionalistas, imprecisas ou sem fontes sólidas), creditando aos autores primários suas devidas contribuições para o ponto atingido deste trabalho. O \textbf{procedimento documental} confere a garantia de consulta e comparação dos artigos primários, com a literatura não processada (manuais, guias e notas oficiais dos fabricantes). E o \textbf{procedimento experimental} proporcionou ao autor agregar valor ao trabalho em questão através de testes e experimentos. Para isto, os objetos de estudo foram os processadores físicos disponíveis, e os \emph{exploits} foram os meios de controle utilizados para modificar o comportamento dos objetos de estudo. Visando o acréscimo de todo conhecimento anterior.
+
+Estes procedimentos técnicos, juntamente com os resultados, foram analisados e avaliados durante um determinado período de tempo. Sendo que, as variáveis observadas são relativas a momentos instantâneos de regiões dinâmicas de memória, conferindo uma característica \textbf{transversal} ao estudo, tratando-se de tempo de aplicação.
+
+A localização física desta pesquisa é irrelevante (por ter como objetivo apurar informações lógicas), contudo foi conduzida em \textbf{máquinas virtuais e reais}. Um ambiente laboratorial previamente configurado foi utilizado para simular tanto a ausência de defesa (contra o vazamento de informações), como também a presença dos mecanismos de defesa. Por isso, foi necessário testar cada cenário criado de forma exaustiva, utilizando os \emph{exploits} em ordem cronológica, respeitando a ordem de, condições conhecidas para, condições desconhecidas.
 % ---------------------------------
-% ORGANIZAÇÃO DO ARTIGO
+% CLASSIFICAÇÃO DOS PROCEDIMENTOS
 % ---------------------------------
-Para melhor segmentação e explanação do conhecimento visando o entendimento do leitor, as outras seções do artigo estão dispostas como se segue: a seção 2, \textbf{referencial teórico}, aborda os conceitos de \emph{pipeline}, \emph{branch condition}, \emph{branch target buffer}, \emph{cache levels} e execução especulativa, além dos trabalhos relacionados a ataques de canais laterais. A seção 3, \textbf{referencial metodológico}, classifica a pesquisa e detalha os procedimentos metodológicos empregados. A seção 4, \textbf{resultados e discussões}, apresenta os testes e análises feitas, a partir de códigos de outros pesquisadores e artigos relacionados, visando solucionar o problema descrito. E a seção 5, apresenta a \textbf{conclusão}, discute os resultados alcançados, limitações encontradas, perspectivas futuras e conclusões finais.
-
-\begin{comment}
-\subsection{Organização do Artigo}
-O restante do artigo está organizado como se segue: a seção 2, \textbf{Revisão Teórica}, aborda os conceitos de \emph{Pipeline}, \emph{Branch Condition}, \emph{Branch Target Buffer}, \emph{Cache  Levels} e Execução Especulativa, além dos trabalhos relacionados a \textbf{Ataques de Canais Laterais}. A seção 3, Metodologia, classifica a pesquisa e detalha os procedimentos metodológicos empregados. A seção 4, Possibilidades e Limites Explorativos, apresenta os testes e análises feitas, a partir de códigos de outros pesquisadores e artigos relacionados, visando solucionar o problema descrito. A seção 5, apresenta a \textbf{Conclusão}, discute os resultados alcançados, limitações encontradas, perspectivas futuras e conclusões finais.
-\end{comment}
-% ------------------------------------------------------------------------
-% REFERENCIAL METODOLÓGICO
-% ------------------------------------------------------------------------
-\begin{comment}
-\section{Referencial Metodológico}
-Esta seção apresenta o método e os procedimentos metodológicos usados neste trabalho.
-\subsection{Método}
-Classifique a Pesquisa:
-Quanto a natureza: básica ou aplicada
-Quanto aos objetivos: exploratória, descritiva ou explicativa
-Quanto à abordagem: quantitativa, qualitativa ou quali-quantitativa
-Quanto ao local de realização da mesma: laboratório ou campo
-
-Classifique a Pesquisa:
-Quanto aos procedimentos técnicos: Bibliográfica, Documental, Estudo de Caso, de Observação, de Levantamento, Experimental, de Desenvolvimento, Correlacional, Epidemiológica, de Simulação, outro
-Quanto ao tempo de aplicação do estudo: Estudo transversal (que se realiza em determinado instante de tempo) Estudo longitudinal (os dados são coletados ao longo do tempo, com obtenção sistemática e lenta de resultados)
-
-Exemplo:
-
-Esta é uma pesquisa de natureza aplicada, com objetivos de caráter descritivos, que emprega uma abordagem quali-quantitativa, com procedimentos fundamentados em pesquisa de desenvolvimento e condução em laboratório.
-
-Trata-se de pesquisa aplicada porque visa o desenvolvimento de uma solução computacional, para solução do problema da parametrização dos ajustes do ventilador mecânico.  É uma pesquisa descritiva, pois tem por objetivo indicar a existência de associação entre as variáveis do paciente e do ventilador mecânico.   A pesquisa tem abordagem quali-quantitativa, tendo em vista que a validação do modelo possui tanto caráter subjetivo quanto objetivo, aliando a concordância de juízes-especialistas da área médica com a análise estatística dos resultados obtidos pela RNA. Quanto aos procedimentos técnicos, é uma pesquisa de desenvolvimento, com propósito de modelar uma rede neural capaz de realizar automaticamente os ajustes necessários no ventilador mecânico. Quanto à localização, esta é uma pesquisa de laboratório, pois a construção, emprego e validação da RNA será conduzida em ambiente controlado.  
-
 \subsection{Procedimentos Metodológicos}
 Descreva os parâmetros as variáveis observadas (dependente, independente, moderadoras, de controle, extrínsecas interveniente e antecedente), os parâmetros estatísticos (população, amostra, margem de erro, confiabilidade, tipo de amostragem)
 Descreva o método ou modelo o processo de desenvolvimento (cascata, espiral, prototipagem evolutiva ou outro), os modelos e artefatos usados
@@ -386,19 +372,6 @@ Exemplo:
 Para este estudo, foram coletados dados a partir de uma base de registros de 93 pacientes da UTI do Hospital São Vicente de Paulo, na região norte do Estado do Rio Grande do Sul em 2011, e foram cedidos por um membro da equipe que realizou o trabalho. Foram obtidos dados ventilatórios e fisiológicos dos pacientes, no momento da admissão, e em especial pacientes adultos e com pneumonia. O estudo foi aprovado pelo Comitê de Ética da Universidade de Passo Fundo, sob o parecer 453/2011, sem a necessidade de consentimento informado do paciente, Sachetti (2014).
 
 Os recursos empregados neste trabalho foram: o ambiente MATLAB®, versão 9.4.0 R2018a, o simulador de ventilação mecânica DIXTAL 3010, computador com processador Intel® Core™ 2 Duo CPU T9400 de 2,53 GHz com 4,00 GB de memória RAM DDR2, 120 GB de disco e sistema operacional de 64 Bits.
-\end{comment}
-\begin{comment}
-\subsection{Procedimentos Metodológicos}
-Esta é uma pesquisa com finalidade de natureza básica, com objetivos de caráter descritivos, que utiliza uma abordagem quantitativa, com procedimentos fundamentados em pesquisa de desenvolvimento, juntamente com análises e testes.
-
-Trata-se de uma \textbf{pesquisa básica} porque além de promover o aprofundamento de um conhecimento já exposto através de pesquisas anteriores, não se descarta a possibilidade de produção de um conhecimento útil para estudos futuros sobre o assunto. Sendo assim, o autor espera complementar alguns aspectos e peculiaridades de pesquisas anteriormente feitas, preenchendo lacunas de conhecimento a respeito da execução especulativa.
-
-É uma \textbf{pesquisa descritiva}, pois tem por objetivo demonstrar a possibilidade de execução da falha de especulação em circunstâncias específicas e diferentes das circunstâncias abordadas no artigo de \citeonline{Kocher2018spectre}. Essa comparação leva em conta artigos de outros autores que tentaram defender o processador contra o ataque utilizando outros métodos via \emph{software}. Desta forma, existe uma associação entre a proteção para determinadas situações e o ataque, com determinadas circunstâncias (endereços de memória, \emph{softwares} a serem explorados e técnicas para isto).
-
-A pesquisa tem \textbf{abordagem quantitativa}, visto que a avaliação dos resultados possui caráter bem definido e exato do ponto de vista funcional. Avaliando a execução e não execução dos procedimentos que levam a falha e consequentemente a invasão, é possível concluir, de forma objetiva e direta, se a técnica funciona ou não. Tais resultados serão comprovados através de testes.
-
-A pesquisa terá seus procedimentos e resultados técnicos analisados e avaliados em máquinas virtuais e reais, induzidas ao ambiente que se é esperado para a realização dos testes. Portanto, os testes serão analisados e testados mais de uma vez, em ambientes diferentes conforme o desenvolvimento da exploração feita pelo autor.
-\end{comment}
 
 % Finaliza a parte no bookmark do PDF, para que se inicie o bookmark na raiz
 \bookmarksetup{startatroot}
