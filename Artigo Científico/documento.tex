@@ -82,8 +82,7 @@
 % DADOS DO DOCUMENTO
 % ------------------------------------------------------------------------
 % Informações de dados para capa
-\autor{\normalsize{\textbf{Felipe Rios da Silva Cordeiro}}
-\thanks{Graduando em Engenharia da Computação, UNIFACS. E-mail: felipe.rios.silva@outloook.com}}
+\autor{\normalsize{\textbf{Felipe Rios da Silva Cordeiro}}}
 \instituicao{
     UNIFACS - UNIVERSIDADE SALVADOR
     ESCOLA DE ARQUITETURA, ENGENHARIA\\ E TECNOLOGIA DA INFORMAÇÃO
@@ -359,19 +358,15 @@ A localização física desta pesquisa é irrelevante (por ter como objetivo apu
 % CLASSIFICAÇÃO DOS PROCEDIMENTOS
 % ---------------------------------
 \subsection{Procedimentos Metodológicos}
-Descreva os parâmetros as variáveis observadas (dependente, independente, moderadoras, de controle, extrínsecas interveniente e antecedente), os parâmetros estatísticos (população, amostra, margem de erro, confiabilidade, tipo de amostragem)
-Descreva o método ou modelo o processo de desenvolvimento (cascata, espiral, prototipagem evolutiva ou outro), os modelos e artefatos usados
-Descreva as etapas de investigação atividades envolvidas, a forma de levantamento de requisitos
-Descreva as condições de execução o tempo, o local, as pessoas envolvidas (funcionalmente)
-Descreva os dados , as técnicas de coleta de dados (BD, entrevistas, questionário, formulário, outro), a técnica de análise de dados (Quantitativa – análise estatística; Qualitativa – análise de conteúdo)
-Descreva os recursos, os materiais, os equipamentos e os programas envolvidos
-Outros: descreva os procedimentos éticos se a pesquisa for envolver seres humanos
+Esta pesquisa foi conduzida, observando informações coletadas de um pequeno \emph{software} criado pelo autor, que primeiro, compartilha da mesma região de memória virtual que o \emph{software} atacante; segundo, não compartilha da mesma região de memória que o atacante. As \textbf{variáveis observadas}, giram em torno da região de memória virtual que o sistema operacional irá alocar para o \emph{software}, observando os mecanismos de defesa de endereçamentos randômicos (ver seção \textbf{referencial teórico}.
 
-Exemplo:
+As etapas envolvidas foram: primeiro, avaliação a eficácia das técnicas já existentes de vazamento de informações por canal lateral, desenvolvidas pelos autores anteriores. Segundo, classificação das técnicas quanto as suas condições de aplicabilidade, quantidade de informação que pode ser colhida, em que dispositivos a técnica pode ser usada (baseando-se na literatura). Terceiro, comparação com os outros métodos de exposição de informações por canal lateral. Quarto, exibição dos canais laterais descobertos que também podem ser utilizados e outras técnicas recentes de exploração. Quinto, tentativa de exploração do mesmo \emph{software} desenvolvido pelo autor, com informações compartilhadas entre alguma biblioteca, ou com algum \emph{container} em comum (alguma região de memória compartilhada), sabendo o endereço que se quer atingir. Sexto, utilizando a mesma região de memória compartilhada, porém agora sem saber qual o endereço das informações que se quer atingir. Sétimo, Depositando as informações que se quer garimpar no \emph{Kernel}, e explicando porquê alguns \emph{softwares} fazem isto. Oitavo, explorando uma região completamente desconhecida, envolvendo a tomada de decisão entre o endereçamento virtual do espaço de usuário e do \emph{Kernel}, para se explorar endereços e condicionais desconhecidas, na tentativa de garimpar alguma informação sensível e se aproveitar dela. Até o quinto passo realizado, considera-se um sucesso parcial. Levando em consideração, que o oitavo passo não foi esclarecido pela bibliografia.
 
-Para este estudo, foram coletados dados a partir de uma base de registros de 93 pacientes da UTI do Hospital São Vicente de Paulo, na região norte do Estado do Rio Grande do Sul em 2011, e foram cedidos por um membro da equipe que realizou o trabalho. Foram obtidos dados ventilatórios e fisiológicos dos pacientes, no momento da admissão, e em especial pacientes adultos e com pneumonia. O estudo foi aprovado pelo Comitê de Ética da Universidade de Passo Fundo, sob o parecer 453/2011, sem a necessidade de consentimento informado do paciente, Sachetti (2014).
+As condições de execução, foram normais, levando em consideração a temperatura de trabalho de um computador pessoal. Não aplicando nenhuma variação de temperatura adicional, e nenhum esforço físico que comprometa ou facilite a execução dos testes, por fragilidade física. As proteções \emph{Spectre\_v1}, \emph{Spectre\_v2} e \emph{Metldown} (\emph{KAISER}), foram removidas e aplicadas conforme os testes (caracterizado uma fragilidade lógica), para comprovar a eficácia da prova de conceito.
 
-Os recursos empregados neste trabalho foram: o ambiente MATLAB®, versão 9.4.0 R2018a, o simulador de ventilação mecânica DIXTAL 3010, computador com processador Intel® Core™ 2 Duo CPU T9400 de 2,53 GHz com 4,00 GB de memória RAM DDR2, 120 GB de disco e sistema operacional de 64 Bits.
+Os dados coletados através do vazamento, são dados fictícios, para objetivos educacionais, sem nenhum intuito destrutivo, prejudicial ou de desabonar a imagem de qualquer organização ou companhia.
+
+Para a realização dos passos supradescritos, os ambientes utilizados foram: GNU Ubuntu 18.04.01 LTS 64-bit, Intel\textsuperscript{\tiny\textregistered} Core\textsuperscript{\tiny\texttrademark} i7 7500U @ 2.7 Ghz x 4; GNU Ubuntu 16.04.05 LTS 64-bit, Intel\textsuperscript{\tiny\textregistered} Core\textsuperscript{\tiny\texttrademark} i3 5005U @ 2.0 Ghz x 4.
 
 % Finaliza a parte no bookmark do PDF, para que se inicie o bookmark na raiz
 \bookmarksetup{startatroot}
