@@ -240,7 +240,7 @@ LIMITES DA EXPLORAÇÃO DE INFORMAÇÕES SENSÍVEIS}}}}
 % ---------------------------------
 % TEMA
 % ---------------------------------
-A execução especulativa é uma técnica de projeto de microarquitetura, que proporciona o aprimoramento da velocidade de processamento nas CPUs modernas. Esta técnica consiste na estimativa e execução de instruções com valores ainda não conhecidos pela CPU, durante um período curto de inatividade. Do ponto de vista funcional, esta especulação traria problemas se os resultados de especulações incorretas fossem efetivados. Porém, quando a verdadeira informação é recuperada, a CPU verifica a exatidão da suposição e descarta o ``caminho'' (fluxo de execução) que foi executado incorretamente, eliminando os valores nos registradores ou alterações em variáveis, por exemplo.
+A execução especulativa é uma técnica de projeto de microarquitetura, que proporciona o aprimoramento da velocidade de processamento nas CPUs modernas. Esta técnica consiste na estimativa e execução de instruções com valores ainda não conhecidos pela CPU, durante o curto período de carregamento dos valores reais. Do ponto de vista funcional, esta especulação traria problemas se os resultados de especulações incorretas fossem efetivados. Porém, quando a verdadeira informação é recuperada, a CPU verifica a exatidão da suposição e descarta o ``caminho'' (fluxo de execução) que foi executado incorretamente, eliminando os valores nos registradores ou alterações em variáveis, por exemplo.
 
 Utilizando ataques de canais laterais, \citeonline{Lipp2018meltdown} e \citeonline{Kocher2018spectre} provaram que é possível recuperar informações privilegiadas que foram especuladas, através da memória cache, que não é revertida quando uma especulação errônea da CPU acontece. A partir disto, com o conhecimento microarquitetural necessário, é possível um atacante induzir a execução especulativa errônea, por ``viciar'' o processador em uma cadeia de especulações e transferir as informações especuladas para um canal lateral (alternativo) que pode ser lido posteriormente.
 
@@ -336,12 +336,12 @@ Para melhor segmentação e explanação do conhecimento visando o entendimento 
 % REFERENCIAL METODOLÓGICO
 % ------------------------------------------------------------------------
 \section{Referencial Metodológico}
-Classificação da pesquisa. Apresentação, classificação e descrição dos métodos e dos procedimentos técnicos utilizados neste trabalho.
+Esta seção aborda a classificação da pesquisa com relação a finalidade, abordagem e procedimentos técnicos. Além de caracterizar e segmentar os procedimentos técnicos em passos, visando estruturar o conhecimento de forma que, o leitor não tenha dificuldade de reproduzir os mesmos passos para a realização dos experimentos.
 % ---------------------------------
 % CLASSIFICAÇÃO DA PESQUISA
 % ---------------------------------
 \subsection{Método}
-Esta é uma pesquisa com finalidade de natureza básica, com objetivos de caráter descritivos, que utiliza uma abordagem quantitativa, com procedimentos fundamentados em pesquisa bibliográfica, documental e experimental. Caracterizada por um estudo transversal, levando em conta os resultados de análises e testes conduzidos em um ambiente previamente configurado, ou seja, em um laboratório.
+Esta é uma pesquisa com finalidade de natureza básica, com objetivos de caráter explicativos, que utiliza uma abordagem quantitativa, com procedimentos fundamentados em pesquisa bibliográfica, documental e experimental. Caracterizada por um estudo transversal, levando em conta os resultados de análises e testes conduzidos em um ambiente previamente configurado, ou seja, em um laboratório.
 
 Trata-se de uma \textbf{pesquisa básica} porque além de promover o aprofundamento de um conhecimento já exposto através de pesquisas anteriores, não se descarta a possibilidade de produção de um conhecimento útil para estudos futuros sobre o assunto. Sendo assim, o autor espera complementar alguns aspectos e peculiaridades de pesquisas anteriormente feitas, preenchendo lacunas de conhecimento a respeito da execução especulativa.
 
@@ -358,11 +358,15 @@ A localização física desta pesquisa é irrelevante (por ter como objetivo apu
 % CLASSIFICAÇÃO DOS PROCEDIMENTOS
 % ---------------------------------
 \subsection{Procedimentos Metodológicos}
-Esta pesquisa foi conduzida observando informações coletadas de um pequeno \emph{software} criado pelo autor, que atende ao critério de conhecimento de sua estrutura e fluxo, e em seguida, de desconhecimento das mesmas condições. Isto acontece pois este ``alvo'', compartilha da mesma região de memória virtual que o \emph{software} atacante; e no segundo momento, não compartilha da mesma região de memória que o atacante. E, nestas duas situações, o autor usará endereços de memória conhecidos e desconhecidos, respectivamente.
+Para a realização dos experimentos foi desenvolvido um \emph{software} escrito em linguagem C, visando a manipulação da forma de alocação das regiões de memória. Modificando-o para compartilhar e isolar regiões de memória, e, esconder e expor estruturas condicionais. Estas condições permitem aplicar as provas de conceito já desenvolvidas, como também elucidar a possibilidade de vazamento com estruturas desconhecidas.
 
 Para tanto, uma sequência de passos é necessária para atingir o entendimento completo sobre o conceito da exploração da execução especulativa, utilizando canais laterais. No primeiro momento foi feita uma avaliação da eficácia das técnicas já existentes, para identificar a quantidade de informações que pode ser vazada, e em que circunstâncias gerais as técnicas de vazamento avaliadas funcionam (dispositivos, por exemplo). Ainda neste passo, o exemplo desenvolvido pelo autor foi submetido às provas de conceito, utilizando um compartilhamento de região de memória, com ``endereços alvos'' conhecidos. Tendo ocorrido o vazamento das informações endereçadas, tem-se uma pequena definição de como os vazamentos ocorrem em estruturas conhecidas. No momento dos testes, as proteções \emph{Spectre\_v1}, \emph{Spectre\_v2} e \emph{Metldown} (\emph{KAISER}), não haviam sido aplicadas.
 
 No segundo momento, o exemplo desenvolvido foi testado utilizando a mesma região de memória compartilhada, porém com um endereço de memória desconhecido. Neste passo, o \emph{software} também foi testado sem o compartilhamento de memória, e com endereços conhecidos e desconhecidos. Para isto, diferentes técnicas de vazamento foram utilizadas. Tanto com o aproveitamento das estruturas de memória do \emph{Kernel}, quanto sem utilizá-las (limitando-se somente ao endereçamento do espaço do usuário). As proteções contra as variantes de \citeonline{Lipp2018meltdown} e \citeonline{Kocher2018spectre}, ainda não haviam sido aplicadas no computador alvo.
+
+Para que os dados que sejam vazados em ambos os passos, o \emph{software} atacante precisa estimar a latência de retorno da memória cache, calculando o tempo de resposta baseado em um valor médio (\emph{threshold}). Por isso, cada carácter vazado passa por um calculo estimativo, visando assegurar a acurácia da assertividade da suposição. Quando se utiliza a memória reservada para o \emph{Kernel} nos testes, os vazamentos ocorrem a taxa de \emph{Bytes} por segundo (exibindo as informações que estão na região reservada, no referido instante de tempo). Quando as estruturas da "vítima" são conhecidas, é possível validar as informações vazadas, pois se conhece o conteúdo. Porém, quando as estruturas não são conhecidas, uma avaliação visual pelo atacante é necessária para considerar a relevância informação, afim de ajustar os testes para regiões de memória diferentes.
+
+Para a realização dos passos supradescritos, os ambientes utilizados foram: GNU Ubuntu 18.04.01 LTS 64-bit, Intel\textsuperscript{\tiny\textregistered} Core\textsuperscript{\tiny\texttrademark} i7 7500U @ 2.7 Ghz x 4; GNU Ubuntu 16.04.05 LTS 64-bit, Intel\textsuperscript{\tiny\textregistered} Core\textsuperscript{\tiny\texttrademark} i3 5005U @ 2.0 Ghz x 4.
 
 \begin{comment}
 As \textbf{variáveis observadas}, giram em torno da região de memória virtual que o sistema operacional irá alocar para o \emph{software}, observando os mecanismos de defesa de endereçamentos randômicos (ver seção \textbf{referencial teórico}).
@@ -375,8 +379,6 @@ As condições de execução, foram normais, levando em consideração a tempera
 
 Os dados coletados através do vazamento, são dados fictícios, para objetivos educacionais, sem nenhum intuito destrutivo, prejudicial ou de desabonar a imagem de qualquer organização ou companhia.
 \end{comment}
-
-Para a realização dos passos supradescritos, os ambientes utilizados foram: GNU Ubuntu 18.04.01 LTS 64-bit, Intel\textsuperscript{\tiny\textregistered} Core\textsuperscript{\tiny\texttrademark} i7 7500U @ 2.7 Ghz x 4; GNU Ubuntu 16.04.05 LTS 64-bit, Intel\textsuperscript{\tiny\textregistered} Core\textsuperscript{\tiny\texttrademark} i3 5005U @ 2.0 Ghz x 4.
 
 % Finaliza a parte no bookmark do PDF, para que se inicie o bookmark na raiz
 \bookmarksetup{startatroot}
