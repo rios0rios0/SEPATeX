@@ -1,0 +1,62 @@
+\begin{comment}
+\subsection{Tema}
+A execução especulativa é uma técnica de projeto de microarquitetura, que proporciona o aprimoramento da velocidade de processamento nos processadores modernos. Está presente em muitos processadores de vários fabricantes, incluindo \emph{Intel}, \emph{AMD} e \emph{ARM Holdings}. Esta técnica consiste na estimativa e execução de instruções, com valores ainda não conhecidos pela CPU, durante um período curto de inatividade (que acontece durante a espera de valores reais, provenientes da memória principal, que é mais lenta do que a memória cache).
+
+Do ponto de vista de funcional, esta especulação traria problemas se os resultados de especulações incorretas fossem efetivados. Porém, quando a verdadeira informação é recuperada, a CPU verifica a exatidão da suposição e descarta o ``caminho'' (fluxo de execução) que foi executado incorretamente. Eliminando valores nos registradores, ou alterações em variáveis por exemplo.
+
+Apoderando-se do conhecimento microarquitetural necessário para se conhecer em quais situações e em quais instruções a execução especulativa ocorre, é possível um atacante forçar ou induzir a execução especulativa, por ``viciar'' o processador em uma cadeia de especulações e transferir as informações especuladas para um canal alternativo (como por exemplo, a memória cache). Caso a transferência seja bem-sucedida, o atacante efetua a leitura dos dados presentes no canal alternativo, neste caso na memória cache, medindo o tempo de acesso aos dados que foram especulados e comparando-os com um tempo médio de acesso (à memória cache) conhecido. Caso a informação demore de ser recuperada (baseando-se na média), supõe-se que ela não se encontra na memória cache. Caso contrário, o atacante acertou a suposição da informação correta.
+\end{comment}
+
+\begin{comment}
+\subsection{Justificativa}
+Três grupos compostos por: Jann Horn (\emph{Google Project Zero}); Werner Haas e Thomas Prescher (\emph{Cyberus Technology}); Daniel Gruss, Moritz Lipp, Stefan Mangard e Michael Schwarz (\emph{Graz University of Technology}), em descobertas independentes relataram duas vulnerabilidades na arquitetura dos processadores de design moderno das fabricantes: \emph{Intel}, \emph{AMD} e \emph{ARM Holdings} (comunicado as fabricantes em 1º de Junho de 2017 e divulgado ao público em 03 de Janeiro de 2018). Essas duas falhas de segurança batizadas de \emph{Spectre}\footnote{Especulativo, espectro, ou fantasma (``speculative'', inglês). O nome deriva da causa da falha.} \cite{Kocher2018spectre} e \emph{Meltdown}\footnote{Colapso, ou derreter (``melt'', inglês). O nome deriva da consequência da exploração da falha.} \cite{Lipp2018meltdown} chamam a atenção pois, segundo o estudo detalhado feito pelos grupos, elas se aproveitam da execução especulativa das MCUs (\emph{Microcontroller Unit}).
+
+Em termos quantitativos, chips da \emph{Intel} desde de 1995 (exceto \emph{Intel Itanium} e \emph{Intel Atom} antes de 2013), alguns de arquitetura \emph{ARM} (\emph{Advanced RISC Machine}) e outros feitos pela \emph{AMD}, foram afetados. Servidores na nuvem, celulares, desktops, notebooks e basicamente todos os chips que podem manter muitas instruções em execução, podem ter dados sigilosos comprometidos. E, segundo o \emph{Microcode Revision Guidance} da \emph{Intel}, 193 MCUs irão continuar com a falha, pois apresentaram questões de instabilidade com a mitigação das vulnerabilidades \cite{intel-mug}.
+
+Em uma nota oficial a \emph{Intel} se pronunciou evidenciando seu comprometimento em mitigar as falhas, estudando e disponibilizando \emph{firmwares} para corrigi-las (ou atenuá-las). Se defendendo também de especulações em relação ao desempenho dos processadores, depois da correção via \emph{software}, afirmou que qualquer diferença no desempenho ``depende da carga de trabalho e, para o usuário médio do computador, não deve ser significativo e será atenuado com o tempo'' \cite{intel-news-001}. Depois disso, publicou um informativo de segurança \cite{intel-sa-00088}, informando a lista de processadores da marca atingidos pelas falhas e suas ramificações.
+
+As outras fabricantes (\emph{AMD} e \emph{ARM Holdings}), em parceria com algumas montadoras e produtoras de \emph{softwares} também se pronunciaram em notas oficiais, assumindo ou não as falhas em seus produtos e, tomando certa medida de prevenção, formaram parcerias para lançarem correções em aplicações para usuário final (\emph{browsers} por exemplo), que previnem a exploração das falhas. Fabricantes de jogos que utilizam os processadores \emph{AMD} ou \emph{ARM}, como \emph{Sony} e \emph{Nintendo}, não se pronunciaram, conforme lista oficial publicada pela Universidade de Tecnologia de Graz \cite{meltdownspectreattack}.
+
+Em 03 de Janeiro de 2018, pesquisadores da Universidade Católica de Leuven e do IT de Israel, das Universidades de Michigan e Adelaide e da \emph{CSIRO Data61}, fizeram novas publicações comprovativas de duas novas derivações da \emph{Spectre}. Batizadas de \emph{Foreshadow}\footnote{Prefigurar, pressupor ou prévio (``fore'', inglês). Assim como no \footnotemark[\numexpr\value{footnote}-2], o nome deriva da causa da falha.} e \emph{Foreshadow-NG}, em processadores de servidores e em máquinas virtuais \cite{vanbulck2018foreshadow}.
+
+Em 01 de Março de 2019, pesquisadores do Instituto Politécnico de Worcester e da Universidade de Lübeck, publicaram um artigo expondo mais uma possibilidade de exploração do comportamento arquitetural dos processadores da \emph{Intel}. Chamada de \emph{Spoiler}, esta nova vulnerabilidade não é uma variação das anteriores e nenhum dos métodos de mitigação divulgados até a data desta pesquisa, suprimem esta nova forma de realizar vazamentos de informações \cite{islam2019spoiler}.
+
+Tal assunto adquiriu grande importância na divulgação pelos veículos de comunicação, pois é provável que muitas máquinas, aparelhos móveis, \emph{datacenters} e consequentemente informações sigilosas sejam expostas e continuem sendo. Isto se dá, porque tal categoria de vulnerabilidade está em nível de \emph{hardware}, e correções via \emph{software} são paliativos que custam questões de desempenho.
+\end{comment}
+
+\begin{comment}
+\subsection{Problema de Pesquisa}
+\citeonline{Kocher2018spectre} em seu artigo, não definiu bem algumas questões sobre a expansão dos ataques que se aproveitam da execução especulativa, como por exemplo se: há ou não possibilidades de vazar informações de softwares cujo fluxo o atacante não conhece; há ou não possibilidade de utilizar endereços de memória desconhecidos inicialmente, para recuperar informações de outros softwares em execução; existe possibilidade de fazer tais ataques em softwares de terceiros.
+
+Isto porquê, quando se descreveu os ataques utilizando a execução especulativa, os experimentos e testes demonstrados foram feitos em softwares criados pelos próprios descobridores da vulnerabilidade. Ou seja, eles possuíam endereços de memória e fluxos condicionais bem definidos para garimpar as informações sigilosas. Diante disto, é proposto uma pesquisa para responder: é possível explorar informações sensíveis de softwares cujo fluxo condicional e estrutura de memória sejam desconhecidos por meio do emprego da execução especulativa?
+\end{comment}
+
+\begin{comment}
+\subsection{Objetivos}
+Em razão dos fatos supramencionados, esta pesquisa visa esclarecer, explicar e aplicar métodos desenvolvidos pelos autores citados anteriormente para expor informações de forma genérica (em \emph{softwares} comuns) em computadores pessoais. Assim, o \textbf{objetivo geral} desta pesquisa é demonstrar como a execução especulativa pode ocorrer em \emph{softwares} cujo o fluxo condicional e estrutura de memória se desconhece.
+
+Para alcançar este \textbf{objetivo geral}, os seguintes \textbf{objetivos específicos} foram levantados: 
+\begin{enumerate}
+    \item \label{o1} Demonstrar e explorar a falha de execução especulativa em fluxos condicionais conhecidos;
+    \item \label{o2} Demonstrar e explorar a falha de execução especulativa em fluxos condicionais desconhecidos;
+    \item \label{o3} Demonstrar e explorar a falha de execução especulativa em regiões de memória cujos endereços não são conhecidos inicialmente.
+\end{enumerate}
+\end{comment}
+
+\begin{comment}
+\subsection{Questões de Pesquisa}
+\begin{itemize}
+    \item Questões abordadas por esta pesquisa:
+    \begin{enumerate}
+	    \item \label{q1} Quais informações, como fluxo condicional e estrutura de memória, são necessárias para se aplicar execução especulativa em um software?
+	    \item \label{q2} Além de usar o tempo de retorno da memória cache para extrair as informações da própria memória cache, quais ataques de hardware também podem ser usados para desviar dados deste canal lateral?
+	    \item \label{q3} Quais endereços da memória cache são acessíveis a um programa de nível de usuário, que podem serem utilizados como canal alternativo?
+	    \item \label{q4} Quais são os outros canais laterais existentes (além da memória cache), que outros autores já exploraram?
+	\end{enumerate}
+    \item Questões de pesquisa para trabalhos futuros:
+    \begin{enumerate}
+	    \item \label{qf1} Como executar instruções mais complexas, além de somente desvios de informação, aproveitando-se da execução especulativa?
+	    \item \label{qf1} Segundo \citeonline{Kocher2018spectre} até mesmo códigos que não contenham instruções com ramificações condicionais estão em risco. Como explorá-los?
+	\end{enumerate}
+\end{itemize}
+\end{comment}
