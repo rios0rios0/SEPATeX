@@ -1,0 +1,373 @@
+% ------------------------------------------------------------------------
+% ------------------------------------------------------------------------
+% Modelo de Artigo Acadêmico
+% Em conformidade com:
+% ABNT NBR 6022:2018: Informação e Documentação - Artigo em Publicação Periódica Científica - Apresentação
+%
+% Adaptado para:
+% SEPA: Seminário Estudantil de Produção Acadêmica da UNIFACS
+%
+% Baseado na Biblioteca abnTeX2 v1.9.7
+% ------------------------------------------------------------------------
+% ------------------------------------------------------------------------
+\documentclass[
+	% Opções da classe memoir
+	article,			    % indica que é um artigo acadêmico
+	12pt,				    % tamanho da fonte
+	oneside,			    % para impressão apenas no recto. Oposto a twoside
+	a4paper,			    % tamanho do papel. 
+	% Opções da classe abntex2
+	chapter=TITLE,		    % títulos de capítulos convertidos em letras maiúsculas
+	section=TITLE,		    % títulos de seções convertidos em letras maiúsculas
+	subsection=TITLE,	    % títulos de subseções convertidos em letras maiúsculas
+	%subsubsection=TITLE    % títulos de subsubseções convertidos em letras maiúsculas
+	% Opções do pacote babel
+	english,			    % idioma adicional para hifenização
+	brazil,				    % o último idioma é o principal do documento
+	sumario=tradicional
+]{abntex2}
+% ------------------------------------------------------------------------
+% PACOTES
+% ------------------------------------------------------------------------
+% Pacotes fundamentais 
+\usepackage{times}			    % Usa a fonte Times New Roman
+\usepackage[T1]{fontenc}		% Selecao de codigos de fonte.
+\usepackage[utf8]{inputenc}		% Codificacao do documento (conversão automática dos acentos)
+\usepackage{indentfirst}		% Indenta o primeiro parágrafo de cada seção.
+\usepackage{nomencl} 			% Lista de simbolos
+\usepackage{color}				% Controle das cores
+\usepackage{graphicx}			% Inclusão de gráficos
+\usepackage{microtype} 			% Para melhorias de justificação
+% Pacotes adicionais, usados apenas no âmbito do Modelo Canônico do abnteX2
+\usepackage{lipsum}				% Para geração de dummy text
+% Pacotes de citações
+\usepackage[brazilian,hyperpageref]{backref}	 % Paginas com as citações na bibliografia
+\usepackage[alf,bibjustif,abnt-emphasize=bf,abnt-etal-text=emph]{abntex2cite}  % Citações padrão ABNT, forçar a justificação da bibliografia e enfatizar com negrito
+% Pacotes extras 
+\usepackage{fancyhdr}           % Personalização do cabeçalho e rodapé
+% ------------------------------------------------------------------------
+% CONFIGURAÇÃO DOS PACOTES
+% ------------------------------------------------------------------------
+% Configurações do pacote backref
+% Usado sem a opção hyperpageref de backref
+\renewcommand{\backrefpagesname}{Citado na(s) página(s):~}
+% Texto padrão antes do número das páginas
+\renewcommand{\backref}{}
+% Define os textos da citação
+\renewcommand*{\backrefalt}[4]{
+	\ifcase #1
+		Nenhuma citação no texto.
+	\or
+		Citado na página #2.
+	\else
+		Citado #1 vezes nas páginas #2.
+	\fi
+}
+% Configuração dos nomes padrões do babel
+%\addto\captionsbrazil{
+%    \renewcommand{\bibname}{Referências Bibliográficas}
+%}
+% Configuração do título das referências (anteriormente modificado)
+\renewcommand{\bibsection}{%
+    \section*{\bibname}
+    \bibmark
+    \ifnobibintoc\else
+        \phantomsection
+    \fi
+    \prebibhook
+}
+% Modificando o tamanho da fonte "large" que é 14.4pt, para 14pt
+%\renewcommand{\large}{\fontsize{14}{14}\selectfont}
+% ------------------------------------------------------------------------
+% DADOS DO DOCUMENTO
+% ------------------------------------------------------------------------
+% Informações de dados para capa
+\autor{\normalsize{\textbf{Felipe Rios da Silva Cordeiro}}}
+\instituicao{
+    UNIFACS - UNIVERSIDADE SALVADOR
+    ESCOLA DE ARQUITETURA, ENGENHARIA\\ E TECNOLOGIA DA INFORMAÇÃO
+    BACHARELADO EM ENGENHARIA DA COMPUTAÇÃO
+}
+\titulo{\uppercase{\normalsize{\textbf{INTELIGÊNCIA ARTIFICIAL DISTRIBUÍDA\\
+E AUTOMAÇÃO INDUSTRIAL}}}}
+\local{Salvador}
+%\data{2019}
+\tipotrabalho{Trabalho de Conclusão de Disciplina, Graduação}
+\preambulo{Trabalho de conclusão de disciplina apresentado ao curso de graduação em Engenharia da Computação da Universidade Salvador - UNIFACS, como requisito fundamental para a conclusão da disciplina Automação e Instrumentação, do título de Engenheiro da Computação.}
+\orientador[Orientador:]{\normalsize{\textbf{???}}}
+%\tituloestrangeiro{Canonical article template in \abnTeX: optional foreign title}
+% ------------------------------------------------------------------------
+% META DADOS DO PDF
+% ------------------------------------------------------------------------
+% Alterando o aspecto da cor azul
+\definecolor{blue}{RGB}{41,5,195}
+% Informações do PDF
+\makeatletter
+\hypersetup{
+ 	%pagebackref=true,
+	pdftitle={\@title}, 
+	pdfauthor={\@author},
+	pdfsubject={\imprimirpreambulo},
+    pdfcreator={LaTeX with abnTeX2 and Overleaf},
+	pdfkeywords={abnt}{latex}{abntex}{abntex2}{atigo científico}, 
+	colorlinks=false,       % false: boxed links; true: colored links
+	linkcolor=blue,         % color of internal links
+	citecolor=blue,        	% color of links to bibliography
+	filecolor=magenta,      % color of file links
+	urlcolor=blue,
+	bookmarksdepth=4
+}
+\makeatother
+% ------------------------------------------------------------------------
+% CONFIGURAÇÕES DAS FOLHAS E AJUSTES NAS FONTES GERAIS
+% ------------------------------------------------------------------------
+% Compila o índice
+\makeindex
+% Altera as margens
+\setlrmarginsandblock{3cm}{2cm}{*}
+\setulmarginsandblock{3cm}{2cm}{*}
+\checkandfixthelayout
+% Espaçamentos entre linhas e parágrafos 
+% O tamanho do parágrafo é dado por (espaçamento na primeira linha):
+\setlength{\parindent}{1.25cm}
+% O espeçamento padrão é definido como \OnehalfSpacing, ou seja, um espaço e meio conforme estabelece a ABNT NBR 14724:2011
+% ------------------------------------------------------------------------
+% CABEÇALHOS E RODAPÉS
+% ------------------------------------------------------------------------
+% Criar um novo estilo de cabeçalhos e rodapés
+\pagestyle{fancy}
+%\setlength{\headheight}{80pt}
+\fancyhf{}
+%\lhead{\includegraphics[width=0.4\textwidth]{/images/image00.png}}
+%\rhead{
+%{\fontsize{8}{1.5}\selectfont
+%\begin{vplace}
+%TCC - TRABALHO DE CONCLUSÃO DE CURSO\break
+%COORDENAÇÂO DE ENGENHARIA DA COMPUTAÇÃO\end{vplace}}}
+\fancypagestyle{plain}{
+    \renewcommand{\headrulewidth}{0pt}
+    \renewcommand{\footrulewidth}{0pt}
+    \fancyhfoffset[LE]{0mm}
+    \fancyhfoffset[RE]{0mm}
+    \fancyhfoffset[LO]{0mm}
+    \fancyhfoffset[RO]{0mm}
+}
+% ------------------------------------------------------------------------
+% CAPÍTULOS, SEÇÕES E SUBSEÇÕES
+% ------------------------------------------------------------------------
+% Chapter 12pt + Bold
+\renewcommand{\ABNTEXchapterfont}{\bfseries}
+\renewcommand{\ABNTEXchapterfontsize}{\normalsize}
+% Section 12pt + Bold
+\renewcommand{\ABNTEXsectionfont}{\bfseries}
+\renewcommand{\ABNTEXsectionfontsize}{\normalsize}
+% SubSection 12pt
+\renewcommand{\ABNTEXsubsectionfont}{\normalfont}
+\renewcommand{\ABNTEXsubsectionfontsize}{\normalsize}
+% SubSubSection 12pt + Bold + Underline
+\renewcommand{\ABNTEXsubsubsectionfont}{\bfseries}
+\renewcommand{\ABNTEXsubsubsectionfontsize}{\normalsize}
+\setsubsubsecheadstyle{\ABNTEXsubsubsectionfont\ABNTEXsubsubsectionfontsize\ABNTEXsubsubsectionupperifneeded\coloruline[black]}
+% SubSubSubSection 12pt + Lowercase
+\setparaheadstyle{\normalfont\ABNTEXsubsubsectionfont\ABNTEXsubsubsectionfontsize}
+% Retirando espaçamentos antes dos capítulos
+\setlength{\beforechapskip}{\baselineskip}
+% Retirando espaçamentos depois dos capítulos
+\setlength{\afterchapskip}{\baselineskip}
+% Recriando a variável que instancia o resumo
+\renewenvironment{resumoumacoluna}{}
+
+% ------------------------------------------------------------------------
+% INÍCIO DO DOCUMENTO
+% ------------------------------------------------------------------------
+\begin{document}
+% Seleciona o idioma do documento (conforme pacotes do babel)
+%\selectlanguage{english}
+\selectlanguage{brazil}
+% Retira espaço extra obsoleto entre as frases.
+\frenchspacing 
+% ------------------------------------------------------------------------
+% ELEMENTOS PRÉ-TEXTUAIS
+% ------------------------------------------------------------------------
+\pretextual
+\pagestyle{fancy}
+% página de titulo principal (obrigatório)
+%\maketitle
+\begin{SingleSpace}
+    \begin{center}
+        \imprimirtitulo
+    \end{center}
+    \begin{flushright}
+        \imprimirautor
+        \footnote{Graduando em Engenharia da Computação, UNIFACS. E-mail: felipe.rios.silva@outloook.com}
+        \\
+        \normalsize{\textbf{Denisson Santos Fiaes}}\footnote{Graduando em Engenharia da Computação, UNIFACS. E-mail: dfiaes@gmail.com}
+        \\
+        \normalsize{\textbf{Larisse Pereira de Cerqueira}}\footnote{Graduanda em Engenharia da Computação, UNIFACS. E-mail: lare403@gmail.com}
+    \end{flushright}
+\end{SingleSpace}
+% Titulo em outro idioma (opcional)
+% Resumo em Português
+\begin{resumoumacoluna}
+    \footnotesize{\begin{SingleSpace}
+        \noindent
+        \textbf\resumoname\\
+        Conforme a ABNT NBR 6022:2018, o resumo no idioma do documento é elemento obrigatório. Constituído de uma sequência de frases concisas e objetivas e não de uma simples enumeração de tópicos, não ultrapassando 250 palavras, seguido, logo abaixo, das palavras representativas do conteúdo do trabalho, isto é, palavras-chave e/ou descritores, conforme a NBR 6028. (\ldots) As palavras-chave devem figurar logo abaixo do resumo, antecedidas da expressão Palavras-chave:, separadas entre si por ponto e finalizadas também por ponto.\\\\
+        \textbf{Palavras-chave:} latex. abntex. editoração de texto.
+        \vspace{\onelineskip}
+    \end{SingleSpace}}
+\end{resumoumacoluna}
+% Resumo em Inglês
+\renewcommand{\resumoname}{Abstract}
+\begin{resumoumacoluna}
+    \footnotesize{\begin{SingleSpace}
+        \begin{otherlanguage*}{english}
+            \noindent
+            \textbf\resumoname\\
+            Conforme a ABNT NBR 6022:2018, o resumo no idioma do documento é elemento obrigatório. Constituído de uma sequência de frases concisas e objetivas e não de uma simples enumeração de tópicos, não ultrapassando 250 palavras, seguido, logo abaixo, das palavras representativas do conteúdo do trabalho, isto é, palavras-chave e/ou descritores, conforme a NBR 6028. (\ldots) As palavras-chave devem figurar logo abaixo do resumo, antecedidas da expressão Palavras-chave:, separadas entre si por ponto e finalizadas também por ponto.\\\\
+            \textbf{Keywords:} latex. abntex.
+        \end{otherlanguage*}
+    \end{SingleSpace}}
+\end{resumoumacoluna}
+% ------------------------------------------------------------------------
+% ELEMENTOS TEXTUAIS
+% ------------------------------------------------------------------------
+\textual
+\pagestyle{fancy}
+% ------------------------------------------------------------------------
+% INTRODUÇÃO
+% ------------------------------------------------------------------------
+\section{Introdução}
+% ---------------------------------
+% TEMA
+% ---------------------------------
+A inteligência artificial tem se disseminado com o tempo, e tem sido o elo que sana muitas lacunas de atividades em que máquinas e pessoas buscam harmonia. É encarada também, como um grande ganho de capital para empresas de vários ramos de atividade, inclusive na indústria. Uma das características da inteligência artificial, é o fato de otimizar uma automação já feita, em que o hardware e suas configurações já não possuem mais “inteligência” própria disponível para tanto. 
+
+% ---------------------------------
+% JUSTIFICATIVA
+% ---------------------------------
+Por ter variadas aplicações, a inteligência artificial em indústrias ocupa diversos setores da produção, ou manufatura de um produto. Ela está contida desde a tomada de decisão de uma prensa por exemplo, até a compilação dos relatórios gerenciais que o centro administrativo usa para tomar decisões que abrangem a planta como um todo. Um dos motivos dessa expansão, é a crescente demanda de máquinas que produzam muito, de forma customizada e de baixo custo. É uma espécie de produção programável, e inteligente. Reduzindo os gargalos de configuração e até mesmo de lentidão para produção de peças variadas com matérias primas diferentes. 
+
+Máquinas automáticas, já conseguem trabalhar de forma mais habilidosa, do que os procedimentos manuais ou mecanizados. Modelos automáticos, já são mais eficientes e produtivos, que modelos humanos. Mas como melhorar ainda mais o rendimento de uma planta, sem necessariamente significar em investimentos com equipamentos ou procedimentos novos? Uma possível solução, seria a inteligência artificial aplicada. 
+
+% ---------------------------------
+% PROBLEMA DE PESQUISA
+% ---------------------------------
+Um modelo de sistema inteligente distribuído, poderia eliminar a responsabilidade do CLP de concentrar todas as informações e tomadas de decisões. Todos os equipamentos em uma planta, poderiam ser inteligentes o suficiente, para entenderem o processo de produção como um todo, e sugerir uns aos outros, formas de trabalho, modelos de atuação e comunicação durante o processo de produção. O que se é sugerido aqui, é um modelo de sistema multiagente inteligente e distribuídos, para automatizar uma planta de automação, em que a limitação de hardware já não permite mais progresso na relação custo vs. benefício de produção. 
+
+% ---------------------------------
+% OBJETIVOS
+% ---------------------------------
+
+% ---------------------------------
+% PROCEDIMENTOS METODOLÓGICOS
+% ---------------------------------
+
+% ---------------------------------
+% ORGANIZAÇÃO DO ARTIGO
+% ---------------------------------
+
+% ------------------------------------------------------------------------
+% REFERENCIAL METODOLÓGICO
+% ------------------------------------------------------------------------
+\section{Referencial Metodológico}
+Seção que aborda a descrição dos métodos e procedimentos utilizados.
+% ---------------------------------
+% CLASSIFICAÇÃO DA PESQUISA
+% ---------------------------------
+\subsection{Método}
+A obra em questão é uma pesquisa de natureza básica, com objetivos explicativos, utilizando procedimentos fundamentados em pesquisa bibliográfica e documental. É uma \textbf{pesquisa básica} pois promove o aprofundamento e reflexão em um conhecimento já consolidado em pesquisas anteriores. Os autores esperam contribuir com visões peculiares, em relação a aplicação da inteligência artificial distribuída nas diversas atividades industriais automatizadas.
+
+Tem objetivos \textbf{explicativos}, pois explica como a inteligência artificial distribuída pode contribuir para economia de recursos de um sistema automatizado, poupando tempo, energia, velocidade na tomada de decisão, e ainda promovendo a autonomia de processos, que sem a IA (Inteligência Artificial) se limitavam às configurações de \emph{hardware} disponíveis.
+
+Os autores utilizaram técnicas de pequisa bibliográfica e documental pois, o \textbf{procedimento bibliográfico} proporciona a condição de comparação histórica com a literatura, registrando o avanço da tecnologia e dos métodos citados. E o \textbf{procedimento documental} confere a garantia de consulta e comparação dos artigos primários com a literatura não processada.
+
+% ---------------------------------
+% CLASSIFICAÇÃO DOS PROCEDIMENTOS
+% ---------------------------------
+\subsection{Procedimentos Metodológicos}
+A pesquisa bibliográfica e documental possibilitou filtrar e comparar uma quantidade de publicações satisfatória, levando em conta a amplitude de tempo de evolução da tecnologia. Começando pelas primeiras aplicações industriais da IAD (Inteligência Artificial Distribuída), na seleção de rotas ótimas para a locomoção, até os sistemas mais complexos de tomada de decisão na indústria.
+
+% ------------------------------------------------------------------------
+% REFERENCIAL TEÓRICO
+% ------------------------------------------------------------------------
+\section{Referencial Teórico}
+Seção que aborda o conhecimento fundamental para a compreensão desta pesquisa.
+% ---------------------------------
+% CONCEITO 01
+% ---------------------------------
+\subsection{Inteligência Artificial Distribuída (IAD)}
+A IAD, tem uma aplicação vasta em diversas áreas, para resolver problemas da computação que envolve a tomada de decisão, economia de recursos e otimização de processos. Shih et al. (1995), a IAD é aplicada para subdividir processos que já existem, visando melhorar a utilização de uma infraestrutura pronta, para facilitar o planejamento de processos de montagem em lote. Os problemas de busca de objetivo e de busca de métodos para atingir o alvo são conhecidos e pode-se utilizar a IAD, para tornar mais eficiente as tomadas de decisões para a solução desses problemas.
+
+% ------------------------------------------------------------------------
+% RESULTADOS E DISCUSSÃO
+% ------------------------------------------------------------------------
+\section{Resultados e Discussão}
+Esta seção tem por objetivo expor os testes realizados de maneira sistemática, com seus resultados individuais, abrindo questionamentos a respeito do conhecimento estudado. Ao final desta seção, a conclusão apresenta uma síntese do produto gerado pelos experimentos.
+
+% ---------------------------------
+% DISCUSSÃO 01
+% ---------------------------------
+\subsection{Vantagens da IAD na Indústria}
+Objetivo do teste
+Descrição do teste (condição de execução)
+Resultado do teste (empregar gráficos e tabelas, se possível)
+Interpretação do resultado (discutir o resultado relacionando com a literatura)
+Conclusão parcial do Teste 1
+
+% ---------------------------------
+% DISCUSSÃO 02
+% ---------------------------------
+\subsection{Desvantagens da IAD na Indústria}
+Objetivo do teste
+Descrição do teste (condição de execução)
+Resultado do teste (empregar gráficos e tabelas, se possível)
+Interpretação do resultado (discutir o resultado relacionando com a literatura)
+Conclusão parcial do Teste 2
+
+% ---------------------------------
+% CONCLUSÃO DAS DISCUSSÕES
+% ---------------------------------
+\subsection{Conclusão}
+Síntese das conclusões parciais (Teste 1, Teste 2, ... Teste n)
+Generalização dos resultados dos testes
+
+% Finaliza a parte no bookmark do PDF, para que se inicie o bookmark na raiz
+\bookmarksetup{startatroot}
+% ------------------------------------------------------------------------
+% CONCLUSÃO
+% ------------------------------------------------------------------------
+\section{Conclusão}
+%\lipsum[31]
+% ------------------------------------------------------------------------
+% ELEMENTOS PÓS-TEXTUAIS
+% ------------------------------------------------------------------------
+\postextual
+% ------------------------------------------------------------------------
+% REFERẼNCIAS
+% ------------------------------------------------------------------------
+\bibliography{references}
+% ------------------------------------------------------------------------
+% APÊNDICES
+% ------------------------------------------------------------------------
+\begin{apendicesenv}
+%\chapter{Cras non urna sed feugiat cum sociis natoque penatibus et magnis dis parturient montes nascetur ridiculus mus}
+%\lipsum[31]
+\end{apendicesenv}
+% ------------------------------------------------------------------------
+% ANEXOS
+% ------------------------------------------------------------------------
+\begin{anexosenv}
+\vspace{\onelineskip}
+%\chapter{Cras non urna sed feugiat cum sociis natoque penatibus et magnis dis parturient montes nascetur ridiculus mus}
+%\lipsum[31]
+\end{anexosenv}
+% ------------------------------------------------------------------------
+% AGRADECIMENTOS
+% ------------------------------------------------------------------------
+%\section*{Agradecimentos}
+%\lipsum[31]
+% ------------------------------------------------------------------------
+% FINAL DO DOCUMENTO
+% ------------------------------------------------------------------------
+\end{document}
