@@ -45,6 +45,7 @@
 \usepackage[alf,bibjustif,abnt-emphasize=bf,abnt-etal-text=emph]{abntex2cite}  % Citações padrão ABNT, forçar a justificação da bibliografia e enfatizar com negrito
 % Pacotes extras 
 \usepackage{fancyhdr}           % Personalização do cabeçalho e rodapé
+\usepackage{listings}           % Personalização de código
 % ------------------------------------------------------------------------
 % CONFIGURAÇÃO DOS PACOTES
 % ------------------------------------------------------------------------
@@ -240,40 +241,36 @@ LIMITES DA EXPLORAÇÃO DE INFORMAÇÕES SENSÍVEIS}}}}
 % ---------------------------------
 % TEMA
 % ---------------------------------
-A execução especulativa é uma técnica de projeto de microarquitetura, que proporciona o aprimoramento da velocidade de processamento nas CPUs modernas. Esta técnica consiste na estimativa e execução de instruções com valores ainda não conhecidos pela CPU, durante o curto período de carregamento dos valores reais. Do ponto de vista funcional, esta especulação traria problemas se os resultados de especulações incorretas fossem efetivados. Porém, quando a verdadeira informação é recuperada, a CPU verifica a exatidão da suposição e descarta o ``caminho'' (fluxo de execução) que foi executado incorretamente, eliminando os valores nos registradores ou alterações em variáveis, por exemplo.
+A execução especulativa é uma técnica de projeto de microarquitetura, que proporciona o aprimoramento da velocidade de processamento nas CPU's modernas. Esta técnica consiste na estimativa e execução de instruções com valores ainda não conhecidos pela CPU, durante o curto período de carregamento dos valores reais. Do ponto de vista funcional, esta especulação traria problemas se os resultados de especulações incorretas fossem efetivados. Porém, quando a verdadeira informação é recuperada, a CPU verifica a exatidão da suposição e descarta o ``caminho'' (fluxo de execução) que foi executado incorretamente, eliminando os valores nos registradores ou alterações em variáveis, por exemplo.
 
-Utilizando ataques de canais laterais, \citeonline{googleprojectzero} e outros autores provaram que é possível recuperar informações privilegiadas, que foram especuladas através da memória cache, que não é revertida quando uma especulação errônea da CPU acontece \cite{Kocher2018spectre}. A partir disto, com o conhecimento microarquitetural necessário, é possível um atacante induzir a execução especulativa errônea, por ``viciar'' o processador em uma cadeia de especulações e transferir as informações especuladas para um canal alternativo que pode ser lido posteriormente.
+Utilizando ataques que combinam a indução da execução especulativa e canais laterais, \citeonline{googleprojectzero} e outros pesquisadores provaram que é possível recuperar informações privilegiadas (que foram especuladas), através da memória cache (um canal lateral), que não é revertida quando uma especulação errônea acontece \cite{Kocher2018spectre}. A partir disto, com o conhecimento microarquitetural necessário, é possível um atacante induzir a execução especulativa errônea, por ``viciar'' o processador em uma cadeia de especulações e transferir as informações especuladas para um canal alternativo que pode ser lido posteriormente.
 
 % ---------------------------------
 % JUSTIFICATIVA
 % ---------------------------------
-Os ataques de canais laterais dirigidos a \emph{softwares} cujas estruturas são conhecidas, acontecem em condições específicas. Quando por exemplo, existem regiões compartilhadas de memória entre a vítima e o atacante. Mesmo assim, a abrangência destes ataques é considerável: é possível afirmar que chips da \emph{Intel} desde 1995 (exceto \emph{Intel Itanium} e \emph{Intel Atom} antes de 2013), alguns de arquitetura \emph{ARM} (\emph{Advanced RISC Machine}) e outros feitos pela \emph{AMD}, foram afetados. Servidores na nuvem, celulares, desktops, notebooks e basicamente todos os chips que podem manter muitas instruções em execução, podem ter dados sigilosos comprometidos. Segundo o \emph{Microcode Revision Guidance} da \emph{Intel}, 193 MCUs (\emph{Microcontroller Unit}) irão continuar com a falha, pois apresentaram instabilidade com a mitigação das vulnerabilidades \cite{intel-mug}.
+Estes ataques que utilizam a combinação das duas técnicas, acontecem em condições específicas, ou seja, possuem axiomas\footnote{Axiomas são regras lógicas consideradas dignas de aceitação comum, segundo \citeonline{Encyclopaedia2011Axiom}.} que podem questionados. Mesmo assim, a abrangência destes ataques é considerável: é possível afirmar que chips da \emph{Intel} desde 1995 (exceto \emph{Intel Itanium} e \emph{Intel Atom} antes de 2013), alguns de arquitetura \emph{ARM}\footnote{\emph{Advanced RISC Machine}, ou ``Máquina Avançada de \emph{Instruções Reduzidas}'' (tradução e grifo do autor).} e outros feitos pela \emph{AMD}, foram afetados. Servidores na nuvem, celulares, \emph{desktops}, \emph{notebooks} e basicamente todos os chips que podem manter muitas instruções em execução, podem ter dados sigilosos comprometidos. Segundo um guia de revisão\footnote{\emph{Microcode Revision Guidance}, publicado em abril de \citeyear{intel-mug}.} da \emph{Intel}, 193 processadores irão continuar com a falha, pois apresentaram instabilidade com as mitigações da vulnerabilidade.
+
+Esta abrangência de processadores atingidos, torna esta vulnerabilidade um assunto relevante devido a probabilidade de que muitas máquinas, aparelhos móveis, \emph{datacenters} e consequentemente informações sigilosas estejam expostas. Isto acontece porque, tal categoria de vulnerabilidade se encontra em nível de \emph{hardware}, e correções via \emph{software} são paliativos que custam questões de desempenho e estabilidade.
 
 % ---------------------------------
-% PROBLEMA DE PESQUISA
+% PROBLEMA E QUESTÃO DE PESQUISA
 % ---------------------------------
-Os ataques de canais laterais que se aproveitam da execução especulativa, constituem-se um assunto relevante devido a probabilidade de que muitas máquinas, aparelhos móveis, \emph{datacenters} e consequentemente informações sigilosas estejam expostas. Isto acontece porque, tal categoria de vulnerabilidade se encontra em nível de \emph{hardware}, e correções via \emph{software} são paliativos que custam questões de desempenho e estabilidade. 
-
-Considerando que os autores citados utilizaram \emph{softwares} com estruturas conhecidas (endereços de memória e fluxos condicionais) em seus experimentos, algumas questões ainda permanecem em aberto. Desse modo, é possível explorar informações sensíveis de \emph{softwares} cujo fluxo condicional e estrutura de memória sejam desconhecidos por meio da exploração da execução especulativa induzida de forma errônea?
+Considerando que os pesquisadores citados utilizaram \emph{softwares} com estruturas conhecidas (endereços de memória, tamanho e conteúdo das variáveis por exemplo) em seus experimentos, algumas questões ainda permanecem em aberto. Diante disto, é possível explorar informações sensíveis de \emph{softwares} cuja estrutura de memória seja desconhecida, por meio da exploração da execução especulativa induzida, utilizando canais laterais?
 
 % ---------------------------------
 % OBJETIVOS
 % ---------------------------------
-Em razão disto, esta pesquisa visa esclarecer, explicar e aplicar métodos desenvolvidos pelos pesquisadores supramencionados, para expor informações de forma genérica em \emph{softwares} que não compartilham da mesma estrutura. Ou seja, que não compartilham a mesma região de memória virtual, e que ocupam regiões dentro do espaço disponível para o usuário. Demonstrando assim, como a exploração da execução especulativa pode ocorrer em \emph{softwares} cujo o fluxo condicional e estrutura de memória se desconhece, afim de ``vazar'' informações sensíveis.
-
-% ---------------------------------
-% QUESTÕES DE PESQUISA
-% ---------------------------------
+Através deste questionamento, esta pesquisa visa esclarecer, explicar e aplicar técnicas desenvolvidas pelos pesquisadores supramencionados. Visando elencar e comprovar os axiomas envolvidos e que realmente são necessários para se executar vazamentos de informações sensíveis. Tendo como foco, a exploração da execução especulativa em \emph{softwares} cuja estrutura de memória se desconhece. De forma a solidificar limitações desta técnica de exploração em particular.
 
 % ---------------------------------
 % PROCEDIMENTOS METODOLÓGICOS
 % ---------------------------------
-Para a obtenção de êxito nesta busca por limites de exploração destes dados sensíveis, esta pesquisa teve seus procedimentos e resultados técnicos analisados e avaliados em máquinas virtuais e reais, induzidas ao ambiente que se é esperado para a realização dos testes. Portanto, os testes foram analisados e testados mais de uma vez, em ambientes diferentes conforme o desenvolvimento da exploração feita pelo autor. O intuito disto é promover o aprofundamento de um conhecimento já exposto através de pesquisas anteriores, sem descartar a possibilidade de produção de um conhecimento novo, que pode ser aplicado em estudos futuros sobre o assunto. Sendo assim, o autor espera complementar alguns aspectos e peculiaridades de pesquisas anteriormente feitas, preenchendo lacunas de conhecimento a respeito da execução especulativa e dos ataques de canais laterais.
+E para a obtenção de êxito nesta busca por limitações de exploração destes dados sensíveis, esta pesquisa teve seus procedimentos e resultados técnicos analisados e avaliados em máquinas reais e virtuais, induzidas ao ambiente que se é esperado para a realização dos testes. Portanto, os testes foram analisados e testados mais de uma vez, no mesmo ambiente induzido. O intuito disto é promover o aprofundamento de um conhecimento já exposto através de pesquisas anteriores, sem descartar a possibilidade de produção de um conhecimento novo, que pode ser aplicado em estudos futuros sobre o assunto. Sendo assim, o autor espera complementar alguns aspectos e peculiaridades de pesquisas anteriormente feitas, preenchendo lacunas de conhecimento a respeito da exploração da execução especulativa.
 
 % ---------------------------------
 % ORGANIZAÇÃO DO ARTIGO
 % ---------------------------------
-Para melhor segmentação e explanação do conhecimento visando o entendimento do leitor, as outras seções do artigo estão dispostas como se segue: a seção 2, \textbf{referencial teórico}, aborda os conceitos de \emph{pipeline}, \emph{branch condition}, \emph{branch target buffer}, \emph{cache levels} e execução especulativa, além dos trabalhos relacionados a ataques de canais laterais. A seção 3, \textbf{referencial metodológico}, classifica a pesquisa e detalha os procedimentos metodológicos empregados. A seção 4, \textbf{resultados e discussões}, apresenta os testes e análises feitas a partir de códigos de outros pesquisadores e artigos relacionados, visando solucionar o problema descrito. E a seção 5, apresenta a \textbf{conclusão}, discute os resultados alcançados, limitações encontradas, perspectivas futuras e conclusões finais.
+Para melhor segmentação e explanação do conhecimento visando o entendimento do leitor, as outras seções do artigo estão dispostas como se segue: a seção 2, \textbf{referencial teórico}, aborda os conceitos de \emph{pipeline}, \emph{branch condition}, \emph{branch target buffer}, \emph{cache levels}, canais laterais e execução especulativa. A seção 3, \textbf{referencial metodológico}, classifica a pesquisa e detalha os procedimentos metodológicos empregados. A seção 4, \textbf{resultados e discussões}, apresenta os testes e análises feitas a partir de códigos de outros pesquisadores e artigos relacionados, visando elicitar e testar os axiomas da técnica descrita. E a seção 5, apresenta a \textbf{conclusão}, discute os resultados alcançados, considerando limitações, perspectivas futuras e conclusões finais.
 
 % ------------------------------------------------------------------------
 % REFERENCIAL METODOLÓGICO
@@ -286,64 +283,100 @@ Esta seção aborda a classificação da pesquisa com relação a finalidade, ab
 \subsection{Método}
 Esta é uma pesquisa com finalidade de natureza básica, com objetivos de caráter explicativos, que utiliza uma abordagem quantitativa, com procedimentos fundamentados em pesquisa bibliográfica, documental e experimental. Caracterizada por um estudo transversal, levando em conta os resultados de análises e testes conduzidos em um ambiente previamente configurado, ou seja, em um laboratório.
 
-Trata-se de uma \textbf{pesquisa básica} porque além de promover o aprofundamento de um conhecimento já exposto através de pesquisas anteriores, não se descarta a possibilidade de produção de novos conhecimentos sobre o assunto. Sendo assim, o autor espera complementar alguns aspectos e peculiaridades de pesquisas anteriormente feitas, preenchendo lacunas de conhecimento a respeito da execução especulativa.
+Trata-se de uma \textbf{pesquisa básica} \cite{Fernando1987Por}, porque além de promover o aprofundamento de um conhecimento já exposto através de pesquisas anteriores, não se descarta a possibilidade de produção de novos conhecimentos sobre o assunto. Sendo assim, o autor espera complementar alguns aspectos e peculiaridades de pesquisas anteriormente feitas, preenchendo lacunas de conhecimento a respeito exploração da execução especulativa.
 
-É uma \textbf{pesquisa explicativa}, pois tem por objetivo demonstrar a possibilidade de execução da falha de especulação em circunstâncias específicas e diferentes das circunstâncias abordadas no artigo de \citeonline{Kocher2018spectre}. Essa comparação leva em conta artigos de outros autores que tentaram proteger o processador contra o ataque utilizando outros métodos via \emph{software}. Desta forma, existe uma associação entre a proteção para determinadas situações e o ataque, com determinadas circunstâncias (endereços de memória, \emph{softwares} a serem explorados e técnicas para isto).
+É uma \textbf{pesquisa explicativa} \cite{Rampazzo2005Metodologia}, pois tem por objetivo demonstrar a possibilidade de execução da técnica de vazamento, em circunstâncias específicas e diferentes das circunstâncias abordadas no artigo de \citeonline{Kocher2018spectre}. Essa comparação leva em conta artigos de outros pesquisadores que elucidaram limites que estão envolvidos na aplicação da técnica. Existindo assim, uma associação entre os limites elicitados, a comprovação ou não destes, e a busca de outros limites, para a consolidação dos axiomas.
 
-A pesquisa utiliza uma \textbf{abordagem quantitativa}, visto que a avaliação dos resultados possui caráter bem definido e exato do ponto de vista funcional. Avaliando a execução e não execução dos procedimentos que levam a falha e consequentemente ao vazamento, é possível concluir, de forma objetiva e direta, se a técnica funciona ou não. Tais resultados foram comprovados através de testes.
+A pesquisa utiliza uma \textbf{abordagem quantitativa} \cite{Mauro2009Metodologia}, visto que a avaliação dos resultados possui caráter bem definido e exato do ponto de vista funcional. Avalia-se a execução ou não dos procedimentos que levam ao vazamento, e concluir-se de forma objetiva e direta se a técnica funciona ou não, com que circunstâncias e com quais condições (axiomas da técnica). Tais resultados foram comprovados através de testes, embasados na literatura referencial.
 
-Os procedimentos técnicos adotados pelo autor baseiam-se em técnicas de pequisa bibliográfica, documental e experimental. O \textbf{procedimento bibliográfico} foi adotado pois proporciona a condição de comparação histórica com a literatura, além de conferir o embasamento teórico veraz necessário (desconsiderando literaturas sensacionalistas, imprecisas ou sem fontes sólidas), creditando aos autores primários suas devidas contribuições para o ponto atingido deste trabalho. O \textbf{procedimento documental} confere a garantia de consulta e comparação dos artigos primários, com a literatura não processada (manuais, guias e notas oficiais dos fabricantes). E o \textbf{procedimento experimental} proporcionou ao autor agregar valor ao trabalho em questão através de testes e experimentos. Para isto, os objetos de estudo foram os processadores físicos disponíveis, e os \emph{exploits} foram os meios de controle utilizados para modificar o comportamento dos objetos de estudo, visando o acréscimo de todo conhecimento anterior.
+Os procedimentos técnicos adotados pelo autor baseiam-se em técnicas de pequisa bibliográfica, documental e experimental. O \textbf{procedimento bibliográfico} foi adotado pois proporciona a condição de comparação histórica com a literatura, além de conferir o embasamento teórico veraz necessário (desconsiderando literaturas sensacionalistas, imprecisas ou sem fontes sólidas), creditando aos autores primários suas devidas contribuições para o ponto atingido deste trabalho. O \textbf{procedimento documental} confere a garantia de consulta e comparação dos artigos primários, com a literatura não processada (manuais, guias e notas oficiais dos fabricantes). E o \textbf{procedimento experimental} proporcionou ao autor agregar valor ao trabalho em questão através de testes e experimentos. Utilizando como objetos de estudo os \emph{softwares} desenvolvidos por outros pesquisadores, afim de obter resultados diferentes com modificações pontuais, visando o acréscimo de um conhecimento anterior \cite{Praca2015Metodologia}.
 
-Estes procedimentos técnicos, juntamente com os resultados, foram analisados e avaliados durante um determinado período de tempo. Sendo que, as variáveis observadas são relativas a momentos instantâneos de regiões dinâmicas de memória, conferindo uma característica \textbf{transversal} ao estudo, tratando-se de tempo de aplicação.
+Estes procedimentos técnicos, juntamente com os resultados, foram analisados e avaliados durante um determinado período de tempo. Sendo que, as variáveis observadas são relativas a momentos instantâneos de regiões dinâmicas de memória, conferindo uma característica \textbf{transversal} ao estudo, tratando-se de tempo de aplicação \cite{Mauro2009Metodologia}.
 
-A localização da realização desta pesquisa, refere-se a um ambiente controlado composto de computadores pessoais \textbf{reais e virtualizados}. Um ambiente laboratorial previamente configurado foi utilizado para simular tanto a ausência de defesa (contra o vazamento de informações), como também a presença dos mecanismos de defesa. Por isso, foi necessário testar cada cenário criado de forma exaustiva, utilizando os \emph{exploits} em ordem cronológica de descoberta, respeitando a ordem de, condições conhecidas para, condições desconhecidas.
+A localização da realização desta pesquisa refere-se a um ambiente controlado composto de computadores pessoais \textbf{reais e virtualizados}. Um ambiente laboratorial previamente configurado foi utilizado para simular a ausência de defesa contra as técnicas de vazamento de informações. Foi necessário testar a mesma técnica no mesmo cenário criado, de forma exaustiva, evidenciando cada limite encontrado para a consolidação dos axiomas da técnica.
+
 % ---------------------------------
 % CLASSIFICAÇÃO DOS PROCEDIMENTOS
 % ---------------------------------
 \subsection{Procedimentos Metodológicos}
-Para a realização dos experimentos foi desenvolvido um \emph{software} escrito em linguagem C, visando a manipulação da forma de alocação das regiões de memória, e das estruturas condicionais internas. Modificando-o para compartilhar e isolar regiões de memória, e, esconder e expor estruturas condicionais. Estas condições permitiram a realização desta pesquisa em dois passos principais: primeiro, aplicar os \emph{expoits} da literatura expondo regiões conhecidas e compartilhadas do \emph{software} exemplo. E segundo, aplicar os mesmos \emph{exploits} com adaptações, para explorar endereços de memória e estruturas condicionais que se desconhece.
+Para a realização dos experimentos, utilizou-se a prova de conceito (\emph{Proof of Concept}, ou \emph{PoC}) documentada por \citeonline{Kocher2018spectre}. O código exemplo de exploração (ou \emph{exploit}\footnote{Segundo  \citeonline{Cesar2010Vulnerabilidades}, é um conjunto de instruções ``capaz de tirar proveito de uma vulnerabilidade''.}) desta \emph{PoC}, foi escrito em linguagem C, e simula o vazamento de uma informação secreta escrita diretamente no código. O intuito é explorar a execução especulativa induzida, utilizando a memória cache como canal lateral, em uma estrutura (endereços de memória e variáveis) definida pelo próprio criador do \emph{exploit}. Jann Horn em janeiro de \citeyear{googleprojectzero}, já havia elucidado o funcionamento desta \emph{PoC}, e a batizou de \emph{Spectre}\footnote{Especulativo, espectro ou fantasma (``speculative'', inglês). O nome deriva da causa da falha.}. Foi documentada na CVE\footnote{\emph{Common Vulnerabilities and Exposures}, ``Exposições e Vulnerabilidades Comuns'' (tradução do autor). Mantida sem fins lucrativos pela Mitre \emph{Corporation}.}, na forma de duas variações: \emph{bypass} de verificação de limites (\emph{CVE-2017-5753}) e injeção do caminho alvo (\emph{CVE-2017-5715}). Estas duas variações são exploradas ao mesmo tempo no \emph{exploit} da \emph{Spectre}.
 
-Nos testes iniciais (passo um) o \emph{software} de exemplo foi submetido ao \emph{exploit} documentado por \citeonline{Kocher2018spectre}, que utiliza regiões de memória compartilhadas com ``endereços alvos'' conhecidos. E depois submetido ao \emph{exploit} documentado por \citeonline{Lipp2018meltdown}, que se aproveita das regiões de memória do \emph{Kernel}. Estes testes foram conduzidos esperando-se identificar em quais circunstâncias gerais as técnicas de vazamento funcionam: proteções que precisam estar desabilitadas, endereços de memória abrangentes, aplicações de uso comum que podem ser atingidas, e outras circunstâncias relevantes durante o estudo. Tendo ocorrido o vazamento das informações pré-definidas pelo autor, tem-se uma pequena definição de como os vazamentos ocorrem em estruturas conhecidas, e isto pode ser considerado um sucesso parcial.
+De posse deste \emph{exploit} e utilizando uma máquina convencional que contenha um compilador de C (\textbf{Visual C++} para \emph{Windows}, ou \textbf{GNU Compiler Collection} para \emph{Linux}), é possível verificar os passos que desencadeiam o vazamento. No caso desta pesquisa o ambiente utilizado foi um Linux GNU Ubuntu 16.04.05 LTS 64-bit, Intel\textsuperscript{\tiny\textregistered} Core\textsuperscript{\tiny\texttrademark} i3 5005U @ 2.0 Ghz x 4. Diante disto, os experimentos para a realização desta pesquisa foram divididos em quatro testes, que apresentam-se como possíveis axiomas da \emph{Spectre}. Tendo como foco a utilização do \emph{exploit} em uma estrutura contrária ao documentado por \citeonline{Kocher2018spectre}: endereços de memória desconhecidos, tamanho e conteúdo das variáveis escolhidos arbitrariamente.
 
-Nos testes periféricos a literatura (passo dois), o exemplo desenvolvido foi testado utilizando a mesma região de memória compartilhada, porém com um endereço de memória desconhecido. Neste passo, o \emph{software} também foi testado sem o compartilhamento de memória, e com endereços conhecidos e desconhecidos. Para isto, diferentes técnicas de vazamento foram utilizadas. Tanto com o aproveitamento das estruturas de memória do \emph{Kernel}, quanto sem utilizá-las (limitando-se somente ao endereçamento do espaço do usuário). Espera-se provar a possibilidade de vazamento de informações de regiões de memória de nível usuário, sem o aproveitamento dos endereços privilegiados do \emph{Kernel}. Caso informações relevantes de outros \emph{softwares} em espaço de usuário sejam vazadas, tem-se a comprovação de uma variação de ataque não documentada. E este possível êxito pode ser considerado um bônus.
+Dois métodos foram utilizados para elicitar estes possíveis axiomas: exploração da literatura, em busca de circunstancias que sejam necessárias para a execução da \emph{Spectre}; e, exploração do \emph{exploit}, em busca de limitações intuitivas que determinam o funcionamento da \emph{PoC}. Posteriormente estes foram testados, afim de identificar com as suas possíveis falhas, em quais circunstâncias gerais e de comum aceitação a \emph{Spectre} funciona ou limita-se: quanto a quantidade de dados que pode ser vazada, quanto a endereços de memória (físicos ou não) que abrangem o vazamento, quanto a proteções que precisam estar desabilitadas, e outras circunstâncias relevantes durante o estudo.
 
+\begin{comment}
 Para a realização dos passos supradescritos, os ambientes utilizados foram: GNU Ubuntu 18.04.01 LTS 64-bit, Intel\textsuperscript{\tiny\textregistered} Core\textsuperscript{\tiny\texttrademark} i7 7500U @ 2.7 Ghz x 4; GNU Ubuntu 16.04.05 LTS 64-bit, Intel\textsuperscript{\tiny\textregistered} Core\textsuperscript{\tiny\texttrademark} i3 5005U @ 2.0 Ghz x 4.
+\end{comment}
+
 % ------------------------------------------------------------------------
 % TESTES, RESULTADOS E DISCUSSÃO
 % ------------------------------------------------------------------------
 \section{Testes, Resultados e Discussão}
 Esta seção tem por objetivo expor os testes realizados de maneira sistemática, com seus resultados individuais, abrindo questionamentos a respeito do conhecimento estudado. Ao final desta seção, a conclusão apresenta uma síntese do produto gerado pelos experimentos.
 % ---------------------------------
-% TESTES COM OS EXPLOITS EXISTENTES
+% ESTOURANDO LIMITE DA MEMÓRIA CACHE
 % ---------------------------------
-\subsection{Aplicação da \emph{Spectre}}
-Objetivo do teste
-Descrição do teste (condição de execução)
-Resultado do teste (empregar gráficos e tabelas, se possível)
-Interpretação do resultado (discutir o resultado relacionando com a literatura)
-Conclusão parcial do Teste 1
+\subsection{Teste 01 - Estourando o Limite da Memória Cache}
+
+limite da cache
+aumentar a string pra 500 caracteretes e pegar somente os primeiros bytes = pode ser a limitação do valor da cache. Se for um valor muito alto, ele não vai pra cache e você não pode lekar ele.
+
+A prova de conceito (\emph{Proof of Concept}, ou \emph{PoC}) documentada por \citeonline{Kocher2018spectre}, afirma que duas condições precisam ser atendidas para um vazamento acontecer: o \emph{software} alvo possui uma faixa de memória reservada que está compartilhada (toda ou em parte) através de algum recurso (biblioteca, \emph{plugin}, ou uma máquina virtual por exemplo); e, existe uma estrutura condicional (dentro do alvo) que utiliza um ou mais endereços dentro desta faixa de memória compartilhada. Ou seja, é conhecido pelo o invasor, o endereço alvo do vazamento e a estrutura lógica condicional que utiliza este endereço. 
+
+O canal lateral utilizado foi a memória cache, estimando os tempos de acesso a cada endereço pertencente a faixa conhecida. O \emph{software} alvo que atende as condições acima, neste caso de estudo, foi a própria \emph{PoC} disponibilizada pelos pesquisadores. Objetiva-se mapear qual é o limite deste tipo de exploração. Para a realização deste teste, utilizou-se \emph{notebooks} com os ambientes descritos anteriormente. O ambiente com o GNU Ubuntu 16.04.05 LTS, está sem nenhuma atualização, desde a instalação da distro oficial.
+
+As modificações feitas na \emph{PoC}, resultaram em algumas análises, como se segue: primeiro, tentando estourar o intervalo de memória que é vazado, alterou-se a quantidade de dados que eram de 40 caracteres para 500 caracteres. Sendo que a \emph{PoC} apresentou um \emph{delay} na coleta das informações. Este \emph{delay}, pode ser considerado como sendo uma taxa de transferência das informações que o \emph{clock} do processador atual é capaz de especular e inferir. Quando o valor foi alterado para 1000, a \emph{PoC} perdeu a eficiência de inferência da memória cache, quando atingiu uma cadência de 246 caracteres fora do endereço reservado para as informações secretas. 
+
+Isto acontece pois, segundo \emph{Intrinsics Guide} da \emph{Intel}, a instrução \verb|_mm_clflush| é utilizada para limpar uma informação que se conhece o endereço, em todos os níveis da hierarquia da cache \cite{intel-iguide}. E para inferir os dados especulados o \emph{exploit} da \emph{Spectre} precisa fazer o ciclo de tentativa de acesso e limpeza da cache sucessivas vezes, inferindo o menor tempo de acesso para as informações coletadas.
+
+
+
 % ---------------------------------
 % VAZANDO A USER SPACE
 % ---------------------------------
-\subsection{Aplicação do \emph{Meltdown}}
+\subsection{Teste 02 - Limpando Endereços Desconhecidos}
+
+clflush precisa do endereço físico da variável???
+
 Objetivo do teste
 Descrição do teste (condição de execução)
 Resultado do teste (empregar gráficos e tabelas, se possível)
 Interpretação do resultado (discutir o resultado relacionando com a literatura)
 Conclusão parcial do Teste 2
+
 % ---------------------------------
 % TENTANDO MAIS ALGUMA COISA
 % ---------------------------------
-\subsection{Aplicação do \emph{Spoiler}}
+\subsection{Teste 03 - Contextos Distintos}
 Objetivo do teste
 Descrição do teste (condição de execução)
 Resultado do teste (empregar gráficos e tabelas, se possível)
 Interpretação do resultado (discutir o resultado relacionando com a literatura)
 Conclusão parcial do Teste n
+
+% ---------------------------------
+% TENTANDO MAIS ALGUMA COISA
+% ---------------------------------
+\subsection{Teste 04 - Isolamento de \emph{Browsers}}
+Objetivo do teste
+Descrição do teste (condição de execução)
+Resultado do teste (empregar gráficos e tabelas, se possível)
+Interpretação do resultado (discutir o resultado relacionando com a literatura)
+Conclusão parcial do Teste n
+
 % ---------------------------------
 % CONCLUSÃO DOS TESTES
 % ---------------------------------
 \subsection{Conclusão}
+
+Axiomas = são as condições , coisas que precisam ser verdade para acontecer
+Provar se esses axiomas são verdade ou não
+
+focar na Spectre
+listar as condições necessárias pra explorar (listar os axiomas)
+provar que é verdade ou falso
+
 Síntese das conclusões parciais (Teste 1, Teste 2, ... Teste n)
 Generalização dos resultados dos testes
 
