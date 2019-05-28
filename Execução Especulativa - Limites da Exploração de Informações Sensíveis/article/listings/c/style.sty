@@ -1,0 +1,24 @@
+\usepackage{xcolor}
+\usepackage{textcomp}
+
+% CLion Style
+\definecolor{keyword}{RGB}{204,120,50}  
+\definecolor{comment}{RGB}{128,128,128}
+\definecolor{string}{RGB}{106,135,89}
+
+\lstdefinestyle{c}{
+	frame=lines,
+	numbers=left,
+	numberstyle=\tiny,
+	xleftmargin=0.5cm,
+    stepnumber=1,
+	breaklines=true,
+	showstringspaces=false,
+	upquote=true,
+	tabsize=4,
+	basicstyle=\footnotesize\bfseries\ttfamily,
+	keywordstyle=\color{keyword},
+	commentstyle=\color{comment},
+	stringstyle=\color{string},
+	prebreak=\raisebox{0ex}[0ex][0ex]{\ensuremath{\hookleftarrow}}
+}
