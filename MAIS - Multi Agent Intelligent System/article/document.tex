@@ -1,0 +1,407 @@
+% ------------------------------------------------------------------------
+% ------------------------------------------------------------------------
+% Modelo de Artigo Acadêmico
+% Em conformidade com:
+% ABNT NBR 6022:2018: Informação e Documentação - Artigo em Publicação Periódica Científica - Apresentação
+%
+% Adaptado para:
+% SEPA: Seminário Estudantil de Produção Acadêmica da UNIFACS
+%
+% Baseado na Biblioteca abnTeX2 v1.9.7
+% ------------------------------------------------------------------------
+% ------------------------------------------------------------------------
+\documentclass[
+	% Opções da classe memoir
+	article,			    % indica que é um artigo acadêmico
+	12pt,				    % tamanho da fonte
+	oneside,			    % para impressão apenas no recto. Oposto a twoside
+	a4paper,			    % tamanho do papel. 
+	% Opções da classe abntex2
+	chapter=TITLE,		    % títulos de capítulos convertidos em letras maiúsculas
+	section=TITLE,		    % títulos de seções convertidos em letras maiúsculas
+	subsection=TITLE,	    % títulos de subseções convertidos em letras maiúsculas
+	%subsubsection=TITLE    % títulos de subsubseções convertidos em letras maiúsculas
+	% Opções do pacote babel
+	english,			    % idioma adicional para hifenização
+	brazil,				    % o último idioma é o principal do documento
+	sumario=tradicional
+]{abntex2}
+% ------------------------------------------------------------------------
+% PACOTES
+% ------------------------------------------------------------------------
+% Pacotes fundamentais 
+\usepackage{times}			    % Usa a fonte Times New Roman
+\usepackage[T1]{fontenc}		% Selecao de codigos de fonte.
+\usepackage[utf8]{inputenc}		% Codificacao do documento (conversão automática dos acentos)
+\usepackage{indentfirst}		% Indenta o primeiro parágrafo de cada seção.
+\usepackage{nomencl} 			% Lista de simbolos
+\usepackage{color}				% Controle das cores
+\usepackage{graphicx}			% Inclusão de gráficos
+\usepackage{microtype} 			% Para melhorias de justificação
+% Pacotes adicionais, usados apenas no âmbito do Modelo Canônico do abnteX2
+\usepackage{lipsum}				% Para geração de dummy text
+% Pacotes de citações
+\usepackage[brazilian,hyperpageref]{backref}	 % Paginas com as citações na bibliografia
+\usepackage[alf,bibjustif,abnt-emphasize=bf,abnt-etal-text=emph]{abntex2cite}  % Citações padrão ABNT, forçar a justificação da bibliografia e enfatizar com negrito
+% Pacotes extras 
+\usepackage{fancyhdr}           % Personalização do cabeçalho e rodapé
+% ------------------------------------------------------------------------
+% CONFIGURAÇÃO DOS PACOTES
+% ------------------------------------------------------------------------
+% Configurações do pacote backref
+% Usado sem a opção hyperpageref de backref
+\renewcommand{\backrefpagesname}{Citado na(s) página(s):~}
+% Texto padrão antes do número das páginas
+\renewcommand{\backref}{}
+% Define os textos da citação
+\renewcommand*{\backrefalt}[4]{
+	\ifcase #1
+		Nenhuma citação no texto.
+	\or
+		Citado na página #2.
+	\else
+		Citado #1 vezes nas páginas #2.
+	\fi
+}
+% Configuração dos nomes padrões do babel
+%\addto\captionsbrazil{
+%    \renewcommand{\bibname}{Referências Bibliográficas}
+%}
+% Configuração do título das referências (anteriormente modificado)
+\renewcommand{\bibsection}{%
+    \section*{\bibname}
+    \bibmark
+    \ifnobibintoc\else
+        \phantomsection
+    \fi
+    \prebibhook
+}
+% Modificando o tamanho da fonte "large" que é 14.4pt, para 14pt
+%\renewcommand{\large}{\fontsize{14}{14}\selectfont}
+% ------------------------------------------------------------------------
+% DADOS DO DOCUMENTO
+% ------------------------------------------------------------------------
+% Informações de dados para capa
+\autor{\normalsize{\textbf{Felipe Rios da Silva Cordeiro}}}
+\instituicao{
+    UNIFACS - UNIVERSIDADE SALVADOR
+    ESCOLA DE ARQUITETURA, ENGENHARIA\\ E TECNOLOGIA DA INFORMAÇÃO
+    BACHARELADO EM ENGENHARIA DA COMPUTAÇÃO
+}
+\titulo{\uppercase{\normalsize{\textbf{INTELIGÊNCIA ARTIFICIAL DISTRIBUÍDA\\
+E AUTOMAÇÃO INDUSTRIAL}}}}
+\local{Salvador}
+%\data{2019}
+\tipotrabalho{Trabalho de Conclusão de Disciplina, Graduação}
+\preambulo{Trabalho de conclusão de disciplina apresentado ao curso de graduação em Engenharia da Computação da Universidade Salvador - UNIFACS, como requisito fundamental para a conclusão da disciplina Automação e Instrumentação, para a obtenção do título de Engenheiro da Computação.}
+\orientador[Orientador:]{\normalsize{\textbf{???}}}
+%\tituloestrangeiro{Canonical article template in \abnTeX: optional foreign title}
+% ------------------------------------------------------------------------
+% META DADOS DO PDF
+% ------------------------------------------------------------------------
+% Alterando o aspecto da cor azul
+\definecolor{blue}{RGB}{41,5,195}
+% Informações do PDF
+\makeatletter
+\hypersetup{
+ 	%pagebackref=true,
+	pdftitle={\@title}, 
+	pdfauthor={\@author},
+	pdfsubject={\imprimirpreambulo},
+    pdfcreator={LaTeX with abnTeX2 and Overleaf},
+	pdfkeywords={inteligência,}{artificial,}{distribuída,}{automação,}{industrial,}{manufatura}, 
+	colorlinks=false,       % false: boxed links; true: colored links
+	linkcolor=blue,         % color of internal links
+	citecolor=blue,        	% color of links to bibliography
+	filecolor=magenta,      % color of file links
+	urlcolor=blue,
+	bookmarksdepth=4
+}
+\makeatother
+% ------------------------------------------------------------------------
+% CONFIGURAÇÕES DAS FOLHAS E AJUSTES NAS FONTES GERAIS
+% ------------------------------------------------------------------------
+% Compila o índice
+\makeindex
+% Altera as margens
+\setlrmarginsandblock{3cm}{2cm}{*}
+\setulmarginsandblock{3cm}{2cm}{*}
+\checkandfixthelayout
+% Espaçamentos entre linhas e parágrafos 
+% O tamanho do parágrafo é dado por (espaçamento na primeira linha):
+\setlength{\parindent}{1.25cm}
+% O espeçamento padrão é definido como \OnehalfSpacing, ou seja, um espaço e meio conforme estabelece a ABNT NBR 14724:2011
+% ------------------------------------------------------------------------
+% CABEÇALHOS E RODAPÉS
+% ------------------------------------------------------------------------
+% Criar um novo estilo de cabeçalhos e rodapés
+\pagestyle{fancy}
+%\setlength{\headheight}{80pt}
+\fancyhf{}
+%\lhead{\includegraphics[width=0.4\textwidth]{/images/image00.png}}
+%\rhead{
+%{\fontsize{8}{1.5}\selectfont
+%\begin{vplace}
+%TCC - TRABALHO DE CONCLUSÃO DE CURSO\break
+%COORDENAÇÂO DE ENGENHARIA DA COMPUTAÇÃO\end{vplace}}}
+\fancypagestyle{plain}{
+    \renewcommand{\headrulewidth}{0pt}
+    \renewcommand{\footrulewidth}{0pt}
+    \fancyhfoffset[LE]{0mm}
+    \fancyhfoffset[RE]{0mm}
+    \fancyhfoffset[LO]{0mm}
+    \fancyhfoffset[RO]{0mm}
+}
+% ------------------------------------------------------------------------
+% CAPÍTULOS, SEÇÕES E SUBSEÇÕES
+% ------------------------------------------------------------------------
+% Chapter 12pt + Bold
+\renewcommand{\ABNTEXchapterfont}{\bfseries}
+\renewcommand{\ABNTEXchapterfontsize}{\normalsize}
+% Section 12pt + Bold
+\renewcommand{\ABNTEXsectionfont}{\bfseries}
+\renewcommand{\ABNTEXsectionfontsize}{\normalsize}
+% SubSection 12pt
+\renewcommand{\ABNTEXsubsectionfont}{\normalfont}
+\renewcommand{\ABNTEXsubsectionfontsize}{\normalsize}
+% SubSubSection 12pt + Bold + Underline
+\renewcommand{\ABNTEXsubsubsectionfont}{\bfseries}
+\renewcommand{\ABNTEXsubsubsectionfontsize}{\normalsize}
+\setsubsubsecheadstyle{\ABNTEXsubsubsectionfont\ABNTEXsubsubsectionfontsize\ABNTEXsubsubsectionupperifneeded\coloruline[black]}
+% SubSubSubSection 12pt + Lowercase
+\setparaheadstyle{\normalfont\ABNTEXsubsubsectionfont\ABNTEXsubsubsectionfontsize}
+% Retirando espaçamentos antes dos capítulos
+\setlength{\beforechapskip}{\baselineskip}
+% Retirando espaçamentos depois dos capítulos
+\setlength{\afterchapskip}{\baselineskip}
+% Recriando a variável que instancia o resumo
+\renewenvironment{resumoumacoluna}{}
+
+% ------------------------------------------------------------------------
+% INÍCIO DO DOCUMENTO
+% ------------------------------------------------------------------------
+\begin{document}
+% Seleciona o idioma do documento (conforme pacotes do babel)
+%\selectlanguage{english}
+\selectlanguage{brazil}
+% Retira espaço extra obsoleto entre as frases.
+\frenchspacing 
+% ------------------------------------------------------------------------
+% ELEMENTOS PRÉ-TEXTUAIS
+% ------------------------------------------------------------------------
+\pretextual
+\pagestyle{fancy}
+% página de titulo principal (obrigatório)
+%\maketitle
+\begin{SingleSpace}
+    \begin{center}
+        \imprimirtitulo
+    \end{center}
+    \begin{flushright}
+        \imprimirautor
+        \footnote{Graduando em Engenharia da Computação, UNIFACS. E-mail: felipe.rios.silva@outloook.com}
+        \\
+        \normalsize{\textbf{Denisson Santos Fiaes}}\footnote{Graduando em Engenharia da Computação, UNIFACS. E-mail: dfiaes@gmail.com}
+        \\
+        \normalsize{\textbf{Larisse Pereira de Cerqueira}}\footnote{Graduanda em Engenharia da Computação, UNIFACS. E-mail: lare403@gmail.com}
+    \end{flushright}
+\end{SingleSpace}
+% Titulo em outro idioma (opcional)
+% Resumo em Português
+\begin{resumoumacoluna}
+    \footnotesize{\begin{SingleSpace}
+        \noindent
+        \textbf\resumoname\\
+        A Inteligência Artificial Distribuída (IAD) é a aplicação da Inteligência Artificial (IA) na construção de processos autônomos e paralelos que trabalham em regime de cooperação para a realização de uma atividade principal ou intermediária. Nos últimos tempos, a demanda pela combinação de IA aos processos de automação das plantas industriais expandiu-se muito, diante da crescente necessidade de se produzir mais, de forma mais econômica e em menos tempo. No presente artigo, serão explicitadas as principais vantagens e desvantagens encontradas em exemplos de aplicações da IA na manufatura clássica e também na indústria 4.0. Diante da análise das informações obtidas via procedimento bibliográfico e documental, analisou-se que a aplicação da Inteligência Artificial apresenta desafios que devem ser ponderados no momento da aplicação, tais como a qualidade e complexidade dos dados obtidos para análise. Portanto, verificou-se que, antes da incorporação da IA em manufaturas clássicas e modernas, devem ser verificadas as características dos processos.\\\\
+        \textbf{Palavras-chave:} inteligência; artificial; distribuída; automação; industrial; manufatura.
+        \vspace{\onelineskip}
+    \end{SingleSpace}}
+\end{resumoumacoluna}
+% Resumo em Inglês
+\renewcommand{\resumoname}{Abstract}
+\begin{resumoumacoluna}
+    \footnotesize{\begin{SingleSpace}
+        \begin{otherlanguage*}{english}
+            \noindent
+            \textbf\resumoname\\
+            Distributed Artificial Intelligence (DAI) is the application of Artificial Intelligence (AI) in the construction of autonomous and parallel processes that work in a cooperative regime to perform a main or intermediate activity. In recent times, the demand for the combination of AI to automation processes of industrial plants has expanded greatly, given the growing need to produce more, more economically and in less time. In this article, the main advantages and disadvantages found in examples of AI applications in classic manufacturing and in industry 4.0 will be explained. In the analysis of the information obtained through the bibliographic and documentary procedure, it was analyzed that the application of Artificial Intelligence presents challenges that must be weighed at the moment of application, such as the quality and complexity of the data obtained for analysis. Therefore, it was verified that, prior to the incorporation of AI in classic and modern manufactures, the characteristics of the processes must be verified.\\\\
+            \textbf{Keywords:} distributed; artificial; intelligence; industrial; automation; manufacture.
+        \end{otherlanguage*}
+    \end{SingleSpace}}
+\end{resumoumacoluna}
+% ------------------------------------------------------------------------
+% ELEMENTOS TEXTUAIS
+% ------------------------------------------------------------------------
+\textual
+\pagestyle{fancy}
+% ------------------------------------------------------------------------
+% INTRODUÇÃO
+% ------------------------------------------------------------------------
+\section{Introdução}
+% ---------------------------------
+% TEMA
+% ---------------------------------
+A inteligência artificial tem se disseminado com o tempo, e tem sido o elo que sana muitas lacunas de atividades em que máquinas e pessoas buscam harmonia. É encarada também, como um grande ganho de capital para empresas de vários ramos de atividade, inclusive na indústria. Uma das características da inteligência artificial, é o fato de otimizar uma automação já feita, em que o \emph{hardware} e suas configurações já não possuem mais “inteligência” própria disponível para tanto. 
+
+% ---------------------------------
+% JUSTIFICATIVA
+% ---------------------------------
+Por ter variadas aplicações, a inteligência artificial em indústrias ocupa diversos setores da produção, ou manufatura de um produto. Ela está contida desde a tomada de decisão de uma prensa por exemplo, até a compilação dos relatórios gerenciais que o centro administrativo usa para tomar decisões que abrangem a planta como um todo. Um dos motivos dessa expansão, é a crescente demanda de máquinas que produzam muito, de forma customizada e de baixo custo. É uma espécie de produção programável, e inteligente. Reduzindo os gargalos de configuração e até mesmo de lentidão para produção de peças variadas com matérias primas diferentes. 
+
+Máquinas automáticas já conseguem trabalhar de forma mais habilidosa do que os procedimentos manuais ou mecanizados. Modelos automáticos já são mais eficientes e produtivos, que modelos humanos. Mas como melhorar ainda mais o rendimento de uma planta, sem necessariamente significar em investimentos com equipamentos ou procedimentos novos? Uma possível solução seria a inteligência artificial distribuída aplicada. 
+
+% ---------------------------------
+% PROBLEMA DE PESQUISA
+% ---------------------------------
+Um modelo de sistema inteligente distribuído, poderia eliminar a responsabilidade do CLP (Controlador Lógico Programável) de concentrar todas as informações e tomadas de decisões. Todos os equipamentos em uma planta, poderiam ser inteligentes o suficiente para entenderem o processo de produção como um todo, e sugerir uns aos outros formas de trabalho, modelos de atuação e comunicação durante o processo de produção. O que se sugere, é um modelo de sistema multiagente inteligente e distribuído, para otimizar uma planta de produção ou manufatura (já automatizada), em que a limitação de \emph{hardware} já não permite mais progresso na relação custo vs. benefício de operação.
+
+% ---------------------------------
+% OBJETIVOS
+% ---------------------------------
+
+% ---------------------------------
+% PROCEDIMENTOS METODOLÓGICOS
+% ---------------------------------
+
+% ---------------------------------
+% ORGANIZAÇÃO DO ARTIGO
+% ---------------------------------
+
+% ------------------------------------------------------------------------
+% REFERENCIAL METODOLÓGICO
+% ------------------------------------------------------------------------
+\section{Referencial Metodológico}
+Seção que aborda a descrição dos métodos e procedimentos utilizados.
+% ---------------------------------
+% CLASSIFICAÇÃO DA PESQUISA
+% ---------------------------------
+\subsection{Método}
+A obra em questão é uma pesquisa de natureza básica, com objetivos explicativos, utilizando procedimentos fundamentados em pesquisa bibliográfica e documental. É uma \textbf{pesquisa básica} pois promove o aprofundamento e reflexão em um conhecimento já consolidado em pesquisas anteriores. Os autores esperam contribuir com visões peculiares, em relação a aplicação da inteligência artificial distribuída nas diversas atividades industriais automatizadas.
+
+Tem objetivos \textbf{explicativos}, pois explica como a inteligência artificial distribuída pode contribuir para economia de recursos de um sistema automatizado, poupando tempo, energia, velocidade na tomada de decisão, e ainda promovendo a autonomia de processos, que sem a IA (Inteligência Artificial) se limitavam às configurações de \emph{hardware} disponíveis.
+
+Os autores utilizaram técnicas de pequisa bibliográfica e documental pois, o \textbf{procedimento bibliográfico} proporciona a condição de comparação histórica com a literatura, registrando o avanço da tecnologia e dos métodos citados. E o \textbf{procedimento documental} confere a garantia de consulta e comparação dos artigos primários com a literatura não processada.
+
+% ---------------------------------
+% CLASSIFICAÇÃO DOS PROCEDIMENTOS
+% ---------------------------------
+\subsection{Procedimentos Metodológicos}
+A pesquisa \textbf{bibliográfica e documental} possibilitou filtrar e comparar uma quantidade de publicações satisfatória, levando em conta a amplitude de tempo de evolução da tecnologia. Começando pelas primeiras aplicações industriais da IAD (Inteligência Artificial Distribuída), na seleção de rotas ótimas para a locomoção, até os sistemas mais complexos de tomada de decisão na indústria.
+
+% ------------------------------------------------------------------------
+% REFERENCIAL TEÓRICO
+% ------------------------------------------------------------------------
+\section{Referencial Teórico}
+Seção que aborda o conhecimento fundamental para a compreensão desta pesquisa.
+% ---------------------------------
+% CONCEITO 01
+% ---------------------------------
+\subsection{Inteligência Artificial Distribuída (IAD)}
+Os Sistemas de Inteligência Artificial Distribuída são sistemas que permitem que vários processos autônomos, que são chamados de ``agentes'', se comuniquem localmente, para a realização de atividades globais maiores. A meta destes sistemas é poder coordenar atividades de grupo resolvendo o problema designado, ou uma parte de um problema global, de forma paralela e independente \cite{ufrgsiad}.
+
+Tais problemas especialistas, que só um determinado equipamento pode resolver, podem ser sub divididos e resolvidos em grupo. Com o mesmo efeito e mesmo benefício de um trabalho em equipe, por exemplo. A Universidade Federal do Rio Grande do Sul, dentre as muitas razões para se utilizar um sistema inteligente distribuído, destacou alguns motivos que merecem consideração. O primeiro, e principal, é o acréscimo do poder de computação com \emph{hardware} mais barato. Como suporte a isso, pode-se acrescentar como segundo motivo, maior segurança e tolerância a falhas (processo de redundância e comunicação duplicada por exemplo). E terceiro, aproveitamento da tecnologia existente, sem a necessidade de investimento em pesquisa para o desenvolvimento de tecnologias não concebidas \cite{ufrgsiad}. 
+
+% -------------------------------- -
+% CONCEITO 02
+% ---------------------------------
+\subsection{Automação Industrial e Manufatura}
+Automação é o termo que define a substituição de qualquer sistema manual ou mecanizado, por um sistema utilizando equipamentos automáticos, apoiados em controle por computadores. Substituindo muitas vezes o trabalho humano por motivos consideráveis como: segurança dos trabalhadores, precisão e qualidade do processo, velocidade de produção, redução de custos e simplificação do processo produtivo. Por conseguinte, reduz os custos de mão de obra, reduz a quantidade de ciclos de produção, e aumenta a qualidade do produto do processo \cite{groover2011automacao}.
+
+Quando o termo ``automação'' é utilizado aplicado a indústria, refere-se ao processo de otimização do processo produtivo ou de montagem de um produto. Removendo o trabalho humano da base de trabalho, e adicionando-o como fator supervisório que garante a inspeção e qualidade do resultado automático. A automação industrial pode ser aplicada nos dois tipos de indústria: produção e manufatura.
+
+Uma indústria de produção de forma generalista, envolve a transformação de matéria prima em produto final ou intermediário. O fato de transformar uma matéria em outra, através de processos químicos e físicos, confere a industria em questão a classificação como sendo de ``produção''. Já as indústrias de manufatura, não envolvem a transformação de matéria prima para a confecção de um produto (ou insumo intermediário). Estão ligadas a montagem ou modelagem de uma matéria intermediária, para a obtenção de um produto final.
+
+A automação de uma indústria de manufatura muitas vezes conta com ferramentas que são aliadas a automação do processo inerente. Quando isto acontece, além de ser uma indústria automatizada, também é chamada de manufatura integrada por computador (\emph{Computer Inte‐grated Manufacturing}, CIM). E ferramentas que apoiam esta classificação são: ferramentas de desenho assistido por computador (\emph{Computer‐Aided Design}, CAD), a montagem assistida por computador (\emph{Computer‐Aided Manufacturing}, CAM) e redes de computadores que ligam as ações de montagem e transporte \cite{groover2011automacao}.
+
+% ------------------------------------------------------------------------
+% RESULTADOS E DISCUSSÃO
+% ------------------------------------------------------------------------
+\section{Resultados e Discussão}
+Esta seção tem por objetivo expor comparativos quanto aos resultados encontrados na literatura, além de vantagens e desvantagens de cada solução.
+
+% ---------------------------------
+% DISCUSSÃO 01
+% ---------------------------------
+\subsection{IAD na Manufatura}
+A IAD tem uma aplicação vasta em diversas áreas para resolver problemas da computação que envolve a tomada de decisão, economia de recursos e otimização de processos. Segundo \citeonline{SHIH1995199}, a IAD pode ser aplicada para subdividir processos que já existem, visando melhorar a utilização de uma infraestrutura pronta, para facilitar o planejamento de processos de montagem em lote. Os problemas de busca de objetivo e de busca de métodos para atingir o alvo, são conhecidos e pode-se utilizar a IAD para tornar mais eficiente as tomadas de decisões para a solução desses problemas. Neste caso, o chão de fábrica é o cenário, com objetivo de melhorar planos de produção.
+
+Para tanto, uma técnica de coordenação com lógica \emph{fuzzy} foi utilizada para avaliar as soluções e encontrar a mais apropriada para a implementação do chão de fábrica. Usando dados como o plano de produção de curto prazo, dados de projeto, dados de observação de chão de fábrica e informações de CAD (\emph{Computer Aided Design}, Desenho Assistido por Computador), o sistema com IAD forneceu planos de produção aplicáveis com classificações para a viabilidade de atividades de montagem atuais \cite{SHIH1995199}.
+
+Com a capacidade de processamento paralelo da IAD, é possível executar em tempo real controle de produção e planejamento de tarefas de montagem em superfície. Utilizando uma rede local, com topologia de barramento, em que cada agente inteligente é um computador pessoal ligado na rede. A lógica \emph{fuzzy} foi usada para coordenar os agentes quando surge um conflito e estas tomadas de decisão para saber o que produzir, em que velocidade, e em que ordem, geram uma minimização dos problemas de planejamento e controle de produção.
+
+A vantagem preponderante do método foi o fato de melhor escolha com os caminhos possíveis conhecidos. Em casos que a montagem ou produção de um produto possui processos muito variáveis ou não determinísticos, esta abordagem não traria efeito otimizador, e sim prejuízo de operação (ou fabricação).
+
+% ---------------------------------
+% DISCUSSÃO 02
+% ---------------------------------
+\subsection{Inteligencia Artificial Industrial em Manufaturas 4.0}
+\citeonline{leejay4.0manufacturing} mostrou a implementação e aplicação de uma arquitetura industrial de IA, para calibração e controle de uma ferramenta CNC (Controle Numérico Computadorizado). Justificando a concepção desta IA, o autor trouxe a tona a importância da vida útil das ferramentas e equipamentos envolvidos no processo de manufatura. Supervisionar em tempo real, e prever o desempenho (vida útil) de um eixo de uma ferramenta, é de grande valia, quando se quer por exemplo, projetar a vida útil de uma planta inteira em função da quantidade de lucro obtido (peças produzidas ou horas trabalhadas).
+
+Uma IA voltada para minimizar os custos de manutenção e otimizar a qualidade do produto simultaneamente, tem alguns desafios que podem ser previamente elencados: primeiro, a qualidade (precisão) dos dados a serem extraídos da máquina que se está examinando; segundo, a complexidade do regime da máquina (quantas horas se trabalha, para se obter o desgaste atual?); terceiro, a variação na comunicação de máquina para máquina (erros agregados); quarto, como incorporar um sistema especialista numa máquina pré concebida?; quinto, complexidade de análise dos dados de múltiplas fontes (como organizar estes dados?).
+
+Através de um esquema de priorização e hierarquia da comunicação, existe a possibilidade de aplicação bem sucedida do \emph{framework} de IA apresentado \cite{leejay4.0manufacturing}. É possível fazer com que cada equipamento numa planta consiga entender a vida útil e estado de desgaste próprios, e de outros equipamentos que operam adjacentes. Essas informações de maneira organizada, constituem-se em uma ferramenta muito poderosa para a tomada de decisão sobre: produzir mais agora? Reduzir a produção? Acelerar ou parar? Ter o controle de quando fazer a manutenção dos equipamentos. E este controle está extremamente relacionado a produção sob demanda, que é um dos modelos mais econômicos de produção já desenvolvidos.
+
+% Finaliza a parte no bookmark do PDF, para que se inicie o bookmark na raiz
+\bookmarksetup{startatroot}
+% -----------------------------------------------------------------------
+% CONCLUSÃO
+% -----------------------------------------------------------------------
+\section{Conclusão}
+É inegável que técnicas de IAD aplicadas na indústria agregam bastante valor. É possível ampliar a capacidade de produção mesmo em plantas já automatizadas de produção programável. A premissa do modelo proposto é aumentar a capacidade para a tomada das melhores decisões, pois os processos especialistas compartilham uma base de conhecimento e são coordenados em grupo formando um sistema multiagente afim de encontrar soluções de problemas globais.  
+
+Tais decisões incluem redução de custo na produção de variações de produtos, monitorar em tempo real os equipamentos para se obter o máximo potencial ao prevenir possíveis falhas que possam comprometer a produtividade. Outro grande benefício é a compatibilidade tecnológica, pois é possível reaproveitar o \emph{hardware} já existente de uma planta industrial já automatizada para IAD.
+
+Introduzir IAD na indústria não significa o fim da intervenção humana. O baixo desempenho da IA em executar atividades criativas ou tarefas subjetivas, onde ainda não existe um padrão a ser extraído de um modelo treinado, pode ser encarado como um próximo desafio para a inteligência artificial. 
+
+\begin{comment}
+As considerações , minha percepção até agora eh a seguinte
+
+A) como o trabalho evoluiu até agora? Sobretudo a partir de nossas motivações, boas conversas com boas ideias e suspeitas nossas. Ou seja , fico tudo ainda muito centrado na gente. Portanto as direções vão muito do como este trabalho se contextualiza, se correlaciona, com temas afins.
+
+Daí, para isso , vejo duas direções.
+
+B) contextualização sob o aspecto do problema e da aplicação. Quais problemas reais, trabalhos correlatos falam sobre problemas em redes de computadores que precisam de uma ação ou inteligência distribuída  . Isso permitiria correlacionar o que fizeram e mesmo realimentar ideias sobre outras aplicações deste trabalho
+
+C) contextualização sob o aspecto do conceito de inteligência distribuída, sistemas multiagentes. Como falei, parcela este termo sempre vejo trabalhos mais antigos, mas como os conceitos e a área de agentes e sistemas multiagentes e evoluiu já que o que vivemos eh um mundo de dispositivos distribuídos e cada vez mais dotados de inteligência. Eu não sei mas suspeito que isso permitirá correlacionar o trabalho com áreas e temas atuais , ou mesmo com sistemas multiagentes.
+
+Talvez uma pesquisa em artigos por conceitos equivalentes. Ainda em sma seriam: agentes inteligentes, inteligência distribuída, multiagentes e outros . Termos ou outras áreas envolvem: sistemas distribuídos, computação ubíqua e outros.
+
+Enfim, acho que um bom próximo passo seria encontrar trabalhos correlatos com a discussão do trabalho de vcs. Por um lado sobre a aplicação em redes, por outro sobre temas científicos correlatos.
+
+Uma olhada em três bons em cada vertente permite  essa contextualização e fortalece as chances de aceitação.
+
+Mas repito, ainda sem grande esforço nesta linha o trabalho com esta já permite tentativas.
+\end{comment}
+
+% ------------------------------------------------------------------------
+% ELEMENTOS PÓS-TEXTUAIS
+% ------------------------------------------------------------------------
+\postextual
+% ------------------------------------------------------------------------
+% REFERẼNCIAS
+% ------------------------------------------------------------------------
+\bibliography{references}
+% ------------------------------------------------------------------------
+% APÊNDICES
+% ------------------------------------------------------------------------
+\begin{apendicesenv}
+%\chapter{Cras non urna sed feugiat cum sociis natoque penatibus et magnis dis parturient montes nascetur ridiculus mus}
+%\lipsum[31]
+\end{apendicesenv}
+% ------------------------------------------------------------------------
+% ANEXOS
+% ------------------------------------------------------------------------
+\begin{anexosenv}
+\vspace{\onelineskip}
+%\chapter{Cras non urna sed feugiat cum sociis natoque penatibus et magnis dis parturient montes nascetur ridiculus mus}
+%\lipsum[31]
+\end{anexosenv}
+% ------------------------------------------------------------------------
+% AGRADECIMENTOS
+% ------------------------------------------------------------------------
+%\section*{Agradecimentos}
+%\lipsum[31]
+% ------------------------------------------------------------------------
+% FINAL DO DOCUMENTO
+% ------------------------------------------------------------------------
+\end{document}
