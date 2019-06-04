@@ -244,14 +244,14 @@ LIMITES DA EXPLORAÇÃO DE INFORMAÇÕES SENSÍVEIS}}}}
 % ---------------------------------
 % TEMA
 % ---------------------------------
-A execução especulativa é uma técnica de projeto de microarquitetura, que proporciona o aprimoramento da velocidade de processamento nas CPU's modernas. Esta técnica consiste na estimativa e execução de instruções com valores ainda não conhecidos pela CPU, durante o curto período de carregamento dos valores reais. Do ponto de vista funcional, esta especulação traria problemas se os resultados de especulações incorretas fossem efetivados. Porém, quando a verdadeira informação é recuperada, a CPU verifica a exatidão da suposição e descarta o ``caminho'' (fluxo de execução) que foi executado incorretamente, eliminando os valores nos registradores ou alterações em variáveis, por exemplo.
+A execução especulativa é uma técnica de projeto de microarquitetura, que proporciona o aprimoramento da velocidade de processamento nas CPU's modernas. Esta técnica consiste na estimativa e execução de instruções com valores ainda não conhecidos pela CPU, durante o curto período de carregamento dos valores reais. Do ponto de vista funcional, esta especulação traria problemas se os resultados de especulações incorretas fossem efetivados. Porém, quando a verdadeira informação é recuperada, a CPU verifica a exatidão da suposição e descarta o ``caminho'' (fluxo de execução) que foi executado incorretamente, eliminando os valores nos registradores ou alterações em variáveis, por exemplo \cite{Intel2016Architectures}.
 
 Utilizando ataques que combinam a indução da execução especulativa e canais laterais, Jann Horn (\citeyear{Jann2018Reading}) e outros pesquisadores provaram que é possível recuperar informações privilegiadas (que foram especuladas), através da memória cache (um canal lateral), que não é revertida quando uma especulação errônea acontece \cite{Kocher2018Spectre}. A partir disto, com o conhecimento microarquitetural necessário, é possível um atacante induzir a execução especulativa errônea, por ``viciar'' o processador em uma cadeia de especulações e transferir as informações especuladas para um canal alternativo que pode ser lido posteriormente.
 
 % ---------------------------------
 % JUSTIFICATIVA
 % ---------------------------------
-Estes ataques que utilizam a combinação das duas técnicas, acontecem em condições específicas, ou seja, possuem axiomas\footnote{Axiomas são regras lógicas consideradas dignas de aceitação comum, segundo \citeonline{Encyclopaedia2011Axiom}.} que podem ser questionados. Mesmo assim, a abrangência destes ataques é considerável: é possível afirmar que chips da \emph{Intel} desde 1995 (exceto \emph{Intel Itanium} e \emph{Intel Atom} antes de 2013), alguns de arquitetura \emph{ARM}\footnote{\emph{Advanced RISC Machine}, ou ``Máquina Avançada de \emph{Instruções Reduzidas}'' (tradução e grifo do autor).} e outros feitos pela \emph{AMD}, foram afetados. Servidores na nuvem, celulares, \emph{desktops}, \emph{notebooks} e basicamente todos os chips que podem manter muitas instruções em execução, podem ter dados sigilosos comprometidos. Segundo um guia de revisão\footnote{\emph{Microcode Revision Guidance}, publicado em abril de \citeyear{Intel2018Microcode}.} da \emph{Intel}, 193 processadores irão continuar com a falha, pois apresentaram instabilidade com as mitigações da vulnerabilidade.
+Estes ataques que utilizam a combinação das duas técnicas, acontecem em condições específicas, ou seja, possuem axiomas\footnote{Axiomas são regras lógicas consideradas dignas de aceitação comum, segundo \citeonline{Encyclopaedia2011Axiom}.} bem definidos que podem ser questionados e provados. Mesmo assim, a abrangência destes ataques é considerável: é possível afirmar que praticamente todos os chips de arquitetura \emph{Intel}, \emph{AMD} e \emph{ARM}\footnote{\emph{Advanced RISC Machine}, ou ``Máquina Avançada de \emph{Instruções Reduzidas}'' (tradução e grifo do autor).}, foram afetados. Servidores na nuvem, celulares, \emph{desktops}, \emph{notebooks} e basicamente todos os chips que podem manter muitas instruções em execução, podem ter dados sigilosos comprometidos \cite{Graz2018Meltdown}. Segundo um guia de revisão\footnote{\emph{Microcode Revision Guidance}, publicado em abril de \citeyear{Intel2018Microcode}.} da \emph{Intel}, 193 processadores irão continuar com a falha, pois apresentaram instabilidade com as mitigações da vulnerabilidade.
 
 Esta abrangência de processadores atingidos, torna esta vulnerabilidade um assunto relevante devido a probabilidade de que muitas máquinas, aparelhos móveis, \emph{datacenters} e consequentemente informações sigilosas estejam expostas. Isto acontece porque, tal categoria de vulnerabilidade se encontra em nível de \emph{hardware}, e correções via \emph{software} são paliativos que custam questões de desempenho e estabilidade.
 
@@ -274,6 +274,77 @@ E para a obtenção de êxito nesta busca por limitações da exploração deste
 % ORGANIZAÇÃO DO ARTIGO
 % ---------------------------------
 Para melhor segmentação e explanação do conhecimento, as outras seções do artigo estão dispostas como se segue: a seção 2, \textbf{referencial teórico}, aborda os conceitos de \emph{pipeline}, \emph{branch condition}, \emph{branch target buffer}, \emph{cache levels}, canais laterais e execução especulativa. A seção 3, \textbf{referencial metodológico}, classifica a pesquisa e detalha os procedimentos metodológicos empregados. A seção 4, \textbf{resultados e discussões}, apresenta os experimentos e análises feitas a partir de códigos de outros pesquisadores e artigos relacionados, visando elicitar e testar os axiomas da técnica descrita. E a seção 5, apresenta a \textbf{conclusão}, discute os resultados alcançados, considerando limitações, perspectivas futuras e conclusões finais.
+
+% ------------------------------------------------------------------------
+% REFERENCIAL TEÓRICO
+% ------------------------------------------------------------------------
+\section{Referencial Teórico}
+Com o objetivo de esclarecer e contextualizar o tema desta pesquisa, esta sessão aborda definições dos conceitos a respeito da execução especulativa, e complementos essenciais para o entendimento dos ataques que utilizam canais laterais. Além de abordar a trajetória histórica das descobertas de outros pesquisadores.
+
+% ---------------------------------
+% CONTEXTUALIZAÇÃO
+% ---------------------------------
+\subsection{Contextualização}
+Dois grupos compostos respectivamente por: Jann Horn (\emph{Google Project Zero}); Paul Kocher em colaboração com Daniel Genkin (\emph{University of Pennsylvania} e \emph{University of Maryland}), Mike Hamburg (\emph{Rambus}), Moritz Lipp (\emph{Graz University of Technology}) e Yuval Yarom (\emph{University of Adelaide} e \emph{Data61}), em descobertas independentes (precedidos por Horn), relataram uma vulnerabilidade que afeta de forma abrangente arquiteturas \emph{Intel}, \emph{AMD} e \emph{ARM}.
+
+Esta vulnerabilidade (comunicada aos fornecedores em 01 de Junho de 2017) que foi divulgada por Horn ao público (03 de Janeiro de \citeyear{Jann2018Reading}) com o nome de \emph{Spectre}\footnote{``Espectro'' (tradução do autor). Conforme \citeonline{Graz2018Meltdown}, o nome deriva da causa da falha.}, foi registada na CVE\footnote{\emph{Common Vulnerabilities and Exposures}, ``Exposições e Vulnerabilidades Comuns'' (tradução do autor). Mantida sem fins lucrativos pela Mitre \emph{Corporation}.}, na forma de duas variações: \emph{bypass} de verificação de limites (\emph{CVE-2017-5753}) e injeção do caminho alvo (\emph{CVE-2017-5715}). Estas duas variações foram documentadas cientificamente por \citeonline{Kocher2018Spectre}. Apenas a primeira variação será estudada nesta pesquisa. Isto porque, os ataques que a utilizam apresentam uma abrangência maior de alvos, do que até mesmo as outras variações e vulnerabilidades que sucederam esta descoberta de Horn.
+
+Nesta mesma publicação de Horn (\citeyear{Jann2018Reading}) uma terceira variação de vulnerabilidade, que é também explorada utilizando canais laterais, foi divulgada e batizada de \emph{Meltdown}\footnote{Colapso, ou derreter (``melt'', inglês). O nome deriva da consequência da exploração da falha.}. Por sua vez, foi descoberta em paralelo por outro grupo de pesquisadores que sucedeu Horn \cite{Graz2018Meltdown}. Possui apenas um registro na CVE (\emph{CVE-2017-5754}), e tem uma abrangência de alvos limitada: processadores de arquitetura \emph{Intel} desde 1995 (exceto \emph{Intel Itanium} e \emph{Intel Atom} antes de 2013), e alguns de arquitetura \emph{ARM} \cite{Graz2018Meltdown}. Foi documentada cientificamente por \citeonline{Lipp2018Meltdown}.
+
+Enquanto estas duas comprovações de Horn não haviam sido divulgadas, Anders Fogh (analista de \emph{malware} da empresa alemã \emph{GData}), em 28 de julho de \citeyear{Anders2017Reading}, elucidou a possibilidade de exploração da técnica de execução especulativa para ler a regiões privilegiadas de memória. Porém, obteve um resultado negativo em sua pesquisa, mantendo aberto um precedente para outros pesquisadores que posteriormente confirmariam suas suspeitas \cite{Andy2018Triple}.
+
+Após as divulgações púbicas, a \emph{Intel} comunicou em nota oficial o seu comprometimento em mitigar as falhas, estudando e disponibilizando \emph{firmwares} para corrigi-las (ou atenuá-las). Se defendendo também de especulações em relação ao desempenho dos processadores, depois das correções via \emph{software}, afirmou que qualquer diferença no desempenho ``depende da carga de trabalho e, para o usuário médio do computador, não deve ser significativo e será atenuado com o tempo'' \cite{Intel2018NewsIssues}. Depois disso, publicou um informativo de segurança, informando a lista de processadores da marca atingidos pelas vulnerabilidades e suas ramificações \cite{Intel2018SA00088}.
+
+Outros fabricantes e fornecedores de aplicações diretamente afetados pelas vulnerabilidades também se mobilizaram, publicando informativos de segurança, e lançando correções a nível de \emph{software}. Fabricantes de \emph{consoles} de jogos que utilizam processadores \emph{AMD} ou de arquitetura \emph{ARM}, como \emph{Sony} e \emph{Nintendo}, não se pronunciaram, conforme lista oficial publicada pela Universidade de Tecnologia de Graz \cite{Graz2018Meltdown}.
+
+% ---------------------------------
+% TRABALHOS RELACIONADOS
+% ---------------------------------
+\subsection{Trabalhos Relacionados}
+(Revisão das Soluções)
+Discussão das vantagens e limitações das soluções conhecidas
+
+Em 03 de Janeiro de 2018, pesquisadores da Universidade Católica de Leuven e do IT de Israel, das Universidades de Michigan e Adelaide e da \emph{CSIRO Data61}, fizeram novas publicações comprovativas de duas novas derivações da \emph{Spectre}. Batizadas de \emph{Foreshadow}\footnote{Prefigurar, pressupor ou prévio (``fore'', inglês). Assim como no \footnotemark[\numexpr\value{footnote}-2], o nome deriva da causa da falha.} e \emph{Foreshadow-NG}, em processadores de servidores e em máquinas virtuais \cite{vanbulck2018foreshadow}.
+
+Em 01 de Março de 2019, pesquisadores do Instituto Politécnico de Worcester e da Universidade de Lübeck, publicaram um artigo expondo mais uma possibilidade de exploração do comportamento arquitetural dos processadores da \emph{Intel}. Chamada de \emph{Spoiler}, esta nova vulnerabilidade não é uma variação das anteriores e nenhum dos métodos de mitigação divulgados até a data desta pesquisa, suprimem esta nova forma de realizar vazamentos de informações \cite{islam2019spoiler}.
+
+% ---------------------------------
+% FUNDAMENTAÇÃO TEÓRICA
+% ---------------------------------
+\subsection{Fundamentação Teórica}
+(Revisão da Metodologia Proposta)
+Embasamento teórico sobre assuntos que devam ser explicados visando o entendimento da Pesquisa e para fundamentação teórica que justifiquem as hipóteses ou questões de estudo
+
+Execução especulativa: A execução especulativa é uma técnica de projeto de microarquitetura, que proporciona o aprimoramento da velocidade de processamento nos processadores modernos. Está presente em muitos processadores de vários fabricantes, incluindo \emph{Intel}, \emph{AMD} e \emph{ARM Holdings}. Esta técnica consiste na estimativa e execução de instruções, com valores ainda não conhecidos pela CPU, durante um período curto de inatividade (que acontece durante a espera de valores reais, provenientes da memória principal, que é mais lenta do que a memória cache).
+
+Do ponto de vista de funcional, esta especulação traria problemas se os resultados de especulações incorretas fossem efetivados. Porém, quando a verdadeira informação é recuperada, a CPU verifica a exatidão da suposição e descarta o ``caminho'' (fluxo de execução) que foi executado incorretamente. Eliminando valores nos registradores, ou alterações em variáveis por exemplo.
+
+Apoderando-se do conhecimento microarquitetural necessário para se conhecer em quais situações e em quais instruções a execução especulativa ocorre, é possível um atacante forçar ou induzir a execução especulativa, por ``viciar'' o processador em uma cadeia de especulações e transferir as informações especuladas para um canal alternativo (como por exemplo, a memória cache). Caso a transferência seja bem-sucedida, o atacante efetua a leitura dos dados presentes no canal alternativo, neste caso na memória cache, medindo o tempo de acesso aos dados que foram especulados e comparando-os com um tempo médio de acesso (à memória cache) conhecido. Caso a informação demore de ser recuperada (baseando-se na média), supõe-se que ela não se encontra na memória cache. Caso contrário, o atacante acertou a suposição da informação correta.
+
+
+Pipeline: é uma fila de instruções, que é organizada pela ordem de execução que cada instrução deve ser ou foi executada (processada por ciclo). É uma técnica de hardware também conhecida como “segmentação de instruções”, e é efetivada na memória do processador. É análogo a uma esteira de produção, onde cada “peça” entra em um setor específico que “processa” esta peça. E cada “setor”, só pode ser ocupado com uma peça por vez. Nisto, “peça” seria uma instrução computacional vinda da memória (D ou S) RAM e “setor”, uma fase que esta instrução precisa passar para atingir o seu objetivo na cadeia de processamento.
+
+Branch Condition: branch, do inglês “ramo” ou caminho. É um tipo de instrução que o processador usa para derivar da árvore de execução de um programa, atendendo ou não condições (pode ser classificada em condicional e incondicional); e condition, que significa condição ou condicional.
+Quando o processador precisa atender a determinada condição para mudar de fluxo de execução, isto é caracterizado como um branch condition, ou condição de ramificação. Isto porque, se trata de uma instrução que está no pipeline que pode ou não mudar o fluxo de execução do software. E dependendo de como o endereço de memória para a nova instrução (que continua um novo fluxo de execução) é especificado, esta instrução pode ser identificada como direta (endereço de memória absoluto), indireta (variável que contém o endereço de memória) ou relativa (endereço de memória relativo ao atual).
+Branch Target Buffer: (BTB) keeps a mapping from addresses of recently executed branch instructions to destination addresses.
+
+Cache Levels: a memória cache é abordada como algo singular, mas se refere a um conjunto de memórias, hierarquicamente subdivididas e organizadas. Um processador comum, inclui uma hierarquia de caches em sua arquitetura. A cache que fica no topo, é chamada de L1 (level 1 ou nível 1), é a menor e mais rápida. As L2 e L3, respeitam a ordem de serem maiores entre si conforme se avança de nível e perdem também em velocidade do mesmo modo.
+
+Segundo Yuval Yarom et al. nos processadores Intel modernos, o tamanho da cache L1 é de 64 KiB, com uma velocidade de acesso de 4 ciclos de CPU. Na L2, são 256 KiB com 7 ciclos. E, em cada núcleo do processador, tem-se níveis L1 e L2 dedicados. O terceiro nível (L3) é também chamado de LLC (last-level cache). O tamanho da LLC varia entre os processadores (de 3 MiB a mais de 20 MiB), como também sua velocidade (26 a 31 ciclos de CPU). E é compartilhada entre os núcleos de um processador que é multinúcleos (multicores).
+Exploração da Execução Especulativa: no artigo de Jann Horn et al. são demonstradas duas técnicas para exploração da execução especulativa:
+
+Exploração das ramificações condicionais (conditional branches ou branch condition): consiste em “treinar” o processador a predizer o resultado de ramificações de forma que, este acerte determinado número de vezes. Depois, tenta acessar as ramificações com valores não permitidos, fazendo com que os resultados de especulações incorretas sejam revertidos (de forma esperada), porém armazenados na cache LLC. Depois, basta utilizar alguma técnica de extração dos dados contidos na cache.
+
+Exploração do posicionamento de ramificações indiretas: consiste em “treinar” o BTB (Branch Target Buffer), que guarda os endereços que levarão instruções de saltos (ramificações) para o próximo fluxo de execução. O processo é similar a primeira técnica, porém o atacante substitui aqui os endereços de memória para onde o software originalmente deveria saltar, por outros endereços conhecidos pelo atacante.
+
+Outras técnicas: Jann Horn deixou claro que variações destas explorações podem ser feitas como novas formas de ataque, mas não elucidou de que forma, e como isto poderia acontecer.
+
+Estas duas variações de explorações através de execução especulativa, foram batizadas de Spectre por Jann Horn et al. e registradas na Common Vulnerability Exposure com os seguintes códigos: CVE-2017-5753 e CVE-2017-5715.
+
+% ---------------------------------
+% CONCLUSÃO PARCIAL
+% ---------------------------------
+\subsection{Conclusão Parcial}
 
 % ------------------------------------------------------------------------
 % REFERENCIAL METODOLÓGICO
@@ -302,7 +373,11 @@ A localização da realização desta pesquisa, refere-se a um \textbf{ambiente 
 % CLASSIFICAÇÃO DOS PROCEDIMENTOS
 % ---------------------------------
 \subsection{Procedimentos Metodológicos}
-Para a realização dos experimentos, utilizou-se a prova de conceito (\emph{Proof of Concept}, ou \emph{PoC}) documentada por \citeonline{Kocher2018Spectre}. O código exemplo de exploração (ou \emph{exploit}\footnote{Segundo  \citeonline{Cesar2010Vulnerabilidades}, é um conjunto de instruções ``capaz de tirar proveito de uma vulnerabilidade''.}) desta \emph{PoC}, foi escrito em linguagem C, e simula o vazamento de uma informação secreta escrita diretamente no código. O intuito é explorar a execução especulativa induzida, utilizando a memória cache como canal lateral, em uma estrutura (endereços de memória e variáveis) definida pelo próprio criador do \emph{exploit}. Jann Horn em janeiro de \citeyear{Jann2018Reading}, já havia elucidado o funcionamento desta \emph{PoC}, e a batizou de \emph{Spectre}\footnote{``Espectro'' (tradução do autor). Conforme \citeonline{Graz2018Meltdown}, o nome deriva da causa da falha.}. Foi documentada na CVE\footnote{\emph{Common Vulnerabilities and Exposures}, ``Exposições e Vulnerabilidades Comuns'' (tradução do autor). Mantida sem fins lucrativos pela Mitre \emph{Corporation}.}, na forma de duas variações: \emph{bypass} de verificação de limites (\emph{CVE-2017-5753}) e injeção do caminho alvo (\emph{CVE-2017-5715}). Apenas a primeira variação é explorada no \emph{exploit} da \emph{Spectre}.
+Para a realização dos experimentos, utilizou-se a prova de conceito (\emph{Proof of Concept}, ou \emph{PoC}) documentada por \citeonline{Kocher2018Spectre}. O código exemplo de exploração (ou \emph{exploit}\footnote{Segundo  \citeonline{Cesar2010Vulnerabilidades}, é um conjunto de instruções ``capaz de tirar proveito de uma vulnerabilidade''.}) desta \emph{PoC}, foi escrito em linguagem C, e simula o vazamento de uma informação secreta escrita diretamente no código. O intuito é explorar a execução especulativa induzida, utilizando a memória cache como canal lateral, em uma estrutura (endereços de memória e variáveis) definida pelo próprio criador do \emph{exploit}. 
+
+\begin{comment}
+Jann Horn em janeiro de \citeyear{Jann2018Reading}, já havia elucidado o funcionamento desta \emph{PoC}, e a batizou de \emph{Spectre}\footnote{``Espectro'' (tradução do autor). Conforme \citeonline{Graz2018Meltdown}, o nome deriva da causa da falha.}. Foi documentada na CVE\footnote{\emph{Common Vulnerabilities and Exposures}, ``Exposições e Vulnerabilidades Comuns'' (tradução do autor). Mantida sem fins lucrativos pela Mitre \emph{Corporation}.}, na forma de duas variações: \emph{bypass} de verificação de limites (\emph{CVE-2017-5753}) e injeção do caminho alvo (\emph{CVE-2017-5715}). Apenas a primeira variação é explorada no \emph{exploit} da \emph{Spectre}.
+\end{comment}
 
 De posse deste \emph{exploit} e utilizando uma máquina convencional que contenha um compilador de C (\textbf{Visual C++} para \emph{Windows}, ou \textbf{GNU Compiler Collection} para \emph{Linux}), é possível verificar os passos que desencadeiam o vazamento. No caso desta pesquisa, o ambiente utilizado foi um Linux GNU Ubuntu 16.04.05 LTS 64-bit, Intel\textsuperscript{\tiny\textregistered} Core\textsuperscript{\tiny\texttrademark} i3 5005U @ 2.0 Ghz x 4. Diante disto, os experimentos para a realização desta pesquisa foram divididos em quatro testes (T01 à T04), que apresentam-se como possíveis axiomas da \emph{Spectre}. Tendo como foco, a utilização do \emph{exploit} em uma estrutura contrária ao documentado por \citeonline{Kocher2018Spectre}: endereços de memória desconhecidos, tamanho e conteúdo das variáveis escolhidos de forma adversa.
 
@@ -316,7 +391,7 @@ Para a realização dos passos supradescritos, os ambientes utilizados foram: GN
 % TESTES E RESULTADOS
 % ------------------------------------------------------------------------
 \section{Testes e Resultados}
-Esta seção tem por objetivo expor os testes realizados de maneira sistemática, com seus resultados individuais, abrindo questionamentos a respeito do conhecimento estudado. Ao final desta seção, a conclusão apresenta uma síntese do produto gerado pelos experimentos.
+Esta seção tem por objetivo expor os testes realizados de maneira sistemática, com seus resultados individuais, abrindo questionamentos a respeito do conhecimento estudado. Ao final desta seção, uma discussão apresenta uma síntese do produto gerado pelos experimentos.
 % ---------------------------------
 % T01
 % ---------------------------------

@@ -4,6 +4,19 @@
 % ---------------------------------
 % TEMA
 % ---------------------------------
+% (CORPORATION, 2016) = manual de otimização da Intel.
+@manual{
+    Intel2016Architectures,
+	Author = {Intel Corporation},
+	Date-Added = {2016-06},
+	Date-Modified = {2016-06},
+	Month = {Jun.},
+	Title = {Intel® 64 and IA-32 Architectures Optimization Reference Manual},
+	Url = {https://www.intel.com/content/dam/www/public/us/en/documents/manuals/64-ia-32-architectures-optimization-manual.pdf},
+	Urlaccessdate = {02 jun. 2019},
+	Year = {2016},
+	Bdsk-Url-1 = {https://www.intel.com/content/dam/www/public/us/en/documents/manuals/64-ia-32-architectures-optimization-manual.pdf}
+}
 % Horn (2018) = artigo da Google Project Zero.
 @misc{
     Jann2018Reading,
@@ -42,6 +55,21 @@
     Year = {2011},
     Bdsk-Url-1 = {https://www.britannica.com/}
 }
+% (TECHNOLOGY, 2018) = site oficial de atualizações.
+@misc{
+    Graz2018Meltdown,
+	Author = {Graz University of Technology},
+	Date-Added = {2018-01-02 08:23:00 +0000},
+	Date-Modified = {2018-03-23 17:57:00 +0000},
+	Howpublished = {Graz University of Technology},
+	Keywords = {meltdownattack, spectreattack},
+	Title = {Meltdown and Spectre},
+	Url = {https://meltdownattack.com/},
+	Urlaccessdate = {15 set 2018},
+	Year = {2018},
+	Bdsk-Url-1 = {https://meltdownattack.com/},
+	Bdsk-Url-2 = {https://spectreattack.com/}
+}
 % (CORPORATION, 2018) = lista de chips que ficarão sem correção.
 @manual{
     Intel2018Microcode,
@@ -66,6 +94,151 @@
 % ---------------------------------
 % ---------------------------------
 % ORGANIZAÇÃO DO ARTIGO
+% ---------------------------------
+% ------------------------------------------------------------------------
+% REFERENCIAL TEÓRICO
+% ------------------------------------------------------------------------
+% ---------------------------------
+% CONTEXTUALIZAÇÃO
+% ---------------------------------
+% Lipp et al. (2018) = artigo do site oficial.
+@inproceedings{
+    Lipp2018Meltdown,
+    author = {Moritz Lipp and Michael Schwarz and Daniel Gruss and Thomas Prescher and Werner Haas and Anders Fogh and Jann Horn and Stefan Mangard and Paul Kocher and Daniel Genkin and Yuval Yarom and Mike Hamburg},
+    title = {Meltdown: Reading Kernel Memory from User Space},
+    booktitle = {27th {USENIX} Security Symposium ({USENIX} Security 18)},
+    year = {2018}
+}
+% Fogh (2017) = artigo de Anders mostrando o resultado negativo.
+@misc{
+    Anders2017Reading,
+    Author = {Anders Fogh},
+    Date-Added = {2017-07-28},
+    Date-Modified = {2017-07-28},
+    Howpublished = {Cyber WTF},
+    Title = {Negative Result: Reading Kernel Memory From User Mode},
+    Url = {https://cyber.wtf/2017/07/28/negative-result-reading-kernel-memory-from-user-mode/},
+    Urlaccessdate = {02 jun 2019},
+    Year = {2017},
+    Bdsk-Url-1 = {https://cyber.wtf/2017/07/28/negative-result-reading-kernel-memory-from-user-mode/}
+}
+% (GREENBERG, 2018) = jornal Wired, com as entrevistas.
+@misc{
+    Andy2018Triple,
+    Author = {Andy Greenberg},
+    Date-Added = {2018-07-01},
+    Date-Modified = {2018-07-01},
+    Howpublished = {Wired, Condé Nast},
+    Title = {TRIPLE MELTDOWN: HOW SO MANY RESEARCHERS FOUND A 20-YEAR-OLD CHIP FLAW AT THE SAME TIME},
+    Url = {https://www.wired.com/story/meltdown-spectre-bug-collision-intel-chip-flaw-discovery/},
+    Urlaccessdate = {02 jun 2019},
+    Year = {2018},
+    Bdsk-Url-1 = {https://www.wired.com/story/meltdown-spectre-bug-collision-intel-chip-flaw-discovery/}
+}
+% (CORPORATION, 2018a) = justifica as especulações de perda de desempenho.
+@misc{
+    Intel2018NewsIssues,
+	Author = {Intel Corporation},
+	Date-Added = {2018-01-04},
+	Date-Modified = {2018-01-04},
+	Howpublished = {News Byte},
+	Keywords = {intel-news-002},
+	Title = {Intel Issues Updates to Protect Systems from Security Exploits},
+	Url = {https://newsroom.intel.com/news-releases/intel-issues-updates-protect-systems-security-exploits/},
+	Urlaccessdate = {28 set 2018},
+	Year = {2018},
+	Bdsk-Url-1 = {https://newsroom.intel.com/news/}
+}
+% (CORPORATION, 2018c) = lista de afetados e informações atualizadas.
+@misc{
+    Intel2018SA00088,
+	Author = {Intel Corporation},
+	Date-Added = {2018-01-03},
+	Date-Modified = {2018-04-04},
+	Howpublished = {Intel Corporation},
+	Keywords = {intel-sa-00088},
+	Title = {Speculative Execution and Indirect Branch Prediction Side Channel Analysis Method},
+	Url = {https://www.intel.com/content/www/us/en/security-center/advisory/intel-sa-00088.html},
+	Urlaccessdate = {15 set 2018},
+	Year = {2018},
+	Bdsk-Url-1 = {https://www.intel.com/content/www/us/en/security-center/advisory/intel-sa-00088.html}
+}
+% ---------------------------------
+% TRABALHOS RELACIONADOS
+% ---------------------------------
+% Foreshadow
+@inproceedings{
+    vanbulck2018foreshadow,
+    author = {Van Bulck, Jo and Minkin, Marina and Weisse, Ofir and Genkin, Daniel and Kasikci, Baris and Piessens, Frank and Silberstein, Mark and Wenisch, Thomas F. and Yarom, Yuval and Strackx, Raoul},
+    title = {Foreshadow: Extracting the Keys to the {Intel SGX} Kingdom with Transient Out-of-Order Execution},
+    booktitle = {Proceedings of the 27th {USENIX} Security Symposium},
+    year = {2018},
+    month = {August},
+    publisher = {{USENIX} Association},
+    note={See also technical report Foreshadow-NG~\cite{weisse2018foreshadowNG}}
+}
+% Foreshadow-NG
+@article{
+    weisse2018foreshadowNG,
+    author={Weisse, Ofir and Van Bulck, Jo and Minkin, Marina and  Genkin, Daniel and Kasikci, Baris and Piessens, Frank and Silberstein, Mark and Strackx, Raoul and Wenisch, Thomas F. and Yarom, Yuval},
+    title={{Foreshadow-NG}: Breaking the Virtual Memory Abstraction with Transient Out-of-Order Execution},
+    journal={Technical report},
+    year={2018},
+    note={See also {USENIX} Security paper Foreshadow~\cite{vanbulck2018foreshadow}}
+}
+% Foreshadow e Foreshadow-NG: site oficial.
+@misc{
+    foreshadowattack,
+	Author = {Van Bulck, Jo and Minkin, Marina and Weisse, Ofir and Genkin, Daniel and Kasikci, Baris and Piessens, Frank and Silberstein, Mark and Wenisch, Thomas F. and Yarom, Yuval and Strackx, Raoul},
+	Date-Added = {},
+	Date-Modified = {},
+	Howpublished = {Katholieke Universiteit te Leuven},
+	Keywords = {foreshadowattack},
+	Title = {Foreshadow},
+	Url = {https://foreshadowattack.eu/},
+	Urlaccessdate = {28 set 2018},
+	Year = {2018},
+	Bdsk-Url-1 = {https://foreshadowattack.eu/}
+}
+% Spoiler
+@misc{
+    islam2019spoiler,
+    title={SPOILER: Speculative Load Hazards Boost Rowhammer and Cache Attacks},
+    author={Saad Islam and Ahmad Moghimi and Ida Bruhns and Moritz Krebbel and Berk Gulmezoglu and Thomas Eisenbarth and Berk Sunar},
+    year={2019},
+    eprint={1903.00446},
+    archivePrefix={arXiv},
+    primaryClass={cs.CR}
+}
+% ZombieLoad
+@article{
+    Schwarz2019ZombieLoad,
+    title = {{ZombieLoad}: Cross-Privilege-Boundary Data Sampling},
+    author = {Schwarz, Michael and Lipp, Moritz and Moghimi, Daniel and Van Bulck, Jo and Stecklina, Julian and Prescher, Thomas and Gruss, Daniel},
+    journal = {arXiv:1905.05726},
+    year = {2019},
+}
+% RIDL
+@inproceedings{
+    ridl,
+    title = {{RIDL}: Rogue In-flight Data Load},
+    booktitle = {S\&{P}},
+    author = {van Schaik, Stephan and Milburn, Alyssa and Österlund, Sebastian and Frigo, Pietro and Maisuradze, Giorgi and Razavi, Kaveh and Bos, Herbert and Giuffrida, Cristiano},
+    month = may,
+    year = {2019}
+}
+% FallOut
+@article{
+    fallout,
+    title={{Fallout}: Reading Kernel Writes From User Space},
+    author={Minkin, Marina and Moghimi, Daniel and Lipp, Moritz and Schwarz, Michael and Van Bulck, Jo, and Genkin, Daniel and Gruss, Daniel and Sunar, Berk and Piessens, Frank and Yarom, Yuval},
+    year={2019}
+}
+% ---------------------------------
+% FUNDAMENTAÇÃO TEÓRICA
+% ---------------------------------
+% ---------------------------------
+% CONCLUSÃO PARCIAL
 % ---------------------------------
 % ------------------------------------------------------------------------
 % REFERENCIAL METODOLÓGICO
@@ -135,21 +308,6 @@
     language = {pt},
     URL = {https://lume.ufrgs.br/handle/10183/26337?show=full},
     publisher = {Lume UFRGS}
-}
-% Technology (2018) = derivação do nome. Site oficial de atualizações.
-@misc{
-    Graz2018Meltdown,
-	Author = {Graz University of Technology},
-	Date-Added = {2018-01-02 08:23:00 +0000},
-	Date-Modified = {2018-03-23 17:57:00 +0000},
-	Howpublished = {Graz University of Technology},
-	Keywords = {meltdownattack, spectreattack},
-	Title = {Meltdown and Spectre},
-	Url = {https://meltdownattack.com/},
-	Urlaccessdate = {15 set 2018},
-	Year = {2018},
-	Bdsk-Url-1 = {https://meltdownattack.com/},
-	Bdsk-Url-2 = {https://spectreattack.com/}
 }
 % ------------------------------------------------------------------------
 % TESTES E RESULTADOS
@@ -221,121 +379,3 @@
 % ------------------------------------------------------------------------
 % NÃO UTILIZADOS
 % ------------------------------------------------------------------------
-% Lista de afetados e informações atualizadas.
-@misc{
-    Intel2018SA00088,
-	Author = {Intel Corporation},
-	Date-Added = {2018-01-03},
-	Date-Modified = {2018-04-04},
-	Howpublished = {Intel Corporation},
-	Keywords = {intel-sa-00088},
-	Title = {Speculative Execution and Indirect Branch Prediction Side Channel Analysis Method},
-	Url = {https://www.intel.com/content/www/us/en/security-center/advisory/intel-sa-00088.html},
-	Urlaccessdate = {15 set 2018},
-	Year = {2018},
-	Bdsk-Url-1 = {https://www.intel.com/content/www/us/en/security-center/advisory/intel-sa-00088.html}
-}
-% Responde as descobertas de pesquisa de segurança.
-@misc{
-    Intel2018NewsResponds,
-	Author = {Intel Corporation},
-	Date-Added = {2018-01-03},
-	Date-Modified = {2018-01-03},
-	Howpublished = {News Byte},
-	Keywords = {intel-news-001},
-	Title = {Intel Responds to Security Research Findings},
-	Url = {https://newsroom.intel.com/news/intel-responds-to-security-research-findings/},
-	Urlaccessdate = {28 set 2018},
-	Year = {2018},
-	Bdsk-Url-1 = {https://newsroom.intel.com/news/}
-}
-% Justifica as expeculações de perda de desempenho.
-@misc{
-    Intel2018NewsIssues,
-	Author = {Intel Corporation},
-	Date-Added = {2018-01-04},
-	Date-Modified = {2018-01-04},
-	Howpublished = {News Byte},
-	Keywords = {intel-news-002},
-	Title = {Intel Issues Updates to Protect Systems from Security Exploits},
-	Url = {https://newsroom.intel.com/news-releases/intel-issues-updates-protect-systems-security-exploits/},
-	Urlaccessdate = {28 set 2018},
-	Year = {2018},
-	Bdsk-Url-1 = {https://newsroom.intel.com/news/}
-}
-% Meltdown
-@inproceedings{
-    Lipp2018meltdown,
-    author = {Moritz Lipp and Michael Schwarz and Daniel Gruss and Thomas Prescher and Werner Haas and Anders Fogh and Jann Horn and Stefan Mangard and Paul Kocher and Daniel Genkin and Yuval Yarom and Mike Hamburg},
-    title = {Meltdown: Reading Kernel Memory from User Space},
-    booktitle = {27th {USENIX} Security Symposium ({USENIX} Security 18)},
-    year = {2018}
-}
-% Foreshadow
-@inproceedings{
-    vanbulck2018foreshadow,
-    author = {Van Bulck, Jo and Minkin, Marina and Weisse, Ofir and Genkin, Daniel and Kasikci, Baris and Piessens, Frank and Silberstein, Mark and Wenisch, Thomas F. and Yarom, Yuval and Strackx, Raoul},
-    title = {Foreshadow: Extracting the Keys to the {Intel SGX} Kingdom with Transient Out-of-Order Execution},
-    booktitle = {Proceedings of the 27th {USENIX} Security Symposium},
-    year = {2018},
-    month = {August},
-    publisher = {{USENIX} Association},
-    note={See also technical report Foreshadow-NG~\cite{weisse2018foreshadowNG}}
-}
-% Foreshadow-NG
-@article{
-    weisse2018foreshadowNG,
-    author={Weisse, Ofir and Van Bulck, Jo and Minkin, Marina and  Genkin, Daniel and Kasikci, Baris and Piessens, Frank and Silberstein, Mark and Strackx, Raoul and Wenisch, Thomas F. and Yarom, Yuval},
-    title={{Foreshadow-NG}: Breaking the Virtual Memory Abstraction with Transient Out-of-Order Execution},
-    journal={Technical report},
-    year={2018},
-    note={See also {USENIX} Security paper Foreshadow~\cite{vanbulck2018foreshadow}}
-}
-% Foreshadow e Foreshadow-NG: site oficial.
-@misc{
-    foreshadowattack,
-	Author = {Van Bulck, Jo and Minkin, Marina and Weisse, Ofir and Genkin, Daniel and Kasikci, Baris and Piessens, Frank and Silberstein, Mark and Wenisch, Thomas F. and Yarom, Yuval and Strackx, Raoul},
-	Date-Added = {},
-	Date-Modified = {},
-	Howpublished = {Katholieke Universiteit te Leuven},
-	Keywords = {foreshadowattack},
-	Title = {Foreshadow},
-	Url = {https://foreshadowattack.eu/},
-	Urlaccessdate = {28 set 2018},
-	Year = {2018},
-	Bdsk-Url-1 = {https://foreshadowattack.eu/}
-}
-% Spoiler
-@misc{
-    islam2019spoiler,
-    title={SPOILER: Speculative Load Hazards Boost Rowhammer and Cache Attacks},
-    author={Saad Islam and Ahmad Moghimi and Ida Bruhns and Moritz Krebbel and Berk Gulmezoglu and Thomas Eisenbarth and Berk Sunar},
-    year={2019},
-    eprint={1903.00446},
-    archivePrefix={arXiv},
-    primaryClass={cs.CR}
-}
-% ZombieLoad
-@article{
-    Schwarz2019ZombieLoad,
-    title = {{ZombieLoad}: Cross-Privilege-Boundary Data Sampling},
-    author = {Schwarz, Michael and Lipp, Moritz and Moghimi, Daniel and Van Bulck, Jo and Stecklina, Julian and Prescher, Thomas and Gruss, Daniel},
-    journal = {arXiv:1905.05726},
-    year = {2019},
-}
-% RIDL
-@inproceedings{
-    ridl,
-    title = {{RIDL}: Rogue In-flight Data Load},
-    booktitle = {S\&{P}},
-    author = {van Schaik, Stephan and Milburn, Alyssa and Österlund, Sebastian and Frigo, Pietro and Maisuradze, Giorgi and Razavi, Kaveh and Bos, Herbert and Giuffrida, Cristiano},
-    month = may,
-    year = {2019}
-}
-% FallOut
-@article{
-    fallout,
-    title={{Fallout}: Reading Kernel Writes From User Space},
-    author={Minkin, Marina and Moghimi, Daniel and Lipp, Moritz and Schwarz, Michael and Van Bulck, Jo, and Genkin, Daniel and Gruss, Daniel and Sunar, Berk and Piessens, Frank and Yarom, Yuval},
-    year={2019}
-}
