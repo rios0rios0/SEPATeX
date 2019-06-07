@@ -218,6 +218,24 @@ LIMITES DA EXPLORAÇÃO DE INFORMAÇÕES SENSÍVEIS}}}}
         Conforme a ABNT NBR 6022:2018, o resumo no idioma do documento é elemento obrigatório. Constituído de uma sequência de frases concisas e objetivas e não de uma simples enumeração de tópicos, não ultrapassando 250 palavras, seguido, logo abaixo, das palavras representativas do conteúdo do trabalho, isto é, palavras-chave e/ou descritores, conforme a NBR 6028. (\ldots) As palavras-chave devem figurar logo abaixo do resumo, antecedidas da expressão Palavras-chave:, separadas entre si por ponto e finalizadas também por ponto.\\\\
         \textbf{Palavras-chave:} latex. abntex. editoração de texto.
         \vspace{\onelineskip}
+        
+        \begin{comment}
+Dar uma Visão Geral da pesquisa
+O Problema precisa ser contextualizado e perfeitamente definido.
+O Objetivo tem que estar relacionado com a hipótese ou solução do problema.
+A Relevância do assunto tem que estar explícita.
+O Diferencial ou novidade da proposta precisa ficar evidente.
+A Metodologia empregada tem que ser adequada.
+Os Procedimentos técnicos tem que ser coerentes.
+Os Testes precisam ser rigorosos e reproduzíveis.
+Os Resultados alcançados devem ser quantificáveis e satisfatórios.
+A Discussão tem que ser convincente.
+A Conclusão deve estimular o leitor a leitura.
+Usar parágrafo único com 150 a 500 palavras
+Usar o verbo na Voz ativa e na terceira pessoa do singular
+Empregar Linguagem formal, clara, precisa, concisa, narrativa, com rigor científico e correção gramatical.
+        \end{comment}
+        
     \end{SingleSpace}}
 \end{resumoumacoluna}
 % Resumo em Inglês
@@ -251,7 +269,7 @@ Utilizando ataques que combinam a indução da execução especulativa e canais 
 % ---------------------------------
 % JUSTIFICATIVA
 % ---------------------------------
-Estes ataques que utilizam a combinação das duas técnicas, acontecem em condições específicas, ou seja, possuem axiomas\footnote{Axiomas são regras lógicas consideradas dignas de aceitação comum, segundo \citeonline{Encyclopaedia2011Axiom}.} bem definidos que podem ser questionados e provados. Mesmo assim, a abrangência destes ataques é considerável: é possível afirmar que praticamente todos os chips de arquitetura \emph{Intel}, \emph{AMD} e \emph{ARM}\footnote{\emph{Advanced RISC Machine}, ou ``Máquina Avançada de \emph{Instruções Reduzidas}'' (tradução e grifo do autor).}, foram afetados. Servidores na nuvem, celulares, \emph{desktops}, \emph{notebooks} e basicamente todos os chips que podem manter muitas instruções em execução, podem ter dados sigilosos comprometidos \cite{Graz2018Meltdown}. Segundo um guia de revisão\footnote{\emph{Microcode Revision Guidance}, publicado em abril de \citeyear{Intel2018Microcode}.} da \emph{Intel}, 193 processadores irão continuar com a falha, pois apresentaram instabilidade com as mitigações da vulnerabilidade.
+Estes ataques que utilizam a combinação das duas técnicas acontecem em condições específicas, e precisam de circunstâncias bem definidas para serem efetivos. Mesmo assim, a abrangência destes ataques é considerável: é possível afirmar que praticamente todos os chips de arquitetura \emph{Intel}, \emph{AMD} e \emph{ARM}\footnote{\emph{Advanced RISC Machine}, ou ``Máquina Avançada de \emph{Instruções Reduzidas}'' (tradução e grifo do autor).}, foram afetados. Servidores na nuvem, celulares, \emph{desktops}, \emph{notebooks} e basicamente todos os chips que podem manter muitas instruções em execução, podem ter dados sigilosos comprometidos \cite{Graz2018Meltdown}. Segundo um guia de revisão\footnote{\emph{Microcode Revision Guidance}, publicado em abril de \citeyear{Intel2018Microcode}.} da \emph{Intel}, 193 processadores irão continuar com a falha, pois apresentaram instabilidade com as mitigações da vulnerabilidade.
 
 Esta abrangência de processadores atingidos, torna esta vulnerabilidade um assunto relevante devido a probabilidade de que muitas máquinas, aparelhos móveis, \emph{datacenters} e consequentemente informações sigilosas estejam expostas. Isto acontece porque, tal categoria de vulnerabilidade se encontra em nível de \emph{hardware}, e correções via \emph{software} são paliativos que custam questões de desempenho e estabilidade.
 
@@ -263,7 +281,7 @@ Considerando que os pesquisadores citados utilizaram \emph{softwares} com estrut
 % ---------------------------------
 % OBJETIVOS
 % ---------------------------------
-Através deste questionamento, esta pesquisa visa esclarecer, explicar e aplicar técnicas desenvolvidas pelos pesquisadores supramencionados. Visando elencar e comprovar os axiomas envolvidos e que realmente são necessários para se executar vazamentos de informações sensíveis. Tendo como foco, a exploração da execução especulativa em \emph{softwares} cujas estruturas se desconhece. De forma a solidificar limitações desta técnica de exploração em particular.
+Através deste questionamento, esta pesquisa visa esclarecer, explicar e aplicar técnicas desenvolvidas pelos pesquisadores supramencionados. Visando elencar e comprovar as circunstâncias envolvidas e que realmente são necessárias para se executar vazamentos de informações sensíveis. Tendo como foco, a exploração da execução especulativa em \emph{softwares} cujas estruturas se desconhece. De forma a solidificar limitações desta técnica de exploração em particular.
 
 % ---------------------------------
 % PROCEDIMENTOS METODOLÓGICOS
@@ -273,7 +291,7 @@ E para a obtenção de êxito nesta busca por limitações da exploração deste
 % ---------------------------------
 % ORGANIZAÇÃO DO ARTIGO
 % ---------------------------------
-Para melhor segmentação e explanação do conhecimento, as outras seções do artigo estão dispostas como se segue: a seção 2, \textbf{referencial teórico}, aborda os conceitos de \emph{pipeline}, \emph{branch condition}, \emph{branch target buffer}, \emph{cache levels}, canais laterais e execução especulativa. A seção 3, \textbf{referencial metodológico}, classifica a pesquisa e detalha os procedimentos metodológicos empregados. A seção 4, \textbf{resultados e discussões}, apresenta os experimentos e análises feitas a partir de códigos de outros pesquisadores e artigos relacionados, visando elicitar e testar os axiomas da técnica descrita. E a seção 5, apresenta a \textbf{conclusão}, discute os resultados alcançados, considerando limitações, perspectivas futuras e conclusões finais.
+Para melhor segmentação e explanação do conhecimento, as outras seções do artigo estão dispostas como se segue: a seção 2, \textbf{referencial teórico}, aborda os conceitos de execução fora de ordem, \emph{branch condition}, execução especulativa, \emph{branch prediction}, \emph{transient instructions}, canais laterais e hierarquia de memórias cache. A seção 3, \textbf{referencial metodológico}, classifica a pesquisa e detalha os procedimentos metodológicos empregados. A seção 4, \textbf{resultados e discussões}, apresenta os experimentos e análises feitas a partir de códigos de outros pesquisadores e artigos relacionados, visando elicitar e testar as circunstâncias necessárias para o funcionamento da técnica descrita. E a seção 5, apresenta a \textbf{conclusão}, discute os resultados alcançados, considerando limitações, perspectivas futuras e conclusões finais.
 
 % ------------------------------------------------------------------------
 % REFERENCIAL TEÓRICO
@@ -289,7 +307,7 @@ Dois grupos compostos respectivamente por: Jann Horn (\emph{Google Project Zero}
 
 Esta vulnerabilidade (comunicada aos fornecedores em 01 de Junho de 2017) que foi divulgada por Horn ao público (03 de Janeiro de \citeyear{Jann2018Reading}) com o nome de \emph{Spectre}\footnote{``Espectro'' (tradução do autor). Conforme \citeonline{Graz2018Meltdown}, o nome deriva da causa da falha.}, foi registada na CVE\footnote{\emph{Common Vulnerabilities and Exposures}, ``Exposições e Vulnerabilidades Comuns'' (tradução do autor). Mantida sem fins lucrativos pela Mitre \emph{Corporation}.}, na forma de duas variações: \emph{bypass} de verificação de limites (\emph{CVE-2017-5753}) e injeção do caminho alvo (\emph{CVE-2017-5715}). Estas duas variações foram documentadas cientificamente por \citeonline{Kocher2018Spectre}. Apenas a primeira variação será estudada nesta pesquisa. Isto porque, os ataques que a utilizam apresentam uma abrangência maior de alvos, do que até mesmo as outras variações e vulnerabilidades que sucederam esta descoberta de Horn.
 
-Nesta mesma publicação de Horn (\citeyear{Jann2018Reading}) uma terceira variação de vulnerabilidade, que é também explorada utilizando canais laterais, foi divulgada e batizada de \emph{Meltdown}\footnote{Colapso, ou derreter (``melt'', inglês). O nome deriva da consequência da exploração da falha.}. Por sua vez, foi descoberta em paralelo por outro grupo de pesquisadores que sucedeu Horn \cite{Graz2018Meltdown}. Possui apenas um registro na CVE (\emph{CVE-2017-5754}), e tem uma abrangência de alvos limitada: processadores de arquitetura \emph{Intel} desde 1995 (exceto \emph{Intel Itanium} e \emph{Intel Atom} antes de 2013), e alguns de arquitetura \emph{ARM} \cite{Graz2018Meltdown}. Foi documentada cientificamente por \citeonline{Lipp2018Meltdown}.
+Nesta mesma publicação de Horn (\citeyear{Jann2018Reading}) uma terceira variação de vulnerabilidade, que é também explorada utilizando canais laterais, foi divulgada e batizada de \emph{Meltdown}. Por sua vez, foi descoberta em paralelo por outro grupo de pesquisadores que sucedeu Horn \cite{Graz2018Meltdown}. Possui apenas um registro na CVE (\emph{CVE-2017-5754}), e tem uma abrangência de alvos limitada: processadores de arquitetura \emph{Intel} desde 1995 (exceto \emph{Intel Itanium} e \emph{Intel Atom} antes de 2013), e alguns de arquitetura \emph{ARM} \cite{Graz2018Meltdown}. Foi documentada cientificamente por \citeonline{Lipp2018Meltdown}.
 
 Enquanto estas duas comprovações de Horn não haviam sido divulgadas, Anders Fogh (analista de \emph{malware} da empresa alemã \emph{GData}), em 28 de julho de \citeyear{Anders2017Reading}, elucidou a possibilidade de exploração da técnica de execução especulativa para ler a regiões privilegiadas de memória. Porém, obteve um resultado negativo em sua pesquisa, mantendo aberto um precedente para outros pesquisadores que posteriormente confirmariam suas suspeitas \cite{Andy2018Triple}.
 
@@ -301,13 +319,11 @@ Outros fabricantes e fornecedores de aplicações diretamente afetados pelas vul
 % TRABALHOS RELACIONADOS
 % ---------------------------------
 \subsection{Trabalhos Relacionados}
-As descobertas supramencionadas abriram precedentes para outros questionamentos em relação a segurança dos processadores atuais. Questionamentos sobre quantas vulnerabilidades críticas como estas, podem estar ``adormecidas'' por anos, preocupam os pesquisadores \cite{Andy2018Triple}. E motivados por estas preocupações, outras vulnerabilidades foram descobertas, partindo do mesmo princípio de ataques que se aproveitam da execução especulativa. Em ordem cronológica, foram documentados: \emph{Foreshadow} e \emph{Foreshadow-NG}, em \citeonline{VanBulck2018Foreshadow}. \emph{Spoiler}, em \citeonline{Islam2019Spoiler}. \emph{ZombieLoad} em \citeonline{Schwarz2019ZombieLoad}. \emph{RIDL} em \citeonline{VanSchaik2019RIDL} e \emph{Fallout} em \citeonline{Minkin2019Fallout}.
+As descobertas supramencionadas abriram precedentes para outros questionamentos em relação a segurança dos processadores atuais. Questionamentos sobre quantas vulnerabilidades críticas como estas, podem estar ``adormecidas'' por anos, preocupam os pesquisadores \cite{Andy2018Triple}. E motivados por estas preocupações, outras vulnerabilidades foram descobertas, partindo do mesmo princípio de ataques que se aproveitam da execução especulativa. Em ordem cronológica, foram documentadas: \emph{Foreshadow} e \emph{Foreshadow-NG}, em \citeonline{VanBulck2018Foreshadow}. \emph{Spoiler}, em \citeonline{Islam2019Spoiler}. \emph{ZombieLoad} em \citeonline{Schwarz2019ZombieLoad}. \emph{RIDL} em \citeonline{VanSchaik2019RIDL} e \emph{Fallout} em \citeonline{Minkin2019Fallout}.
 
-A \emph{Spectre}, que dada a cronologia de descoberta, pode ser chamada de ``pioneira'' da execução especulativa, é complexa de ser explorada e possui condições específicas para exploração (axiomas). Apesar disso, até o momento de finalização desta pesquisa (junho de 2019), não havia sido descoberta uma solução clara ou totalmente eficaz contra a vulnerabilidade. Um grande esforço estava sendo feito para o desenvolvimento de medidas de prevenção via \emph{software}, para dificultar a exploração \cite{Graz2018Meltdown}.
+A \emph{Spectre}, que dada a cronologia de descoberta pode ser chamada de ``pioneira'' da execução especulativa, é complexa de ser explorada e possui circunstâncias (ou condições) específicas para exploração. Por isso, pesquisadores continuam a desenvolver análises e outras variações de ataques utilizando a \emph{Spectre} como base. Exemplo recente disto é: a análise publicada por \citeonline{McIlroy2019SpectreIH}; e a variação de ataque utilizando o RSB (\emph{Return Stack Buffer}) como canal micro arquitetural, que foi documentada por \citeonline{Esmaeil2018Spectre}.
 
-\begin{comment}
-Adicionar os 2 trabalhos discorridos sobre a Spectre.
-\end{comment}
+Até o momento de finalização desta pesquisa (junho de 2019), não havia sido descoberta uma solução totalmente eficaz contra a vulnerabilidade. Um grande esforço estava sendo feito para o desenvolvimento de medidas de prevenção via \emph{software}, para dificultar a exploração e aumentar a robustez das aplicações \cite{Graz2018Meltdown}.
 
 % ---------------------------------
 % FUNDAMENTAÇÃO TEÓRICA
@@ -319,48 +335,31 @@ As funções que se encontram ordenadas em um fluxo para execução de um \emph{
 
 Durante o fluxo de execução deste \emph{software} qualquer, utilizado como exemplo, podem existir instruções de desvio: condicionais ou incondicionais. Quando o processador se depara com uma instrução de desvio condicional (chamada de \textbf{\emph{branch condition}}), muitas vezes ele não conhece quais são as instruções futuras. Pois, esta instrução de ramificação tem uma direção que depende das instruções precedentes, cuja execução ainda não está concluída. 
 
-Esta situação é claramente vista quando observa-se o endereço de memória que aponta para a próxima instrução (que continuará o fluxo). Este endereço pode ser especificado de forma: imediata, endereço de memória fixo; direta, variável que contém o endereço de memória; ou indireta, endereço de memória de uma variável que contém o próximo salto \cite{Debarshi2018Addressing}. Quando o endereço de memória é especificado através de uma variável (de forma direta), e o conteúdo desta variável se trata do resultado de uma operação, tem-se uma condição propícia para uma ``especulação''.
+Esta situação é claramente vista quando observa-se o endereço de memória que aponta para a próxima instrução (que continuaria o fluxo). Este endereço pode ser especificado de forma: imediata, endereço de memória fixo; direta, variável que contém o endereço de memória; ou indireta, endereço de memória de uma variável que contém o próximo salto \cite{Debarshi2018Addressing}. Quando o endereço de memória é especificado através de uma variável (de forma direta), e o conteúdo desta variável se trata do resultado de uma operação, tem-se uma condição propícia para uma ``especulação''.
 
 Nestas situações, o processador pode preservar o estado dos registradores e variáveis, fazer uma previsão do caminho que o programa seguirá e executar instruções especulativamente ao longo deste caminho. Se a previsão estiver correta, os resultados desta execução serão confirmados (isto é, salvos nos registradores e variáveis), gerando uma vantagem de desempenho em relação ao tempo ocioso durante a espera. Caso contrário, o processador abandona o trabalho executado, revertendo o estado dos registradores e variáveis, continuando ao longo do caminho correto. Esta técnica é chamada de \textbf{execução especulativa} (\emph{speculative execution}) \cite{Kocher2018Spectre}.
 
 Durante a execução especulativa, o processador faz suposições sobre o resultado provável das instruções de desvio. Previsões melhores consequentemente melhoram o desempenho, aumentando o número de operações executadas especulativamente que podem ser confirmadas com sucesso \cite{Kocher2018Spectre}. Esta técnica de previsão de resultados, aplicada a uma \emph{branch condition} é chamada de \textbf{\emph{branch prediction}}.
 
-\citeonline{Kocher2018Spectre} chamou as instruções que são realizadas erroneamente em uma tentativa de execução especulativa (como resultado de uma previsão incorreta) de ``instruções transitórias'' (\textbf{\emph{transient instructions}}). Admitindo que tais instruções, embora não alterem o fluxo de execução de um \emph{software}, deixam rastros micro arquiteturais. Esses rastros em componentes micro arquiteturais podem ser chamados de \textbf{canais}.
+\citeonline{Kocher2018Spectre} chamou as instruções que são realizadas erroneamente em uma tentativa de execução especulativa (como resultado de uma previsão incorreta) de ``instruções transitórias'' (\textbf{\emph{transient instructions}}). Admitindo que tais instruções, embora não alterem o fluxo de execução de um \emph{software}, deixam rastros em componentes micro arquiteturais. Quando um invasor passa a coletar esses rastros através destes componentes, pode-se dizer que estes dados estão vazando através de um \textbf{canal}.
 
-O comportamento de prever uma ação futura, baseado em ações passadas, assumindo que a ação futura é semelhante a anterior, permite que alterações no estado de micro arquitetura causadas pelo comportamento de um \emph{software} possam afetar outros \emph{softwares}. E, ao longo do tempo, a exploração destas pequenas alterações foram comprovadas de diferentes formas, elicitadas por \citeonline{Kocher2018Spectre}. As explorações de componentes micro arquiteturais (canais), são chamadas de \textbf{ataques de canais laterais} (\emph{side-channals attacks}).
-
-\begin{comment}
-Isto porque, vários componentes do processador são usados para fazer o \emph{branch prediction}. Dois deles são o BTB e o RSB (\emph{Branch Target Buffer} e \emph{Return Stack Buffer}).
-
-O BTB armazena um mapeamento de endereço de origem para endereço de destino, de instruções de desvio condicional (ramificações) recentes. E pode ser usado para prever destinos futuros, antes de terminar a decodificação da própria instrução de desvio \cite{Kocher2018Spectre}. Já o RSB é utilizado para armazenar em forma de pilha, os endereços de retorno das chamadas mais recentes. E pode ser usado como forma de prever, os próximos destinos de retornos, quando um retorno procurado é achado \cite{Esmaeil2018Spectre}. Ambos os componentes, são conhecidos somente pelos seus respectivos núcleos físicos do processador. Mesmo assim
-\end{comment}
-
-
-
-E, um destes rastros que é conhecido e costumeiramente explorado por ataques de canais laterais, está na memória cache.
+O comportamento de prever uma ação futura, baseado em ações passadas, assumindo que a ação futura é semelhante a anterior, permite que alterações no estado de micro arquitetura causadas pelo comportamento de um \emph{software} possam afetar outros \emph{softwares}. E, ao longo do tempo, a exploração destas pequenas alterações foram comprovadas de diferentes formas, elicitadas por \citeonline{Kocher2018Spectre}. As explorações de componentes micro arquiteturais (canais), são chamadas de \textbf{ataques de canais laterais} (\emph{side-channals attacks}). E, um destes canais que é conhecido e costumeiramente explorado por ataques de canais laterais, é a memória cache.
 
 A memória cache é abordada como algo singular, mas se refere a um conjunto de memórias, hierarquicamente subdivididas e organizadas. Um processador comum, inclui uma \textbf{hierarquia de memórias caches} em sua arquitetura. A cache que fica no topo, é chamada de L1 (\emph{level} 1 ou nível 1), é a menor e mais rápida. As L2 e L3, respeitam a ordem de serem maiores entre si conforme se avança de nível e perdem também em velocidade do mesmo modo.
 
 Segundo \citeonline{Yarom2015MappingTI} nos processadores Intel modernos, o tamanho da cache L1 é de 64 KiB, com uma velocidade de acesso de 4 ciclos de CPU. Na L2, são 256 KiB com 7 ciclos. E, em cada núcleo do processador, tem-se níveis L1 e L2 dedicados. O terceiro nível (L3) é também chamado de LLC (\emph{last-level} cache). O tamanho da LLC varia entre os processadores (de 3 MiB a mais de 20 MiB), como também sua velocidade (26 a 31 ciclos de CPU). E é compartilhada entre os núcleos de um processador que é multinúcleos (\emph{multicores}).
 
-
-
-\begin{comment}
-Pipeline: é uma fila de instruções, que é organizada pela ordem de execução que cada instrução deve ser ou foi executada (processada por ciclo). É uma técnica de hardware também conhecida como “segmentação de instruções”, e é efetivada na memória do processador. É análogo a uma esteira de produção, onde cada “peça” entra em um setor específico que “processa” esta peça. E cada “setor”, só pode ser ocupado com uma peça por vez. Nisto, “peça” seria uma instrução computacional vinda da memória (D ou S) RAM e “setor”, uma fase que esta instrução precisa passar para atingir o seu objetivo na cadeia de processamento.
-
-Exploração da Execução Especulativa: no artigo de Jann Horn et al. são demonstradas duas técnicas para exploração da execução especulativa:
-
-Exploração das ramificações condicionais (conditional branches ou branch condition): consiste em “treinar” o processador a predizer o resultado de ramificações de forma que, este acerte determinado número de vezes. Depois, tenta acessar as ramificações com valores não permitidos, fazendo com que os resultados de especulações incorretas sejam revertidos (de forma esperada), porém armazenados na cache LLC. Depois, basta utilizar alguma técnica de extração dos dados contidos na cache.
-
-Exploração do posicionamento de ramificações indiretas: consiste em “treinar” o BTB (Branch Target Buffer), que guarda os endereços que levarão instruções de saltos (ramificações) para o próximo fluxo de execução. O processo é similar a primeira técnica, porém o atacante substitui aqui os endereços de memória para onde o software originalmente deveria saltar, por outros endereços conhecidos pelo atacante.
-
-Outras técnicas: Jann Horn deixou claro que variações destas explorações podem ser feitas como novas formas de ataque, mas não elucidou de que forma, e como isto poderia acontecer.
-\end{comment}
-
 % ---------------------------------
 % CONCLUSÃO PARCIAL
 % ---------------------------------
 \subsection{Conclusão Parcial}
+Tanto na publicação de Jann Horn (\citeyear{Jann2018Reading}), quanto no artigo de \citeonline{Kocher2018Spectre}, as duas variações da \emph{Spectre} foram explicadas de forma bem detalhada. Porém, algumas questões ainda permanecem sem esclarecimento. Dada a base teórica acima, é possível entender como o ataque que se aproveita da primeira variação funciona.
+
+A exploração do \emph{bypass} de verificação de limites consiste em “treinar” o processador a predizer o resultado de uma instrução de desvio (\emph{branch condition}). De forma que, este acerte determinado número de vezes, e depois cometa uma ```violação'' proposital com valores não permitidos. A especulação desta violação, causa alterações nos componentes micro arquiteturais. E como já dito, não existe impacto na execução do \emph{software}, pois os resultados destas especulações incorretas são revertidos (de forma esperada). Porém, um dos canais micro arquiteturais que foram modificados, é a memória cache. E nela, contém a o endereço da informação que de formas normais, não poderia ser acessada. Durante esta pesquisa, não foi possível precisar (nem por testes, nem por literatura) qual o nível de cache esta informação é armazenada.
+
+A literatura afirma de forma precisa que existem possíveis variações desta mesma técnica \cite{Kocher2018Spectre}. Porém, nenhuma informação adicional sobre isto foi dada. De forma semelhante, afirma-se que com a primeira variação da \emph{Spectre} é possível realizar o vazamento de informações de lugares arbitrários na memória. E obter informações até mesmo de outros \emph{softwares} que estão na mesma máquina. Porém, nenhuma prova de conceito foi divulgada até o momento (finalização desta pesquisa em junho de 2019) demonstrando tal capacidade.
+
+Pensando nestas limitações e em informações que ainda continuam sem esclarecimento, as próximas seções segmentam metodologias e procedimentos realizados pelo autor, visando elucidar tais informações.
 
 % ------------------------------------------------------------------------
 % REFERENCIAL METODOLÓGICO
@@ -370,34 +369,30 @@ Esta seção aborda a classificação da pesquisa com relação a finalidade, ab
 % ---------------------------------
 % CLASSIFICAÇÃO DA PESQUISA
 % ---------------------------------
-\subsection{Método}
+\subsection{Metodologia}
 Esta é uma pesquisa com finalidade de natureza básica, com objetivos de caráter explicativos, que utiliza uma abordagem quantitativa, com procedimentos fundamentados em pesquisa bibliográfica, documental e experimental. Caracterizada por um estudo transversal, levando em conta os resultados de análises e testes conduzidos em um ambiente previamente configurado, ou seja, em um laboratório.
 
 Trata-se de uma \textbf{pesquisa básica} \cite{Fernando1987Por}, porque além de promover o aprofundamento de um conhecimento já exposto através de pesquisas anteriores, não se descarta a possibilidade de produção de novos conhecimentos sobre o assunto. Sendo assim, o autor espera complementar alguns aspectos e peculiaridades de pesquisas anteriormente feitas, preenchendo lacunas de conhecimento a respeito exploração da execução especulativa.
 
-É uma \textbf{pesquisa explicativa} \cite{Rampazzo2005Metodologia}, pois tem por objetivo demonstrar a possibilidade de execução da técnica de vazamento, em circunstâncias específicas e diferentes das circunstâncias abordadas no artigo de \citeonline{Kocher2018Spectre}. Essa comparação leva em conta artigos de outros pesquisadores, que elucidaram limites que estão envolvidos na aplicação da técnica. Existindo assim, uma associação entre os limites elicitados, a comprovação ou não destes, e a busca de outros limites, para a consolidação dos axiomas.
+É uma \textbf{pesquisa explicativa} \cite{Rampazzo2005Metodologia}, pois tem por objetivo demonstrar a possibilidade de execução da técnica de vazamento, em circunstâncias específicas e diferentes das circunstâncias abordadas no artigo de \citeonline{Kocher2018Spectre}. Essa comparação leva em conta artigos de outros pesquisadores, que elucidaram limites que estão envolvidos na aplicação da técnica. Existindo assim, uma associação entre os limites elicitados, a comprovação ou não destes, e a busca de outros limites, para a consolidação das circunstâncias necessárias.
 
-A pesquisa utiliza uma \textbf{abordagem quantitativa} \cite{Mauro2009Metodologia}, visto que a avaliação dos resultados possui caráter bem definido e exato do ponto de vista funcional. Avalia-se a execução ou não dos procedimentos que levam ao vazamento, e concluir-se de forma objetiva e direta se a técnica funciona ou não, com que circunstâncias e com quais condições (axiomas da técnica). Tais resultados foram comprovados através de experimentos, embasados na literatura referencial.
+A pesquisa utiliza uma \textbf{abordagem quantitativa} \cite{Mauro2009Metodologia}, visto que a avaliação dos resultados possui caráter bem definido e exato do ponto de vista funcional. Avalia-se a execução ou não dos procedimentos que levam ao vazamento, e concluir-se de forma objetiva e direta se a técnica funciona ou não, e com quais circunstâncias. Tais resultados foram comprovados através de experimentos, embasados na literatura referencial.
 
 Os procedimentos técnicos adotados pelo autor baseiam-se em técnicas de pequisa bibliográfica, documental e experimental. O \textbf{procedimento bibliográfico} foi adotado pois proporciona a condição de comparação histórica com a literatura, além de conferir o embasamento teórico veraz necessário (desconsiderando literaturas sensacionalistas, imprecisas ou sem fontes sólidas), creditando aos autores primários suas devidas contribuições para o ponto atingido deste trabalho. O \textbf{procedimento documental} confere a garantia de consulta e comparação dos artigos primários, com a literatura não processada (manuais, guias e notas oficiais dos fabricantes). E o \textbf{procedimento experimental} proporcionou ao autor agregar valor ao trabalho em questão através de experimentos com retestes. Utilizando como objetos de estudo os \emph{softwares} desenvolvidos por outros pesquisadores, afim de obter resultados diferentes com modificações pontuais, visando o acréscimo de um conhecimento anterior \cite{Praca2015Metodologia}.
 
 Estes procedimentos técnicos, juntamente com os resultados, foram analisados e avaliados durante um determinado período de tempo. Sendo que, as variáveis observadas são relativas a momentos instantâneos de regiões dinâmicas de memória, conferindo uma característica \textbf{transversal} ao estudo, tratando-se de tempo de aplicação \cite{Mauro2009Metodologia}.
 
-A localização da realização desta pesquisa, refere-se a um \textbf{ambiente controlado} composto de um computador pessoal. Este ambiente laboratorial foi previamente configurado, para simular a ausência de defesa contra a técnica de vazamento em questão. Foi necessário testar a mesma técnica no mesmo cenário criado, de forma exaustiva, evidenciando cada limite encontrado para a consolidação dos axiomas da técnica.
+A localização da realização desta pesquisa, refere-se a um \textbf{ambiente controlado} composto de um computador pessoal. Este ambiente laboratorial foi previamente configurado, para simular a ausência de defesa contra a técnica de vazamento em questão (desprovido de atualizações recomendadas). Foi necessário testar a mesma técnica no mesmo cenário criado, de forma exaustiva, evidenciando cada limite encontrado para a consolidação das circunstâncias necessárias.
 
 % ---------------------------------
 % DESCRIÇÃO DOS PROCEDIMENTOS
 % ---------------------------------
-\subsection{Procedimentos}
+\subsection{Procedimentos Técnicos}
 Para a realização dos experimentos, utilizou-se a prova de conceito (\emph{Proof of Concept}, ou \emph{PoC}) documentada por \citeonline{Kocher2018Spectre}. O código exemplo de exploração (ou \emph{exploit}\footnote{Segundo  \citeonline{Cesar2010Vulnerabilidades}, é um conjunto de instruções ``capaz de tirar proveito de uma vulnerabilidade''.}) desta \emph{PoC}, foi escrito em linguagem C, e simula o vazamento de uma informação secreta escrita diretamente no código. O intuito é explorar a execução especulativa induzida, utilizando a memória cache como canal lateral, em uma estrutura (endereços de memória e variáveis) definida pelo próprio criador do \emph{exploit}. 
 
-De posse deste \emph{exploit} e utilizando uma máquina convencional que contenha um compilador de C (\textbf{Visual C++} para \emph{Windows}, ou \textbf{GNU Compiler Collection} para \emph{Linux}), é possível verificar os passos que desencadeiam o vazamento. No caso desta pesquisa, o ambiente utilizado foi um Linux GNU Ubuntu 16.04.05 LTS 64-bit, Intel\textsuperscript{\tiny\textregistered} Core\textsuperscript{\tiny\texttrademark} i3 5005U @ 2.0 Ghz x 4. Diante disto, os experimentos para a realização desta pesquisa foram divididos em quatro testes (T01 à T04), que apresentam-se como possíveis axiomas da \emph{Spectre}. Tendo como foco, a utilização do \emph{exploit} em uma estrutura contrária ao documentado por \citeonline{Kocher2018Spectre}: endereços de memória desconhecidos, tamanho e conteúdo das variáveis escolhidos de forma adversa.
+De posse deste \emph{exploit} e utilizando uma máquina convencional que contenha um compilador de C (\textbf{Visual C++} para \emph{Windows}, ou \textbf{GNU Compiler Collection} para \emph{Linux}), é possível verificar os passos que desencadeiam o vazamento. No caso desta pesquisa, o ambiente utilizado foi um Linux GNU Ubuntu 16.04.05 LTS 64-bit, Intel\textsuperscript{\tiny\textregistered} Core\textsuperscript{\tiny\texttrademark} i3 5005U @ 2.0 Ghz x 4. Diante disto, os experimentos para a realização desta pesquisa foram divididos em quatro testes (T01 à T04), que apresentam-se como possíveis circunstâncias limitadoras para a exploração da \emph{Spectre}. Tendo como foco, a utilização do \emph{exploit} em uma estrutura contrária ao documentado por \citeonline{Kocher2018Spectre}: endereços de memória desconhecidos, tamanho e conteúdo das variáveis escolhidos de forma adversa.
 
-Dois métodos foram utilizados para elicitar estes \textbf{possíveis axiomas}: exploração da literatura, em busca de circunstancias que sejam necessárias para a execução da \emph{Spectre}; e, exploração do \emph{exploit}, em busca de limitações intuitivas que determinam o funcionamento da \emph{PoC}. Posteriormente estes foram testados, afim de identificar com as suas possíveis falhas, em quais circunstâncias gerais e de comum aceitação a \emph{Spectre} funciona ou limita-se: quanto a endereços de memória (físicos ou não) que abrangem o vazamento, quanto a quantidade de dados que pode ser vazada, e quanto a aplicação genérica da vulnerabilidade para leitura arbitrária de memória privilegiada, sem autorização.
-
-\begin{comment}
-Para a realização dos passos supradescritos, os ambientes utilizados foram: GNU Ubuntu 18.04.01 LTS 64-bit, Intel\textsuperscript{\tiny\textregistered} Core\textsuperscript{\tiny\texttrademark} i7 7500U @ 2.7 Ghz x 4; GNU Ubuntu 16.04.05 LTS 64-bit, Intel\textsuperscript{\tiny\textregistered} Core\textsuperscript{\tiny\texttrademark} i3 5005U @ 2.0 Ghz x 4.
-\end{comment}
+Dois métodos foram utilizados para elicitar estes \textbf{possíveis limites} (ou circunstâncias limitadoras): exploração da literatura, em busca de circunstancias que sejam necessárias para a execução da \emph{Spectre}; e, exploração do \emph{exploit}, em busca de limitações intuitivas que determinam o funcionamento da \emph{PoC}. Posteriormente estes foram testados, afim de identificar com as suas possíveis falhas, em quais circunstâncias gerais e de comum aceitação a \emph{Spectre} funciona ou limita-se: quanto a endereços de memória (físicos ou virtuais) que abrangem o vazamento, quanto a quantidade de dados que pode ser vazada, e quanto a aplicação genérica da vulnerabilidade para leitura arbitrária de memória, sem autorização.
 
 % ------------------------------------------------------------------------
 % TESTES E RESULTADOS
@@ -433,7 +428,6 @@ Após os testes, a aplicação atacante parou sua execução com um sinal de \em
 
 \begin{comment}
 explicar mais sobre o que é "contexto" nesse sentindo
-pesquisar instruções não-temporais
 \end{comment}
 
 % ---------------------------------
@@ -448,11 +442,16 @@ Antes de iniciar as modificações pontais, o \emph{exploit} foi adaptado para t
 
 Após a finalização deste experimento, conclui-se que, ao saber o ponteiro de inicio da variável que contém a informação secreta, e de posse do tamanho desta informação, é possível inferir todos os dados em uma velocidade de aproximadamente \textbf{5.46 KB/s} (3 MB em 562 segundos, para o ambiente em questão). Mesmo que a informação inferida seja maior que a memória cache. Isto porque, a transferência dos dados acontece com um endereço por vez. Cada endereço inferido passa por 3 fazes: treinamento (\emph{loop} que acontece 30 vezes), leitura (\emph{loop} de 256 vezes) e inferência da melhor leitura (\emph{loop} de 256 vezes). Sendo que, cada etapa ocorre 999 vezes, garantindo um \textbf{acurácia de 0,01\%} nos resultados, conforme \citeonline{Kocher2018Spectre}.
 
+\begin{comment}
+Adicionar uma imagem com as saídas.
+Retirar a parte dos benchmarks, pois pode conter erros grotescos, por causa da lei dos grandes números.
+\end{comment}
+
 % ---------------------------------
 % T04
 % ---------------------------------
 \subsection{T04 - Utilização de \emph{bit twiddling}}
-A figura \ref{lst:02} contém um trecho do \emph{exploit} chamado de \emph{bit twiddling} pelos autores. Este trecho de código está presente no \emph{exploit}, para unicamente simular o funcionamento de uma estrutura condicional. Segundo \citeonline{Kocher2018Spectre}, as estruturas condicionais ativam o \emph{branch predictor}, e durante a faze de \emph{misstraining} da memória cache, o \emph{predictor} não deveria ser chamado, pois adicionaria mais linhas na cache, e de certa forma agregando imprecisão a inferência do \emph{exploit}.
+A figura \ref{lst:02} contém um trecho do \emph{exploit} chamado de \emph{bit twiddling} pelos autores. Este trecho de código está presente no \emph{exploit}, para unicamente simular o funcionamento de uma estrutura condicional. Segundo \citeonline{Kocher2018Spectre}, as estruturas condicionais ativam o \emph{branch predictor}, e durante a faze de \emph{mistraining} da memória cache, o \emph{predictor} não deveria ser chamado, pois adicionaria mais linhas na cache, e de certa forma agregando imprecisão a inferência do \emph{exploit}.
 
 \lstinputlisting[language=C, style=c, caption={\emph{Bit twiddling} no código do \emph{exploit}.}, label={lst:02}]{listings/list02.c}
 
@@ -464,11 +463,11 @@ Após a troca das estruturas condicionais, conclui-se que ao ativar o \emph{bran
 % DISCUSSÃO
 % ---------------------------------
 \subsection{Discussão}
-Com a finalização dos experimentos, foi possível comprovar que algumas condições específicas são imprescindíveis para fazer uma informação vazar através da exploração da execução especulativa. A variação 01 da \emph{Spectre} possuí axiomas bem definidos e específicos, que não estavam fundamentalmente claros na literatura. 
+Com a finalização dos experimentos, foi possível comprovar que algumas condições específicas são imprescindíveis para fazer uma informação vazar através da exploração da execução especulativa. A variação 01 da \emph{Spectre} possuí circunstâncias limitadoras bem definidas e específicas, que não estavam fundamentalmente claros na literatura.
 
-A \emph{PoC} da \emph{Spectre} acontece em contextos iguais de forma absoluta, e em contextos diferentes de forma relativa. Quando \citeonline{Kocher2018Spectre} cita que "um atacante pode ler memória arbitrária de um outro contexto", ele quer dizer que esse outro contexto é subcontexto de um pai. E tanto o atacante, quanto a vítima, pertencem ao mesmo subcontexto pai. Esse é um dos axiomas de execução da \emph{Spectre}.
+A \emph{PoC} da \emph{Spectre} acontece em contextos iguais de forma absoluta, e em contextos diferentes de forma relativa. Quando \citeonline{Kocher2018Spectre} cita que "um atacante pode ler memória arbitrária de um outro contexto", ele quer dizer que esse outro contexto é subcontexto de um pai. E tanto o atacante, quanto a vítima, pertencem ao mesmo subcontexto pai. Esse é um dos limites de exploração da \emph{Spectre}.
 
-Além de estarem no mesmo contexto pai, vítima e atacante devem compartilhar de determinada região de memória. Isto é um axioma também verdadeiro. Conforme os experimentos feitos, não existe possibilidade de manipulação da memória cache, nem de calculo de endereços de variáveis, cujo atacante não conhece ou não tem acesso. Seria necessário que a própria vítima mostrasse os endereços físicos, e mesmo assim, o sistema operacional nega as solicitações de \emph{flush} destes endereços físicos.
+Além de estarem no mesmo contexto pai, vítima e atacante devem compartilhar de determinada região de memória. Isto é um limite também verdadeiro. Conforme os experimentos feitos, não existe possibilidade de manipulação da memória cache, nem de calculo de endereços de variáveis, cujo atacante não conhece ou não tem acesso. Seria necessário que a própria vítima mostrasse os endereços físicos, e mesmo assim, o sistema operacional nega as solicitações de \emph{flush} destes endereços físicos.
 
 % Finaliza a parte no bookmark do PDF, para que se inicie o bookmark na raiz
 \bookmarksetup{startatroot}
@@ -476,7 +475,16 @@ Além de estarem no mesmo contexto pai, vítima e atacante devem compartilhar de
 % CONCLUSÃO
 % ------------------------------------------------------------------------
 \section{Conclusão}
-%\lipsum[31]
+As falhas de segurança nos computadores muitas vezes preocupam as pessoas. Principalmente quando se trata de segurança de informações pessoais. As vulnerabilidades de arquitetura descobertas por Jann Horn, colocaram muitas preocupações na comunidade de pesquisa, a respeito de o quão seguros são os processadores que o mundo inteiro está usando.
+
+Por mais preocupantes que estas falhas as vezes pareçam ser, ou até mesmo, por mais vulneráveis que os computadores possam parecer, nem sempre o que se pode ganhar de vantagem com essas falhas, é algo relevante. No caso da \emph{Spectre}, (que é uma falha de nível micro arquitetural, sem correção aparentemente fácil) as condições necessárias de exploração são tão específicas, que dificilmente alguém conseguiria explorar remotamente uma vulnerabilidade como esta para realizar um vazamento de informações sigilosas.
+
+Estas condições foram elucidadas através de testes, que provaram que a \emph{Spectre} é uma vulnerabilidade que acontece em um trecho de código padronizado e específico (uma estrutura de verificação condicional de limites), e para ser explorada, esse mesmo código vulnerável precisa estar no mesmo contexto do atacante. Que por sua vez, precisa ter permissões de acesso aos endereços de todas variáveis da vítima que estejam envolvidas neste código vulnerável.
+
+breve revisão do Problema e do objetivo da pesquisa
+contribuições da pesquisa
+possibilidades e limitações da proposta
+perspectivas futuras
 % ------------------------------------------------------------------------
 % ELEMENTOS PÓS-TEXTUAIS
 % ------------------------------------------------------------------------
@@ -504,7 +512,7 @@ Além de estarem no mesmo contexto pai, vítima e atacante devem compartilhar de
 % AGRADECIMENTOS
 % ------------------------------------------------------------------------
 \section*{Agradecimentos}
-%\lipsum[31]
+Agradecimentos a \textbf{Anderson} Eduardo Nascimento (Co-Fundador na \emph{Allele Security Intelligence}\footnote{https://allelesecurity.com.br}) pelas correções de conceitos, delimitação do escopo de pesquisa e informações pertinentes ao entendimento dos conceitos fundamentais. Também a \textbf{Alan} Messias Cordeiro (alacerda), pela ajuda na escolha do tema e matérias relacionadas.
 % ------------------------------------------------------------------------
 % FINAL DO DOCUMENTO
 % ------------------------------------------------------------------------
