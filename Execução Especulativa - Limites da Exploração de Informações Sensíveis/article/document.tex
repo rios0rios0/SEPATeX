@@ -215,27 +215,9 @@ LIMITES DA EXPLORAÇÃO DE INFORMAÇÕES SENSÍVEIS}}}}
     \footnotesize{\begin{SingleSpace}
         \noindent
         \textbf\resumoname\\
-        Conforme a ABNT NBR 6022:2018, o resumo no idioma do documento é elemento obrigatório. Constituído de uma sequência de frases concisas e objetivas e não de uma simples enumeração de tópicos, não ultrapassando 250 palavras, seguido, logo abaixo, das palavras representativas do conteúdo do trabalho, isto é, palavras-chave e/ou descritores, conforme a NBR 6028. (\ldots) As palavras-chave devem figurar logo abaixo do resumo, antecedidas da expressão Palavras-chave:, separadas entre si por ponto e finalizadas também por ponto.\\\\
-        \textbf{Palavras-chave:} latex. abntex. editoração de texto.
+        As falhas de segurança se tornam mais preocupantes quando a segurança de informações pessoais correm risco. As descobertas de Jann Horn e de outros grupos de pesquisadores colocaram a prova a segurança de vários processadores modernos. Batizada de \emph{Spectre}, a vulnerabilidade que se aproveita da técnica de execução especulativa, está presente em quase todos os dispositivos computacionais que executam funções ao mesmo tempo. Mas, até que ponto as informações pessoais dos usuários estão expostas? Quais são os limites da exploração desta vulnerabilidade? Utilizando procedimentos técnicos e testes fundamentados, esta pesquisa esclarece os limites fundamentais que precisam ser atendidos para um vazamento ocorrer através da exploração desta vulnerabilidade. Utilizando a literatura referencial e o código criado pelos pesquisadores supracitados, para elicitar possíveis limites de exploração da vulnerabilidade. Apontando perspectivas futuras de estudo e elicitando trabalhos de outros autores que prosseguiram com pesquisas mais aprofundadas.\\\\
+        \textbf{Palavras-chave:} execução; especulativa; \emph{Spectre}; Jann Horn.
         \vspace{\onelineskip}
-        
-        \begin{comment}
-Dar uma Visão Geral da pesquisa
-O Problema precisa ser contextualizado e perfeitamente definido.
-O Objetivo tem que estar relacionado com a hipótese ou solução do problema.
-A Relevância do assunto tem que estar explícita.
-O Diferencial ou novidade da proposta precisa ficar evidente.
-A Metodologia empregada tem que ser adequada.
-Os Procedimentos técnicos tem que ser coerentes.
-Os Testes precisam ser rigorosos e reproduzíveis.
-Os Resultados alcançados devem ser quantificáveis e satisfatórios.
-A Discussão tem que ser convincente.
-A Conclusão deve estimular o leitor a leitura.
-Usar parágrafo único com 150 a 500 palavras
-Usar o verbo na Voz ativa e na terceira pessoa do singular
-Empregar Linguagem formal, clara, precisa, concisa, narrativa, com rigor científico e correção gramatical.
-        \end{comment}
-        
     \end{SingleSpace}}
 \end{resumoumacoluna}
 % Resumo em Inglês
@@ -245,8 +227,8 @@ Empregar Linguagem formal, clara, precisa, concisa, narrativa, com rigor cientí
         \begin{otherlanguage*}{english}
             \noindent
             \textbf\resumoname\\
-            Conforme a ABNT NBR 6022:2018, o resumo no idioma do documento é elemento obrigatório. Constituído de uma sequência de frases concisas e objetivas e não de uma simples enumeração de tópicos, não ultrapassando 250 palavras, seguido, logo abaixo, das palavras representativas do conteúdo do trabalho, isto é, palavras-chave e/ou descritores, conforme a NBR 6028. (\ldots) As palavras-chave devem figurar logo abaixo do resumo, antecedidas da expressão Palavras-chave:, separadas entre si por ponto e finalizadas também por ponto.\\\\
-            \textbf{Keywords:} latex. abntex.
+            Security flaws become more worrisome when personal information security is at risk. The findings of Jann Horn and other groups of researchers tested the safety of several modern processors. Specter-named vulnerability, which takes advantage of the speculative execution technique, is present in almost all computing devices that perform functions at the same time. But to what extent do user's personal information are exposed? What are the limits of exploiting this vulnerability? Using technical procedures and substantiated tests, this research clarifies the fundamental limits that need to be met for a leak to occur through the exploitation of this vulnerability. Using the reference literature and the code created by the aforementioned researchers, to elicit possible limits of vulnerability exploitation. Aiming future perspectives of study and eliciting work of other authors who continued with further research.\\\\
+            \textbf{Keywords:} speculative; execution; \emph{Spectre}; Jann Horn.
         \end{otherlanguage*}
     \end{SingleSpace}}
 \end{resumoumacoluna}
@@ -319,7 +301,7 @@ Outros fabricantes e fornecedores de aplicações diretamente afetados pelas vul
 % TRABALHOS RELACIONADOS
 % ---------------------------------
 \subsection{Trabalhos Relacionados}
-As descobertas supramencionadas abriram precedentes para outros questionamentos em relação a segurança dos processadores atuais. Questionamentos sobre quantas vulnerabilidades críticas como estas, podem estar ``adormecidas'' por anos, preocupam os pesquisadores \cite{Andy2018Triple}. E motivados por estas preocupações, outras vulnerabilidades foram descobertas, partindo do mesmo princípio de ataques que se aproveitam da execução especulativa. Em ordem cronológica, foram documentadas: \emph{Foreshadow} e \emph{Foreshadow-NG}, em \citeonline{VanBulck2018Foreshadow}. \emph{Spoiler}, em \citeonline{Islam2019Spoiler}. \emph{ZombieLoad} em \citeonline{Schwarz2019ZombieLoad}. \emph{RIDL} em \citeonline{VanSchaik2019RIDL} e \emph{Fallout} em \citeonline{Minkin2019Fallout}.
+As descobertas supramencionadas abriram precedentes para outros questionamentos em relação a segurança dos processadores atuais. Questionamentos sobre quantas vulnerabilidades críticas como estas, podem estar ``adormecidas'' por anos, preocupam os pesquisadores \cite{Andy2018Triple}. E motivados por estas preocupações, outras vulnerabilidades foram descobertas, partindo do mesmo princípio de ataques que se aproveitam da execução especulativa. Em ordem cronológica, foram documentadas: \emph{Foreshadow} em \citeonline{VanBulck2018Foreshadow} e \emph{Foreshadow-NG} em \citeonline{Weisse2018ForeshadowNG}. \emph{Spoiler}, em \citeonline{Islam2019Spoiler}. \emph{ZombieLoad} em \citeonline{Schwarz2019ZombieLoad}. \emph{RIDL} em \citeonline{VanSchaik2019RIDL} e \emph{Fallout} em \citeonline{Minkin2019Fallout}.
 
 A \emph{Spectre}, que dada a cronologia de descoberta pode ser chamada de ``pioneira'' da execução especulativa, é complexa de ser explorada e possui circunstâncias (ou condições) específicas para exploração. Por isso, pesquisadores continuam a desenvolver análises e outras variações de ataques utilizando a \emph{Spectre} como base. Exemplo recente disto é: a análise publicada por \citeonline{McIlroy2019SpectreIH}; e a variação de ataque utilizando o RSB (\emph{Return Stack Buffer}) como canal micro arquitetural, que foi documentada por \citeonline{Esmaeil2018Spectre}.
 
@@ -372,15 +354,15 @@ Esta seção aborda a classificação da pesquisa com relação a finalidade, ab
 \subsection{Metodologia}
 Esta é uma pesquisa com finalidade de natureza básica, com objetivos de caráter explicativos, que utiliza uma abordagem quantitativa, com procedimentos fundamentados em pesquisa bibliográfica, documental e experimental. Caracterizada por um estudo transversal, levando em conta os resultados de análises e testes conduzidos em um ambiente previamente configurado, ou seja, em um laboratório.
 
-Trata-se de uma \textbf{pesquisa básica} \cite{Fernando1987Por}, porque além de promover o aprofundamento de um conhecimento já exposto através de pesquisas anteriores, não se descarta a possibilidade de produção de novos conhecimentos sobre o assunto. Sendo assim, o autor espera complementar alguns aspectos e peculiaridades de pesquisas anteriormente feitas, preenchendo lacunas de conhecimento a respeito exploração da execução especulativa.
+Trata-se de uma \textbf{pesquisa básica} \cite{Priscilla2017Metodologia}, porque além de promover o aprofundamento de um conhecimento já exposto através de pesquisas anteriores, não se descarta a possibilidade de produção de novos conhecimentos sobre o assunto. Sendo assim, o autor espera complementar alguns aspectos e peculiaridades de pesquisas anteriormente feitas, preenchendo lacunas de conhecimento a respeito exploração da execução especulativa.
 
-É uma \textbf{pesquisa explicativa} \cite{Rampazzo2005Metodologia}, pois tem por objetivo demonstrar a possibilidade de execução da técnica de vazamento, em circunstâncias específicas e diferentes das circunstâncias abordadas no artigo de \citeonline{Kocher2018Spectre}. Essa comparação leva em conta artigos de outros pesquisadores, que elucidaram limites que estão envolvidos na aplicação da técnica. Existindo assim, uma associação entre os limites elicitados, a comprovação ou não destes, e a busca de outros limites, para a consolidação das circunstâncias necessárias.
+É uma \textbf{pesquisa explicativa} \cite{Rocha2016Dom}, pois tem por objetivo demonstrar a possibilidade de execução da técnica de vazamento, em circunstâncias específicas e diferentes das circunstâncias abordadas no artigo de \citeonline{Kocher2018Spectre}. Essa comparação leva em conta artigos de outros pesquisadores, que elucidaram limites que estão envolvidos na aplicação da técnica. Existindo assim, uma associação entre os limites elicitados, a comprovação ou não destes, e a busca de outros limites, para a consolidação das circunstâncias necessárias.
 
-A pesquisa utiliza uma \textbf{abordagem quantitativa} \cite{Mauro2009Metodologia}, visto que a avaliação dos resultados possui caráter bem definido e exato do ponto de vista funcional. Avalia-se a execução ou não dos procedimentos que levam ao vazamento, e concluir-se de forma objetiva e direta se a técnica funciona ou não, e com quais circunstâncias. Tais resultados foram comprovados através de experimentos, embasados na literatura referencial.
+A pesquisa utiliza uma \textbf{abordagem quantitativa} \cite{Rocha2016Dom}, visto que a avaliação dos resultados possui caráter bem definido e exato do ponto de vista funcional. Avalia-se a execução ou não dos procedimentos que levam ao vazamento, e concluir-se de forma objetiva e direta se a técnica funciona ou não, e com quais circunstâncias. Tais resultados foram comprovados através de experimentos, embasados na literatura referencial.
 
 Os procedimentos técnicos adotados pelo autor baseiam-se em técnicas de pequisa bibliográfica, documental e experimental. O \textbf{procedimento bibliográfico} foi adotado pois proporciona a condição de comparação histórica com a literatura, além de conferir o embasamento teórico veraz necessário (desconsiderando literaturas sensacionalistas, imprecisas ou sem fontes sólidas), creditando aos autores primários suas devidas contribuições para o ponto atingido deste trabalho. O \textbf{procedimento documental} confere a garantia de consulta e comparação dos artigos primários, com a literatura não processada (manuais, guias e notas oficiais dos fabricantes). E o \textbf{procedimento experimental} proporcionou ao autor agregar valor ao trabalho em questão através de experimentos com retestes. Utilizando como objetos de estudo os \emph{softwares} desenvolvidos por outros pesquisadores, afim de obter resultados diferentes com modificações pontuais, visando o acréscimo de um conhecimento anterior \cite{Praca2015Metodologia}.
 
-Estes procedimentos técnicos, juntamente com os resultados, foram analisados e avaliados durante um determinado período de tempo. Sendo que, as variáveis observadas são relativas a momentos instantâneos de regiões dinâmicas de memória, conferindo uma característica \textbf{transversal} ao estudo, tratando-se de tempo de aplicação \cite{Mauro2009Metodologia}.
+Estes procedimentos técnicos, juntamente com os resultados, foram analisados e avaliados durante um determinado período de tempo. Sendo que, as variáveis observadas são relativas a momentos instantâneos de regiões dinâmicas de memória, conferindo uma característica \textbf{transversal} ao estudo, tratando-se de tempo de aplicação \cite{Setia2016Methodology}.
 
 A localização da realização desta pesquisa, refere-se a um \textbf{ambiente controlado} composto de um computador pessoal. Este ambiente laboratorial foi previamente configurado, para simular a ausência de defesa contra a técnica de vazamento em questão (desprovido de atualizações recomendadas). Foi necessário testar a mesma técnica no mesmo cenário criado, de forma exaustiva, evidenciando cada limite encontrado para a consolidação das circunstâncias necessárias.
 
@@ -388,7 +370,7 @@ A localização da realização desta pesquisa, refere-se a um \textbf{ambiente 
 % DESCRIÇÃO DOS PROCEDIMENTOS
 % ---------------------------------
 \subsection{Procedimentos Técnicos}
-Para a realização dos experimentos, utilizou-se a prova de conceito (\emph{Proof of Concept}, ou \emph{PoC}) documentada por \citeonline{Kocher2018Spectre}. O código exemplo de exploração (ou \emph{exploit}\footnote{Segundo  \citeonline{Cesar2010Vulnerabilidades}, é um conjunto de instruções ``capaz de tirar proveito de uma vulnerabilidade''.}) desta \emph{PoC}, foi escrito em linguagem C, e simula o vazamento de uma informação secreta escrita diretamente no código. O intuito é explorar a execução especulativa induzida, utilizando a memória cache como canal lateral, em uma estrutura (endereços de memória e variáveis) definida pelo próprio criador do \emph{exploit}. 
+Para a realização dos experimentos, utilizou-se a prova de conceito (\emph{Proof of Concept}, ou \emph{PoC}) documentada por \citeonline{Kocher2018Spectre}. O código exemplo de exploração (ou \emph{exploit}\footnote{É um conjunto de instruções \cite{Cruz2016Estudo} capaz de tirar proveito de uma vulnerabilidade \cite{Cambridge2019Exploit}.}) desta \emph{PoC}, foi escrito em linguagem C, e simula o vazamento de uma informação secreta escrita diretamente no código. O intuito é explorar a execução especulativa induzida, utilizando a memória cache como canal lateral, em uma estrutura (endereços de memória e variáveis) definida pelo próprio criador do \emph{exploit}. 
 
 De posse deste \emph{exploit} e utilizando uma máquina convencional que contenha um compilador de C (\textbf{Visual C++} para \emph{Windows}, ou \textbf{GNU Compiler Collection} para \emph{Linux}), é possível verificar os passos que desencadeiam o vazamento. No caso desta pesquisa, o ambiente utilizado foi um Linux GNU Ubuntu 16.04.05 LTS 64-bit, Intel\textsuperscript{\tiny\textregistered} Core\textsuperscript{\tiny\texttrademark} i3 5005U @ 2.0 Ghz x 4. Diante disto, os experimentos para a realização desta pesquisa foram divididos em quatro testes (T01 à T04), que apresentam-se como possíveis circunstâncias limitadoras para a exploração da \emph{Spectre}. Tendo como foco, a utilização do \emph{exploit} em uma estrutura contrária ao documentado por \citeonline{Kocher2018Spectre}: endereços de memória desconhecidos, tamanho e conteúdo das variáveis escolhidos de forma adversa.
 
@@ -403,7 +385,7 @@ Esta seção tem por objetivo expor os testes realizados de maneira sistemática
 % T01
 % ---------------------------------
 \subsection{T01 - Fora de contexto com endereço físico}
-Conforme \citeonline{Kocher2018Spectre}, os ataques utilizando \emph{Spectre} são efetivos para as informações que a vítima tem acesso. Este tipo de ataque não escala privilégios e não é detido pelo mecanismo \emph{KAISER}. Mesmo assim, a literatura referencial afirma que é possível realizar vazamentos de dados que estão fora do contexto do atacante. Limitando-se apenas aos dados que o contexto da vítima tem acesso. O objetivo deste experimento é comprovar que o \emph{exploit} da \emph{Spectre} pode realizar estes vazamentos.
+Conforme \citeonline{Kocher2018Spectre}, os ataques utilizando \emph{Spectre} são efetivos para as informações que a vítima tem acesso. Este tipo de ataque não escala privilégios e não acessa informações privilegiadas. Mesmo assim, a literatura referencial afirma que é possível realizar vazamentos de dados que estão fora do contexto do atacante. Limitando-se apenas aos dados que o contexto da vítima tem acesso. O objetivo deste experimento é comprovar que o \emph{exploit} da \emph{Spectre} pode realizar estes vazamentos.
 
 A partir disto, utilizando uma função que recebe o \emph{PID} (\emph{Process ID}) e o endereço virtual de uma variável (neste caso a secreta), foi possível obter o endereço físico (endereço real) de uma variável qualquer, criada em um contexto de aplicação pelo autor (processo diferente do \emph{exploit}). Com este endereço físico em mãos, e aplicado ao \emph{exploit} no lugar do cálculo de endereçamento inicial, as inferências foram iniciadas com um intervalo de 1 MB somado ao endereço físico inicial (margem de erro, para localizar o conteúdo da variável).
 
@@ -475,16 +457,18 @@ Além de estarem no mesmo contexto pai, vítima e atacante devem compartilhar de
 % CONCLUSÃO
 % ------------------------------------------------------------------------
 \section{Conclusão}
-As falhas de segurança nos computadores muitas vezes preocupam as pessoas. Principalmente quando se trata de segurança de informações pessoais. As vulnerabilidades de arquitetura descobertas por Jann Horn, colocaram muitas preocupações na comunidade de pesquisa, a respeito de o quão seguros são os processadores que o mundo inteiro está usando.
+As falhas de segurança nos computadores muitas vezes preocupam as pessoas. Principalmente quando se trata da segurança de informações pessoais. As vulnerabilidades de arquitetura descobertas por Jann Horn, colocaram muitas preocupações na comunidade de pesquisa, a respeito de o quão seguros são os processadores que o mundo inteiro está usando.
 
-Por mais preocupantes que estas falhas as vezes pareçam ser, ou até mesmo, por mais vulneráveis que os computadores possam parecer, nem sempre o que se pode ganhar de vantagem com essas falhas, é algo relevante. No caso da \emph{Spectre}, (que é uma falha de nível micro arquitetural, sem correção aparentemente fácil) as condições necessárias de exploração são tão específicas, que dificilmente alguém conseguiria explorar remotamente uma vulnerabilidade como esta para realizar um vazamento de informações sigilosas.
+Por mais preocupantes que estas falhas as vezes pareçam ser, ou até mesmo, por mais vulneráveis que os computadores possam parecer, nem sempre o que se pode ganhar de vantagem com essas falhas é algo relevante. No caso da primeira variação da \emph{Spectre} (que é uma falha de nível micro arquitetural, sem correção aparentemente fácil), as condições necessárias para exploração são tão específicas, que dificilmente alguém conseguiria explorar remotamente esta vulnerabilidade, para realizar um vazamento de informações sigilosas.
 
-Estas condições foram elucidadas através de testes, que provaram que a \emph{Spectre} é uma vulnerabilidade que acontece em um trecho de código padronizado e específico (uma estrutura de verificação condicional de limites), e para ser explorada, esse mesmo código vulnerável precisa estar no mesmo contexto do atacante. Que por sua vez, precisa ter permissões de acesso aos endereços de todas variáveis da vítima que estejam envolvidas neste código vulnerável.
+Estas condições foram elucidadas através de testes, que provaram que a primeira variação da \emph{Spectre} é uma vulnerabilidade que acontece em um trecho de código padronizado e específico (uma estrutura de verificação condicional de limites). E para ser explorada, esse mesmo código vulnerável precisa estar no mesmo contexto do atacante. Que por sua vez, precisa ter permissões de acesso aos endereços de todas variáveis da vítima, que estejam envolvidas neste código vulnerável.
 
-breve revisão do Problema e do objetivo da pesquisa
-contribuições da pesquisa
-possibilidades e limitações da proposta
-perspectivas futuras
+Foi possível através desta pesquisa, delimitar as circunstâncias necessárias para a exploração da primeira variação da \emph{Spectre}. Além de realizar comparações históricas fiéis as descobertas dos pesquisadores envolvidos. Esta pesquisa também possibilitou a sistematização e segmentação de um conhecimento relativamente novo, e com um potencial alto de importância acadêmica. Podendo auxiliar pesquisadores em revisões da literatura, ou até mesmo em técnicas de pesquisa, para se chegar em artigos oportunos ao assunto.
+
+Não se veta a hipótese de erro agregado aos testes realizados pelo autor. O resultado negativo concebido nos testes de extração de dados de outros contextos, pode ser considerado como uma limitação desta pesquisa, ou uma barreira técnica. Que poderá ser sobreposta por outras pesquisas que possam apresentar resultados positivos no futuro.
+
+Partindo destas informações, pesquisas futuras podem ser realizadas, visando continuar com os testes para comprovar as limitações da primeira variação da \emph{Spectre}. Porém, com foco em outras formas de exploração de informações sensíveis. Não somente limitando-se a exploração de código nativo, como o feito nesta pesquisa. Mas explorando outras possibilidades já eclucidadas por Jann Horn, como por exemplo os interpretadores de código em tempo real (JIT, \emph{just-in-time}).
+
 % ------------------------------------------------------------------------
 % ELEMENTOS PÓS-TEXTUAIS
 % ------------------------------------------------------------------------

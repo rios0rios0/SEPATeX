@@ -155,26 +155,25 @@
     year = {2018},
     month = {August},
     publisher = {{USENIX} Association},
-    note={See also technical report Foreshadow-NG~\cite{Weisse2018ForeshadowNG}}
+    note = {See also technical report Foreshadow-NG~\cite{Weisse2018ForeshadowNG}}
 }
 % Foreshadow-NG
 @article{
     Weisse2018ForeshadowNG,
-    author = {Weisse, Ofir and Van Bulck, Jo and Minkin, Marina and  Genkin, Daniel and Kasikci, Baris and Piessens, Frank and Silberstein, Mark and Strackx, Raoul and Wenisch, Thomas F. and Yarom, Yuval},
-    title = {{Foreshadow-NG}: Breaking the Virtual Memory Abstraction with Transient Out-of-Order Execution},
-    journal = {Technical report},
+    title={{Foreshadow-NG}: Breaking the Virtual Memory Abstraction with Transient Out-of-Order Execution},
+    author={Weisse, Ofir and Van Bulck, Jo and Minkin, Marina and  Genkin, Daniel and Kasikci, Baris and Piessens, Frank and Silberstein, Mark and Strackx, Raoul and Wenisch, Thomas F. and Yarom, Yuval},
+    journal = {Technical Report},
     year = {2018},
     note = {See also {USENIX} Security paper Foreshadow~\cite{VanBulck2018Foreshadow}}
 }
 % Spoiler
-@misc{
+@article{
     Islam2019Spoiler,
     title = {SPOILER: Speculative Load Hazards Boost Rowhammer and Cache Attacks},
-    author = {Saad Islam and Ahmad Moghimi and Ida Bruhns and Moritz Krebbel and Berk Gulmezoglu and Thomas Eisenbarth and Berk Sunar},
+    author = {Saad Islam and Ahmad Moghimi and Ida Bruhns and Moritz Krebbel and Berk G{\"u}lmezoglu and Thomas Eisenbarth and Berk Sunar},
+    journal = {CoRR},
     year = {2019},
-    eprint = {1903.00446},
-    archivePrefix = {arXiv},
-    primaryClass = {cs.CR}
+    volume = {abs/1903.00446}
 }
 % ZombieLoad
 @article{
@@ -189,7 +188,7 @@
     VanSchaik2019RIDL,
     title = {{RIDL}: Rogue In-flight Data Load},
     booktitle = {S\&{P}},
-    author = {Van Schaik, Stephan and Milburn, Alyssa and Österlund, Sebastian and Frigo, Pietro and Maisuradze, Giorgi and Razavi, Kaveh and Bos, Herbert and Giuffrida, Cristiano},
+    author = {van Schaik, Stephan and Milburn, Alyssa and Österlund, Sebastian and Frigo, Pietro and Maisuradze, Giorgi and Razavi, Kaveh and Bos, Herbert and Giuffrida, Cristiano},
     month = may,
     year = {2019}
 }
@@ -200,17 +199,6 @@
     author = {Minkin, Marina and Moghimi, Daniel and Lipp, Moritz and Schwarz, Michael and Van Bulck, Jo, and Genkin, Daniel and Gruss, Daniel and Sunar, Berk and Piessens, Frank and Yarom, Yuval},
     year = {2019}
 }
-% Spectre Returns
-@inproceedings{
-    Esmaeil2018Spectre,
-    author = {Esmaeil Mohammadian Koruyeh and Khaled N. Khasawneh and Chengyu Song and Nael Abu-Ghazaleh},
-    title = {Spectre Returns! Speculation Attacks using the Return Stack Buffer},
-    booktitle = {12th {USENIX} Workshop on Offensive Technologies ({WOOT} 18)},
-    year = {2018},
-    address = {Baltimore, MD},
-    url = {https://www.usenix.org/conference/woot18/presentation/koruyeh},
-    publisher = {{USENIX} Association}
-}
 % Spectre to Stay
 @article{
     McIlroy2019SpectreIH,
@@ -220,21 +208,20 @@
     year = {2019},
     volume = {abs/1902.05178}
 }
+% Spectre Returns
+@inproceedings {
+    Esmaeil2018Spectre,
+    author = {Esmaeil Mohammadian Koruyeh and Khaled N. Khasawneh and Chengyu Song and Nael Abu-Ghazaleh},
+    title = {Spectre Returns! Speculation Attacks using the Return Stack Buffer},
+    booktitle = {12th {USENIX} Workshop on Offensive Technologies ({WOOT} 18)},
+    year = {2018},
+    address = {Baltimore, MD},
+    url = {https://www.usenix.org/conference/woot18/presentation/koruyeh},
+    publisher = {{USENIX} Association}
+}
 % ---------------------------------
 % FUNDAMENTAÇÃO TEÓRICA
 % ---------------------------------
-% (FOG, 2017) = snowball = execução fora de ordem.
-@misc{
-    Fog2017Microarchitecture,
-	author = {Agner Fog},
-	date-added = {2017-05},
-	date-modified = {2018-09-15},
-	title = {The Microarchitecture of Intel, AMD and VIA CPUs},
-	url = {http://www.agner.org/optimize/microarchitecture.pdf},
-	urlaccessdate = {05 jun 2019},
-	publisher = {Technical University of Denmark},
-	year = {2017}
-}
 % (BRITO, 2017) = instruções convertidas para micro operações.
 @misc{
     Alisson2017Introducao,
@@ -244,6 +231,18 @@
 	title = {Introdução a Arquitetura de Computadores},
 	url = {http://producao.virtual.ufpb.br/books/edusantana/introducao-a-arquitetura-de-computadores-livro/livro/livro.chunked/index.html},
 	urlaccessdate = {05 jun 2019},
+	year = {2017}
+}
+% (FOG, 2017) = snowball = execução fora de ordem.
+@article{
+    Fog2017Microarchitecture,
+	author = {Agner Fog},
+	date-added = {2017-05},
+	date-modified = {2018-09-15},
+	title = {The Microarchitecture of Intel, AMD and VIA CPUs},
+	url = {http://www.agner.org/optimize/microarchitecture.pdf},
+	urlaccessdate = {05 jun 2019},
+	publisher = {Technical University of Denmark},
 	year = {2017}
 }
 % (DAS, 2018) = modos de endereçamento.
@@ -257,7 +256,7 @@
 	urlaccessdate = {05 jun 2019},
 	year = {2018}
 }
-% Yarom et al.(2015) = explicação da hierarquia da cache e tamanhos.
+% Yarom et al. (2015) = explicação da hierarquia da cache e tamanhos.
 @article{
     Yarom2015MappingTI,
     title = {Mapping the Intel Last-Level Cache},
@@ -276,68 +275,66 @@
 % ---------------------------------
 % CLASSIFICAÇÃO DA PESQUISA
 % ---------------------------------
-% (AVILA-PIRES, 1987) = pesquisa básica.
+% (MENDONÇA, 2017) = pesquisa básica.
 @article{
-    Fernando1987Por,
-    title = {Por que é básica a pesquisa básica},
-    journal = {Cad. Saúde Pública},
-    author = {Fernando Dias de Avila-Pires},
-    ISSN = {0102-311X},
-    language = {pt},
-    url = {http://www.scielo.br/scielo.php?script=sci_arttext&pid=S0102-311X1987000400013&nrm=iso},
-    volume = {3},
-    year = {1987},
-    month = {12},
-    pages = {505 - 506},
-    publisher = {scielo}
+    Priscilla2017Metodologia,
+    title = {A METODOLOGIA CIENT{\'I}FICA EM PESQUISAS EDUCACIONAIS: PENSAR E FAZER CI{\^E}NCIA},
+    author = {de Oliveira Mendon{\c{c}}a, Priscilla Bibiano},
+    journal = {Interfaces Cient{\'\i}ficas-Educa{\c{c}}{\~a}o},
+    volume = {5},
+    number = {3},
+    pages = {87--96},
+    year = {2017}
 }
-% (RAMPAZZO, 2005) = pesquisa explicativa.
-@book{
-    Rampazzo2005Metodologia,
-    title = {Metodologia Científica},
-    author = {Rampazzo, L.},
-    isbn = {9788515024988},
-    url = {https://books.google.com.br/books?id=rwyufjs\_DhAC},
-    year = {2005},
-    publisher = {Edições Loyola}
-}
-% (FONTELLES et al., 2009) = pesquisa quantitativa.
+% (ROCHA et al., 2016) = pesquisa explicativa e pesquisa quantitativa.
 @article{
-    Mauro2009Metodologia,
-    title = {Metodologia da pesquisa científica: diretrizes para a elaboração de um protocolo de pesquisa},
-    journal = {Revista Paraense de Medicina},
-    author = {Mauro José Fontelles and Marilda Garcia Simões and Samantha Hasegawa Farias and Renata Garcia Simões Fontelles},
-    language = {pt},
-    url = {http://bases.bireme.br/cgi-bin/wxislind.exe/iah/online/?IsisScript=iah/iah.xis&src=google&base=LILACS&lang=p&nextAction=lnk&exprSearch=588477&indexSearch=ID#refine},
-    volume = {23},
-    year = {2009},
-    month = {07-09},
-    publisher = {LILACS-Express}
+    Rocha2016Dom,
+    title = {O dom da produ{\c{c}}{\~a}o acad{\^e}mica: manual de normaliza{\c{c}}{\~a}o e metodologia de pesquisa},
+    author = {Rocha, Anac{\'e}lia Santos and Costa, Beatriz Souza and Cota, Maria Aparecida Leite Mendes and Rios, Mariza and Bizawu, Sebastien Kiwonghi},
+    journal = {Belo Horizonte: Escola Superior Dom Helder C{\^a}mara},
+    year = {2016}
 }
 % (FABIOLA; GARCIA, 2015) = bibliográfico, documental e experimental.
-@article{
+@misc{
     Praca2015Metodologia,
-    title = {Metodologia da pesquisa científica: organização estrutural e os desafios para redigir o trabalho de conclusão},
-    author = {Praca Fabiola and Garcia},
+    title = {Metodologia da pesquisa cient{\'\i}fica: organiza{\c{c}}{\~a}o estrutural e os desafios para redigir o trabalho de conclus{\~a}o},
+    author = {PRA{\c{C}}A, Fab{\'\i}ola Silva Garcia},
     year = {2015},
-    month = {07},
-    pages = {72-87},
-    volume = {8},
-    journal = {Diálogos Acadêmicos}
+    publisher = {FNSA}
+}
+% (SETIA, 2016) = estudo de tempo transversal (cross-sectional).
+@article{
+    Setia2016Methodology,
+    title = {Methodology Series Module 3: Cross-sectional Studies},
+    author = {Setia, Maninder Singh},
+    journal = {Indian journal of dermatology},
+    volume = {61},
+    number = {3},
+    pages = {261},
+    year = {2016},
+    publisher = {Wolters Kluwer--Medknow Publications}
 }
 % ---------------------------------
-% CLASSIFICAÇÃO DOS PROCEDIMENTOS
+% DESCRIÇÃO DOS PROCEDIMENTOS
 % ---------------------------------
-% Malerba (2010) = significado de exploit.
+% (CRUZ et al., 2016) = significado de exploit.
 @article{
-    Cesar2010Vulnerabilidades,
-    author = {César Malerba},
-    title = {Vulnerabilidades e exploits: técnicas, detecção e prevenção},
-    journal = {Universidade Federal do Rio Grande do Sul},
-    year = {2010},
-    language = {pt},
-    url = {https://lume.ufrgs.br/handle/10183/26337?show=full},
-    publisher = {Lume UFRGS}
+    Cruz2016Estudo,
+    title = {Estudo de caso de Ataques de Nega{\c{c}}{\~a}o de Servi{\c{c}}o (DDoS)},
+    author = {Cruz, Luiz and Ramos, P{\'e}ricles and Vasconcelos, Samuel and Torres, Claudines},
+    journal = {Caderno de Estudos Tecnol{\'o}gicos},
+    volume = {3},
+    number = {1},
+    pages = {75--93},
+    year = {2016}
+}
+% (PRESS, 2019) = significado de exploit.
+@misc{
+    Cambridge2019Exploit,
+    editor = {Cambridge University Press},
+    title = {Definition of “exploit” from the Cambridge Advanced Learner's Dictionary \& Thesaurus},
+    year = {2019},
+    url = {https://dictionary.cambridge.org/dictionary/english/exploit}
 }
 % ------------------------------------------------------------------------
 % TESTES E RESULTADOS
@@ -396,19 +393,6 @@
 	urlaccessdate = {26 mai. 2019},
 	year = {2019}
 }
-@inproceedings{
-    Kouwe2019Benchmarking,
-    numpages = {16},
-    publisher = {IEEE},
-    booktitle = {IEEE European Symposium on Security and Privacy (EuroS\&P)},
-    author = {van der Kouwe, Erik and Heiser, Gernot and Andriesse, Dennis and Bos, Herbert and Giuffrida, Cristiano},
-    month = {Jun},
-    keywords = {evaluation, experimental methodology},
-    year = {2019},
-    date = {2019-6-17},
-    title = {{SoK}: Benchmarking Flaws in Systems Security},
-    address = {Stockholm, Sweden}
-}
 % ---------------------------------
 % T04
 % ---------------------------------
@@ -433,4 +417,18 @@
     pages = {161--176},
     booktitle = {Engineering Secure Software and Systems - 9th International Symposium, ESSoS 2017, Proceedings},
     address = {Italy}
+}
+% Benchmarks
+@inproceedings{
+    Kouwe2019Benchmarking,
+    numpages = {16},
+    publisher = {IEEE},
+    booktitle = {IEEE European Symposium on Security and Privacy (EuroS\&P)},
+    author = {van der Kouwe, Erik and Heiser, Gernot and Andriesse, Dennis and Bos, Herbert and Giuffrida, Cristiano},
+    month = {Jun},
+    keywords = {evaluation, experimental methodology},
+    year = {2019},
+    date = {2019-6-17},
+    title = {{SoK}: Benchmarking Flaws in Systems Security},
+    address = {Stockholm, Sweden}
 }
