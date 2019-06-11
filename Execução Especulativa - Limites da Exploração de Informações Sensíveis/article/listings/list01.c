@@ -1,19 +1,34 @@
+//
+// Adapted by rios0rios0 on 08/03/19.
+//
+
+#include <stdint.h>
 #include <stdio.h>
+#include <stdbool.h>
+#include <unistd.h>
 #include <stdlib.h>
-#include <time.h>
 
-char *secret = NULL;
+unsigned int array1_size = 16;
+uint8_t unused1[64];
+uint8_t array1[160] = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16};
+uint8_t unused2[64];
+uint8_t array2[256 * 512];
+char *secret = "The Magic Words are Squeamish Ossifrage.";
+uint8_t temp = 0;
 
-int main(int argc, const char **argv) {
-    long val = 3072000 + (random() % 1000000);
-    void *new_ptr = realloc(secret, val * sizeof(*secret));
-    secret = new_ptr;
-    for (int i = 0; i < val; i++) {
-    	secret[i] = 'A' + (random() % 26);
-    }
-    time_t begin = time(NULL);
-    /* some code */
-    time_t end = time(NULL);
-    printf("Time elapsed is %ld seconds.", (end - begin));
-    return 0;
+void victim_function(size_t x) {
+	if (x < array1_size) {
+		temp &= array2[array1[x] * 512];
+	}
+}
+
+int main(int argc, char **argv) {
+	if (argc > 1) {
+		int input_index = (*argv[1] - '0');
+		victim_function(input_index);
+	} else {
+		printf("pid %ju\n", (uintmax_t) getpid());
+		printf("vaddr of array1 %p\n", (void *) array1);
+		printf("vaddr of secret %p\n", (void *) secret);
+	}
 }
