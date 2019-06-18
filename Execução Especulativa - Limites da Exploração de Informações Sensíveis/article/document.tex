@@ -352,7 +352,7 @@ Esta seção aborda a classificação da pesquisa com relação a finalidade, ab
 % CLASSIFICAÇÃO DA PESQUISA
 % ---------------------------------
 \subsection{Metodologia}
-Esta é uma pesquisa com finalidade de natureza básica, com objetivos de caráter explicativos, que utiliza uma abordagem quantitativa, com procedimentos fundamentados em pesquisa bibliográfica, documental e experimental. Caracterizada por um estudo transversal, levando em conta os resultados de análises e testes conduzidos em um ambiente previamente configurado, ou seja, em um laboratório.
+Quanto a natureza, esta é uma pesquisa básica, com objetivo explicativo, que utiliza uma abordagem quantitativa, com procedimentos fundamentados em pesquisa bibliográfica, documental e experimental. Caracterizada por um estudo transversal, levando em conta os resultados de análises e testes conduzidos em um ambiente previamente configurado, ou seja, em um laboratório.
 
 Trata-se de uma \textbf{pesquisa básica} \cite{Priscilla2017Metodologia} porque, além de promover o aprofundamento de um conhecimento já exposto através de pesquisas anteriores, não se descarta a possibilidade de produção de novos conhecimentos sobre o assunto. Sendo assim, os autores esperam complementar alguns aspectos e peculiaridades de pesquisas anteriormente feitas, preenchendo lacunas de conhecimento a respeito exploração da execução especulativa.
 
@@ -385,13 +385,13 @@ Esta seção tem por objetivo expor os testes realizados de maneira sistemática
 % T01
 % ---------------------------------
 \subsection{T01 - Fora de contexto com endereço físico}
-Conforme \citeonline{Kocher2018Spectre}, os ataques utilizando \emph{Spectre} são efetivos para as informações que a vítima tem acesso. Este tipo de ataque não escala privilégios e acessa informações privilegiadas (dependendo das informações que a vítima tem acesso). Mesmo assim, a literatura referencial afirma que é possível realizar vazamentos de dados que estão fora do contexto do atacante. Limitando-se apenas aos dados que o contexto da vítima tem acesso. O objetivo deste experimento é comprovar que o \emph{exploit} da \emph{Spectre} pode realizar estes vazamentos.
+Conforme \citeonline{Kocher2018Spectre}, os ataques utilizando \emph{Spectre} são efetivos para as informações que a vítima tem acesso. Este tipo de ataque não escala privilégios e acessa informações privilegiadas (dependendo das informações que a vítima tem acesso). Mesmo assim, a literatura referencial afirma que, limitando-se apenas aos dados que o contexto da vítima tem acesso, é possível realizar vazamentos de dados que estão fora do contexto do atacante. Assim, o objetivo deste experimento é comprovar que o \emph{exploit} da \emph{Spectre} pode realizar estes vazamentos.
 
-Pensando nisto, no apêndice \ref{appendix:a} está o código de uma aplicação (uma adaptação feita pelos autores) que serviu de ``vítima''. Expondo de forma voluntária o seu próprio PID (\emph{Process ID}, identificador único do processo para o Sistema Operacional) e o endereço virtual da variável que contém as informações secretas. Esta exposição voluntária foi necessária para facilitar a busca das variáveis entre os diferentes contextos. Com o intuito de não haver maiores empecilhos na recuperação dos dados.
+O apêndice \ref{appendix:a} apresenta o código, adaptado pelos autores, empregado para testar o vazamento de dados fora do contexto do atacante. Expondo de forma voluntária o seu próprio PID (\emph{Process ID}, identificador único do processo para o Sistema Operacional) e o endereço virtual da variável que contém as informações secretas. Esta exposição voluntária foi necessária para facilitar a busca das variáveis entre os diferentes contextos. Com o intuito de não haver maiores empecilhos na recuperação dos dados.
 
 No apêndice \ref{appendix:a} também encontra-se uma adaptação do \emph{exploit} original\footnote{O \emph{exploit} original documentado por \citeonline{Kocher2018Spectre} encontra-se em anexo ao referido documento.} voltado para o ataque. A adaptação feita utilizou funções extras para converter endereços virtuais de memória para físicos\footnote{O código original desta função pode ser encontrado em: \url{https://github.com/cirosantilli/linux-kernel-module-cheat/blob/873737bd1fc6e5ee0378f21e9df1c52e3f61e3fb/userland/common.h}} e limpar a memória cache com determinado tamanho (técnica abordado no teste 02). A partir disto, a aplicação vítima entrega o seu próprio \emph{PID} e o endereço virtual da informação secreta. Esses dados sensíveis foram inseridos na aplicação atacante, com o intuito de substituir o cálculo de endereçamento inicial por um endereço físico baseado nos mapeamentos de memória do Linux \cite{EQWARE2009Capturing}. A figura \ref{lst:01} mostra o código que precisa ser inserido no lugar das linhas 175 a 188 na aplicação atacante do apêndice \ref{appendix:a}. Em que as duas sequências de ``000'' são \emph{PID} e endereço virtual da variável que contém a informação secreta, respectivamente. Com estas alterações feitas, as inferências foram realizadas com até 1 MB de diferença a frente deste endereço físico (margem de erro considerável, para localizar o conteúdo da variável).
 
-Com o objetivo de não haver divergências nos resultados entre testes, as referências a função \lstinline[language=C, style=c]{_mm_clflush} foram mantidas as mesmas conforme o \emph{exploit} original. Diferentemente do segundo teste desta pesquisa, que visa testar outro aspecto do ataque. Da mesma forma, o código vulnerável do \emph{exploit} original também foi mantido nesta aplicação atacante, para este teste em específico. Não havendo chamadas diretas a uma aplicação externa, visto que se quer testar a capacidade de o código vulnerável explorar um contexto diferente do originário. Sendo os endereços de memória físicos da vítima os alvos dos ``ataques''.
+Com o objetivo de não haver divergências nos resultados entre testes, as referências a função \lstinline[language=C, style=c]{_mm_clflush} foram mantidas as mesmas conforme o \emph{exploit} original. Diferentemente do segundo teste desta pesquisa, que visa testar outro aspecto do ataque. Da mesma forma, o código vulnerável do \emph{exploit} original também foi mantido nesta aplicação atacante para este teste em específico. Não houve chamadas diretas a uma aplicação externa, visto que se quis testar a capacidade do código vulnerável explorar um contexto diferente do originário, sendo os endereços físicos da memória os alvos dos ``ataques'' à vítima.
 
 \lstinputlisting[language=C, style=c, caption={Linhas modificadas na aplicação atacante.}, label={lst:01}, firstnumber=175]{listings/list01.c}
 
@@ -447,7 +447,7 @@ Concluiu-se que, após a troca das estruturas condicionais, ao ativar o \emph{br
 \subsection{Discussão}
 Com a finalização dos experimentos, foi possível comprovar que algumas condições específicas são imprescindíveis para fazer uma informação vazar através da exploração da execução especulativa. A variação 01 da \emph{Spectre} possuí circunstâncias limitadoras bem definidas e específicas, que não estavam fundamentalmente claros na literatura.
 
-A \emph{PoC} da \emph{Spectre} acontece em contextos iguais de forma absoluta e em contextos diferentes de forma relativa. Quando \citeonline{Kocher2018Spectre} cita que "um atacante pode ler memória arbitrária de um outro contexto", ele quer dizer que esse outro contexto é subcontexto de um pai. E tanto o atacante, quanto a vítima, pertencem ao mesmo subcontexto pai. Esse é um dos limites de exploração da \emph{Spectre}.
+A \emph{PoC} da \emph{Spectre} acontece em contextos iguais de forma absoluta e em contextos diferentes de forma relativa. Quando \citeonline{Kocher2018Spectre} cita que "um atacante pode ler memória arbitrária de um outro contexto", ele quer dizer que esse outro contexto é subcontexto de um pai. E tanto o atacante, quanto a vítima, pertencem ao mesmo subcontexto pai. Esse é um dos limites principais de exploração da \emph{Spectre}.
 
 Além de estarem no mesmo contexto pai, vítima e atacante devem compartilhar de determinada região de memória. Isto é um limite também verdadeiro. Conforme os experimentos feitos, não existe possibilidade de manipulação da memória cache, nem de cálculo de endereços de variáveis, cujo atacante não conhece ou não tem acesso. Seria necessário que a própria vítima mostrasse os endereços físicos e, mesmo assim, o sistema operacional negaria as solicitações de \emph{flush} destes endereços físicos.
 
@@ -463,11 +463,11 @@ Por mais preocupantes que estas falhas as vezes pareçam ser, ou até mesmo, por
 
 Estas condições foram elucidadas através de testes, que provaram que a primeira variação da \emph{Spectre} é uma vulnerabilidade que acontece em um trecho de código padronizado e específico (uma estrutura de verificação condicional de limites). E para ser explorada, esse mesmo código vulnerável precisa estar no mesmo contexto do atacante. Que por sua vez, precisa ter permissões de acesso aos endereços de todas variáveis da vítima deste código vulnerável.
 
-Foi possível através desta pesquisa delimitar as circunstâncias necessárias para a exploração da primeira variação da \emph{Spectre}. Além de realizar comparações históricas fiéis as descobertas dos pesquisadores envolvidos. Esta pesquisa também possibilitou a sistematização e segmentação de um conhecimento relativamente novo e com um alto potencial de relevância acadêmica. O que pode auxiliar pesquisadores em revisões da literatura ou até mesmo em técnicas de pesquisa para produção de novos artigos sobre o assunto.
+Estas explorações podem acontecer em \emph{browsers}, máquinas virtuais, servidores de serviços na nuvem (\emph{cloud computing}) e outras aplicações que executam códigos em contextos compartilhados. Porém, neste artigo foi estudado a possibilidade de vazamento com código nativo, sendo que o código necessário para estas explorações citadas são feitas com outros tipos de código, utilizando o mesmo conceito. Com código nativo, esta exploração não acontece de forma fácil. Seria preciso ter um acesso prévio a máquina que se quer extrair as informações e mesmo assim, dificilmente se conseguiria uma informação útil. Por isso, não é possível explorar informações sensíveis em \emph{softwares} cujas estruturas sejam totalmente desconhecidas, através da indução da execução especulativa errônea, utilizando código nativo.
 
-O resultado negativo obtido nos testes de extração de dados de outros contextos pode ser considerado
-como uma limitação desta pesquisa ou uma barreira técnica. Tal limitação poderá ser superada por
-outras pesquisas que apresentem resultados positivos no futuro.
+Nesta pesquisa, foi possível delimitar as circunstâncias necessárias para a exploração da primeira variação da \emph{Spectre}. Além de realizar comparações históricas fiéis as descobertas dos pesquisadores envolvidos. Esta pesquisa também possibilitou a sistematização e segmentação de um conhecimento relativamente novo e com um alto potencial de relevância acadêmica. O que pode auxiliar pesquisadores em revisões da literatura ou até mesmo em técnicas de pesquisa para produção de novos artigos sobre o assunto.
+
+O resultado negativo obtido nos testes de extração de dados de outros contextos pode ser considerado como uma limitação desta pesquisa ou uma barreira técnica. Tal limitação poderá ser superada por outras pesquisas que apresentem resultados positivos no futuro. Da mesma maneira, as explicações para os testes negativos podem ser extraídas com mais detalhes em pesquisas futuras que considerem outras fontes de materiais não processados.
 
 Como perspectiva de pesquisas futuras, pretende-se realizar novos testes para comprovar as limitações da primeira variação da \emph{Spectre}. Porém, com foco em outras formas de exploração de informações sensíveis. Não somente limitando-se a exploração de código nativo, como o feito nesta pesquisa. Mas, explorando outras possibilidades já elucidadas por Jann Horn, como por exemplo os interpretadores de código em tempo real (JIT, \emph{just-in-time}).
 
@@ -483,6 +483,7 @@ Como perspectiva de pesquisas futuras, pretende-se realizar novos testes para co
 % APÊNDICES
 % ------------------------------------------------------------------------
 \begin{apendicesenv}
+\vspace{\onelineskip}
 \chapter{Códigos do T01 e T02}
 \label{appendix:a}
 As figuras \ref{lst:02} e \ref{lst:04} contém os códigos utilizados como aplicações ``vítimas'' e a figura \ref{lst:03} contém o código da aplicação ``atacante''. Tais foram utilizados e descritos nos testes 01 e 02.
@@ -493,11 +494,9 @@ As figuras \ref{lst:02} e \ref{lst:04} contém os códigos utilizados como aplic
 % ------------------------------------------------------------------------
 % ANEXOS
 % ------------------------------------------------------------------------
-\begin{anexosenv}
-\vspace{\onelineskip}
-%\chapter{Cras non urna sed feugiat cum sociis natoque penatibus et magnis dis parturient montes nascetur ridiculus mus}
-%\lipsum[31]
-\end{anexosenv}
+%\begin{anexosenv}
+%\vspace{\onelineskip}
+%\end{anexosenv}
 % ------------------------------------------------------------------------
 % AGRADECIMENTOS
 % ------------------------------------------------------------------------
