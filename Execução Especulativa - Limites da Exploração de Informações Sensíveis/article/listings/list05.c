@@ -12,7 +12,7 @@ int main(int argc, const char **argv) {
     	secret[i] = 'A' + (random() % 26);
     }
     time_t begin = time(NULL);
-    /* some code */
+    /* restante do exploit */
     time_t end = time(NULL);
     printf("Time elapsed is %ld seconds.", (end - begin));
     return 0;
