@@ -114,7 +114,7 @@ LIMITES DA EXPLORAÇÃO DE INFORMAÇÕES SENSÍVEIS}}}}
 	pdfauthor={\@author},
 	pdfsubject={\imprimirpreambulo},
     pdfcreator={LaTeX with abnTeX2 and Overleaf},
-	pdfkeywords={abnt}{latex}{abntex}{abntex2}{atigo científico}, 
+	pdfkeywords={execução}{especulativa}{\emph{Spectre}}{limites}{exploração}{informações}, 
 	colorlinks=false,       % false: boxed links; true: colored links
 	linkcolor=blue,         % color of internal links
 	citecolor=blue,        	% color of links to bibliography
@@ -337,7 +337,7 @@ Durante a execução especulativa, o processador faz suposições sobre o result
 
 \citeonline{Kocher2018Spectre} chamou as instruções que são realizadas erroneamente em uma tentativa de execução especulativa (como resultado de uma previsão incorreta) de ``instruções transitórias'' (\textbf{\emph{transient instructions}}). Admitindo que tais instruções, embora não alterem o fluxo de execução de um \emph{software}, deixam rastros em componentes micro arquiteturais. Quando um invasor passa a coletar esses rastros através destes componentes, pode-se dizer que estes dados estão vazando através de um \textbf{canal}.
 
-O comportamento de prever uma ação futura, baseado em ações passadas, assumindo que a ação futura é semelhante a anterior, permite que alterações no estado de micro arquitetura causadas pelo comportamento de um \emph{software} possam afetar outros \emph{softwares}. E, ao longo do tempo, a exploração destas pequenas alterações foram comprovadas de diferentes formas, elicitadas por \citeonline{Kocher2018Spectre}. As explorações de componentes micro arquiteturais (canais), são chamadas de \textbf{ataques de canais laterais} (\emph{side-channals attacks}). E, um destes canais que é conhecido e costumeiramente explorado por ataques de canais laterais, é a memória cache.
+O comportamento de prever uma ação futura, baseado em ações passadas, assumindo que a ação futura é semelhante a anterior, permite que alterações no estado de micro arquitetura causadas pelo comportamento de um \emph{software} possam afetar outros \emph{softwares}. E, ao longo do tempo, a exploração destas pequenas alterações foram comprovadas de diferentes formas, elicitadas por \citeonline{Kocher2018Spectre}. As explorações de componentes micro arquiteturais (canais), são chamadas de \textbf{ataques de canais laterais} (\emph{side-channels attacks}). E, um destes canais que é conhecido e costumeiramente explorado por ataques de canais laterais, é a memória cache.
 
 A memória cache é abordada como algo singular, mas se refere a um conjunto de memórias, hierarquicamente subdivididas e organizadas. Um processador comum, inclui uma \textbf{hierarquia de memórias caches} em sua arquitetura. A cache que fica no topo, é chamada de L1 (\emph{level} 1 ou nível 1), é a menor e mais rápida. As L2 e L3, respeitam a ordem de serem maiores entre si conforme se avança de nível e perdem também em velocidade do mesmo modo.
 
